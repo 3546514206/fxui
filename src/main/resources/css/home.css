@@ -37,7 +37,8 @@
     -fx-text-fill:text-color;
     -fx-background-insets: 0px;
     -fx-background-color:transparent;
-    -fx-padding:5px 0 5px 0;
+    -fx-padding:5px 5px 5px 5px;
+    -fx-border-color: border-color transparent border-color transparent;
 }
 .menu .cell.indexed-cell.list-cell{
     -fx-background-color:transparent;
@@ -52,9 +53,6 @@
 .menu .cell.indexed-cell.list-cell:selected{
     -fx-background-color:rgba(0,0,0,0.1);
 }
-
-
-
 /*主要内容*/
 .main{
     -fx-background-color: rgb(255,255,255);
