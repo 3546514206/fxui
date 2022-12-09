@@ -83,14 +83,28 @@ public class HomeView extends HBox {
             logoutLabel.getStyleClass().add("logout-label");
             //初始化菜单数据
             for (int i = 0; i < 30; i++) {
-                menu.getItems().add(new MenuItem());
+                menu.getItems().add(new MenuItem("表格"));
             }
         }
 
     }
 
     public class MenuItem extends HBox {
+        private Label iLabel = new Label();
+        private Label textLabel = new Label();
 
+        {
+            this.getChildren().addAll(iLabel, textLabel);
+            HBox.setHgrow(textLabel, Priority.ALWAYS);
+            //class
+            this.getStyleClass().add("menu-item");
+            iLabel.getStyleClass().add("i-label");
+            textLabel.getStyleClass().add("text-label");
+        }
+
+        public MenuItem(String text) {
+            this.textLabel.setText(text);
+        }
 
     }
 }

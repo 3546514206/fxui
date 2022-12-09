@@ -40,6 +40,15 @@
     -fx-padding:5px 5px 5px 5px;
     -fx-border-color: border-color transparent border-color transparent;
 }
+.menu-item{
+    -fx-spacing: 10px;
+    -fx-alignment: center-left;
+}
+.menu-item > .i-label{
+    -fx-pref-height: 30px;
+    -fx-pref-width: 3px;
+    -fx-background-radius: 2px;
+}
 .menu .cell.indexed-cell.list-cell{
     -fx-background-color:transparent;
     -fx-padding:0px;
@@ -47,11 +56,12 @@
 .menu .cell.indexed-cell.list-cell:empty:hover{
     -fx-background-color:transparent;
 }
-.menu .cell.indexed-cell.list-cell:hover{
-    -fx-background-color:rgba(0,0,0,0.05);
+.menu .cell.indexed-cell.list-cell:hover{}
+.menu .cell.indexed-cell.list-cell:selected .menu-item > .i-label{
+    -fx-background-color: primary-color;
 }
-.menu .cell.indexed-cell.list-cell:selected{
-    -fx-background-color:rgba(0,0,0,0.1);
+.menu .cell.indexed-cell.list-cell:selected .menu-item > .text-label{
+    -fx-text-fill: primary-color;
 }
 /*主要内容*/
 .main{
