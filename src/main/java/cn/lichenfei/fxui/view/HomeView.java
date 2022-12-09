@@ -8,8 +8,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
+import org.kordamp.ikonli.antdesignicons.AntDesignIconsFilled;
 import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
 import org.kordamp.ikonli.javafx.FontIcon;
+
 
 /**
  * @author ChenFei
@@ -82,29 +84,34 @@ public class HomeView extends HBox {
             userMenu.getStyleClass().add("user-menu");
             logoutLabel.getStyleClass().add("logout-label");
             //初始化菜单数据
-            for (int i = 0; i < 30; i++) {
-                menu.getItems().add(new MenuItem("表格"));
+            menu.getItems().addAll(
+                    new MenuItem(new FontIcon(AntDesignIconsFilled.HOME), "首页"),
+                    new MenuItem(new FontIcon(AntDesignIconsOutlined.TABLE), "表格/数据"),
+                    new MenuItem(new FontIcon(AntDesignIconsOutlined.AREA_CHART), "统计图")
+            );
+            //选中
+            menu.getSelectionModel().select(0);
+        }
+
+        public class MenuItem extends HBox {
+            private Label iconLabel = new Label();
+            private Label nameLabel = new Label();
+
+            {
+                this.getChildren().addAll(iconLabel, nameLabel);
+                //styleClass
+                this.getStyleClass().add("menu-item");
+                iconLabel.getStyleClass().add("icon-label");
+                nameLabel.getStyleClass().add("name-label");
+                this.prefWidthProperty().bind(menu.widthProperty().subtract(3));
+            }
+
+            public MenuItem(Node icon, String name) {
+                this.iconLabel.setGraphic(icon);
+                this.nameLabel.setText(name);
             }
         }
-
     }
 
-    public class MenuItem extends HBox {
-        private Label iLabel = new Label();
-        private Label textLabel = new Label();
 
-        {
-            this.getChildren().addAll(iLabel, textLabel);
-            HBox.setHgrow(textLabel, Priority.ALWAYS);
-            //class
-            this.getStyleClass().add("menu-item");
-            iLabel.getStyleClass().add("i-label");
-            textLabel.getStyleClass().add("text-label");
-        }
-
-        public MenuItem(String text) {
-            this.textLabel.setText(text);
-        }
-
-    }
 }
