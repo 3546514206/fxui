@@ -46,7 +46,7 @@
     -fx-background-color: transparent;
 }
 .scroll-bar-style .scroll-bar:vertical > .thumb, .scroll-bar-style .scroll-bar:horizontal > .thumb{
-    -fx-background-color: rgba(0,0,0,0.3);
+    -fx-background-color: rgba(0,0,0,0.2);
     -fx-background-insets: 0px;
     -fx-background-radius: 3px;
 }
