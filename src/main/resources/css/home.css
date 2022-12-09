@@ -1,0 +1,61 @@
+/*左侧*/
+.aside{
+    -fx-pref-width: 280px;
+    -fx-background-color: rgb(243,243,243);
+}
+.top{
+    -fx-pref-height: 110px;
+}
+.bottom{
+    -fx-pref-height: 50px;
+}
+.top,
+.bottom{
+    -fx-padding: 10px 20px 10px 20px;
+}
+.top > .user-logo,
+.top > .bell-label,
+.top > .user-menu,
+.bottom > .logout-label{
+    -fx-cursor:hand;
+}
+.top > .user-label,
+.bottom > .logout-label{
+    -fx-font-size: 14px;
+    -fx-font-weight: 600;
+    -fx-text-fill: text-color;
+}
+.top > .bell-label > .ikonli-font-icon,
+.top > .user-menu > .ikonli-font-icon,
+.bottom > .logout-label > .ikonli-font-icon{
+    -fx-icon-size: 20px;
+    -fx-icon-color: text-color;
+}
+.menu{
+    -fx-font-size:14px;
+    -fx-font-weight:600;
+    -fx-text-fill:text-color;
+    -fx-background-insets: 0px;
+    -fx-background-color:transparent;
+    -fx-padding:5px 0 5px 0;
+}
+.menu .cell.indexed-cell.list-cell{
+    -fx-background-color:transparent;
+    -fx-padding:0px;
+}
+.menu .cell.indexed-cell.list-cell:empty:hover{
+    -fx-background-color:transparent;
+}
+.menu .cell.indexed-cell.list-cell:hover{
+    -fx-background-color:rgba(0,0,0,0.05);
+}
+.menu .cell.indexed-cell.list-cell:selected{
+    -fx-background-color:rgba(0,0,0,0.1);
+}
+
+
+
+/*主要内容*/
+.main{
+    -fx-background-color: rgb(255,255,255);
+}
