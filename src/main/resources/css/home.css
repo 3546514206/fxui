@@ -44,7 +44,7 @@
 .menu{
     -fx-background-insets: 0px;
     -fx-background-color:transparent;
-    -fx-padding:5px 0px 5px 0px;
+    -fx-padding:5px 0 5px 0;
     -fx-border-color: border-color transparent border-color transparent;
 }
 .menu .scroll-bar{
