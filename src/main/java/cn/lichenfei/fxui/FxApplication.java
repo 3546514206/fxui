@@ -14,7 +14,13 @@ import javafx.stage.Stage;
 public class FxApplication extends Application {
     @Override
     public void start(Stage stage) {
-        Scene scene = new Scene(new HomeView(), 1100, 650);
+        //基础尺寸
+        stage.setWidth(1100);
+        stage.setHeight(650);
+        stage.setMinWidth(1100);
+        stage.setMinHeight(650);
+        //
+        Scene scene = new Scene(new HomeView());
         scene.getStylesheets().addAll(FxUtils.getCss("/css/base.css"));
         stage.setTitle("Hello!");
         stage.setScene(scene);

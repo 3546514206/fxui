@@ -1,44 +1,47 @@
 /*左侧*/
+.home{
+}
 .aside{
     -fx-pref-width: 260px;
     -fx-background-color: rgb(243,243,243);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 8.0,0, 0, 0);
 }
-.top{
+.aside > .top{
     -fx-pref-height: 110px;
 }
-.bottom{
+.aside > .bottom{
     -fx-pref-height: 50px;
 }
-.top,
-.bottom{
+.aside > .top,
+.aside > .bottom{
     -fx-padding: 10px 20px 10px 20px;
 }
-.top > .user-logo,
-.top > .bell-label,
-.top > .user-menu,
-.bottom > .logout-label{
+.aside > .top > .user-logo,
+.aside > .top > .bell-label,
+.aside > .top > .user-menu,
+.aside > .bottom > .logout-label{
     -fx-cursor:hand;
 }
-.top > .user-label,
-.bottom > .logout-label{
+.aside > .top > .user-label,
+.aside > .bottom > .logout-label{
     -fx-font-size: 14px;
     -fx-font-weight: 600;
     -fx-text-fill: text-color;
 }
-.top > .bell-label > .ikonli-font-icon,
-.top > .user-menu > .ikonli-font-icon,
-.bottom > .logout-label > .ikonli-font-icon{
+.aside > .top > .bell-label > .ikonli-font-icon,
+.aside > .top > .user-menu > .ikonli-font-icon,
+.aside > .bottom > .logout-label > .ikonli-font-icon{
     -fx-icon-size: 20px;
     -fx-icon-color: text-color;
 }
-.top > .bell-label:hover > .ikonli-font-icon,
-.top > .user-menu:hover > .ikonli-font-icon{
+.aside > .top > .bell-label:hover > .ikonli-font-icon,
+.aside > .top > .user-menu:hover > .ikonli-font-icon{
     -fx-icon-color: primary-color;
 }
-.bottom > .logout-label:hover{
+.aside > .bottom > .logout-label:hover{
     -fx-text-fill: danger-color;
 }
-.bottom > .logout-label:hover > .ikonli-font-icon{
+.aside > .bottom > .logout-label:hover > .ikonli-font-icon{
     -fx-icon-color: danger-color;
 }
 .menu{
@@ -46,6 +49,7 @@
     -fx-background-color:transparent;
     -fx-padding:5px 0 5px 0;
     -fx-border-color: border-color transparent border-color transparent;
+    -fx-border-width: 1px 0 1px 0;
 }
 .menu .scroll-bar{
     -fx-opacity:0;
@@ -91,5 +95,5 @@
 }
 /*主要内容*/
 .main{
-    -fx-background-color: rgb(255,255,255);
+    -fx-background-color: transparent;
 }

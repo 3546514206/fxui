@@ -12,7 +12,6 @@ import org.kordamp.ikonli.antdesignicons.AntDesignIconsFilled;
 import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
 import org.kordamp.ikonli.javafx.FontIcon;
 
-
 /**
  * @author ChenFei
  * @date 2022/12/9
@@ -21,7 +20,7 @@ public class HomeView extends HBox {
 
     //左侧导航
     private Aside aside = new Aside();
-    //右侧内容
+    //主要区域
     private StackPane main = new StackPane();
 
     {
@@ -112,6 +111,4 @@ public class HomeView extends HBox {
             }
         }
     }
-
-
 }
