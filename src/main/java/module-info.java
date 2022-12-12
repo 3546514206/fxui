@@ -9,5 +9,6 @@ module cn.lichenfei.chenfeifxui {
 
 
     //opens cn.lichenfei.fxui to javafx.fxml;
+    opens cn.lichenfei.fxui.common.model to javafx.base;
     exports cn.lichenfei.fxui;
 }

@@ -1,8 +1,7 @@
 package cn.lichenfei.fxui.view;
 
 import cn.lichenfei.fxui.common.FxUtils;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import cn.lichenfei.fxui.common.model.MenuInfo;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -41,6 +40,27 @@ public class HomeView extends HBox {
         aside.getStyleClass().add("aside");
         main.getStyleClass().add("main");
         header.getStyleClass().add("header");
+    }
+
+    public HomeView() {
+        ListView<Aside.MenuItem> menu = aside.getMenu();
+        //初始化菜单数据
+        MenuInfo[] menuInfo = {
+                new MenuInfo(new FontIcon(AntDesignIconsFilled.HOME), "首页", new StackPane()),
+                new MenuInfo(new FontIcon(AntDesignIconsOutlined.TABLE), "表格/数据", new DataView()),
+                new MenuInfo(new FontIcon(AntDesignIconsOutlined.AREA_CHART), "统计图", new StackPane())
+        };
+        aside.setMenuInfo(menuInfo);
+        //菜单选中事件监听
+        menu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            Optional.ofNullable(newValue).ifPresent(menuItem -> {
+                header.getTitleLabel().setText(menuItem.getNameLabel().getText());
+                main.getChildren().set(0, menuItem.getContent());
+            });
+        });
+        //选中
+        main.getChildren().add(menuInfo[0].getContent());
+        menu.getSelectionModel().select(0);
     }
 
     /**
@@ -111,25 +131,24 @@ public class HomeView extends HBox {
             bellLabel.getStyleClass().add("bell-label");
             userMenu.getStyleClass().add("user-menu");
             logoutLabel.getStyleClass().add("logout-label");
-            //初始化菜单数据
-            menu.getItems().addAll(
-                    new MenuItem(new FontIcon(AntDesignIconsFilled.HOME), "首页"),
-                    new MenuItem(new FontIcon(AntDesignIconsOutlined.TABLE), "表格/数据"),
-                    new MenuItem(new FontIcon(AntDesignIconsOutlined.AREA_CHART), "统计图")
-            );
-            //菜单选中事件
-            menu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-                Optional.ofNullable(newValue).ifPresent(menuItem -> {
-                    header.getTitleLabel().setText(menuItem.getNameLabel().getText());
-                });
-            });
-            //选中
-            menu.getSelectionModel().select(0);
+        }
+
+        public void setMenuInfo(MenuInfo[] menuInfo) {
+            for (int i = 0; i < menuInfo.length; i++) {
+                MenuInfo info = menuInfo[i];
+                MenuItem menuItem = new MenuItem(info.getIcon(), info.getName(), info.getContent());
+                menu.getItems().addAll(menuItem);
+            }
+        }
+
+        public ListView<MenuItem> getMenu() {
+            return menu;
         }
 
         public class MenuItem extends HBox {
             private Label iconLabel = new Label();
             private Label nameLabel = new Label();
+            private Node content;
 
             {
                 this.getChildren().addAll(iconLabel, nameLabel);
@@ -140,13 +159,18 @@ public class HomeView extends HBox {
                 this.prefWidthProperty().bind(menu.widthProperty().subtract(3));
             }
 
-            public MenuItem(Node icon, String name) {
+            public MenuItem(Node icon, String name, Node content) {
                 this.iconLabel.setGraphic(icon);
                 this.nameLabel.setText(name);
+                this.content = content;
             }
 
             public Label getNameLabel() {
                 return nameLabel;
+            }
+
+            public Node getContent() {
+                return content;
             }
         }
     }

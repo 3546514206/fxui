@@ -62,3 +62,70 @@
 .scroll-bar-style .scroll-bar:horizontal > .thumb,.scroll-bar-style .scroll-bar:horizontal > .track{
     -fx-background-insets: -6px 0px 0px 0px;
 }
+/***********************************
+    TableView 表格样式
+***********************************/
+.cf-table-view{
+    -fx-background-insets: 0;
+    -fx-padding:0px;
+    -fx-border-color: border-color;
+    -fx-border-width: 1px;
+    -fx-font-size: 14px;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-background-color: transparent;
+}
+.cf-table-view > .column-header-background{
+    /*-fx-background-color: transparent;*/
+    -fx-background-color:rgba(0,0,0,0.05);
+}
+.cf-table-view .column-header{
+    -fx-background-color: transparent;
+    -fx-pref-height:36px;
+    -fx-border-width: 0 1px 1px 0;
+    -fx-border-color:border-color;
+}
+.cf-table-view .column-header:last-visible{
+    -fx-border-width: 0 0px 1px 0;
+}
+.cf-table-view .column-header .label {
+    -fx-alignment: center-left;
+    -fx-text-fill: text-color;
+    -fx-padding: 0 10px 0 10px;
+}
+.cf-table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled:selected,
+.cf-table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled:hover{
+    -fx-background-color: derive(primary-color,90%);
+}
+.table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled:selected > .table-cell{
+    -fx-text-fill: text-color;
+}
+.cf-table-view .table-row-cell {
+    -fx-min-height:36px;
+    -fx-background-insets: 0;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color:border-color;
+}
+.cf-table-view .table-cell {
+    -fx-border-width: 0 1px 0 0;
+    -fx-border-color:border-color;
+    -fx-alignment: center-left;
+    -fx-padding: 0 10px 0 10px;
+}
+.cf-table-view .table-cell:last-visible{
+    -fx-border-width: 0;
+}
+.cf-table-view .table-row-cell:even {
+    -fx-background-color: transparent;
+}
+.cf-table-view .table-row-cell:odd {
+    -fx-background-color: rgba(0,0,0,0.02);
+}
+.cf-table-view .table-cell:empty {
+    -fx-border-width: 0px;
+}
+.cf-table-view .table-row-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-width: 0px;
+    -fx-background-insets: 0;
+}
