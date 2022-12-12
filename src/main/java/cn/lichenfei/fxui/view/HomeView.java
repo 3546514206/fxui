@@ -1,16 +1,18 @@
 package cn.lichenfei.fxui.view;
 
 import cn.lichenfei.fxui.common.FxUtils;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.control.Control;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import org.kordamp.ikonli.antdesignicons.AntDesignIconsFilled;
 import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
 import org.kordamp.ikonli.javafx.FontIcon;
+
+import java.util.Optional;
 
 /**
  * @author ChenFei
@@ -18,8 +20,11 @@ import org.kordamp.ikonli.javafx.FontIcon;
  */
 public class HomeView extends HBox {
 
+    //顶部
+    private Header header = new Header();
     //左侧导航
     private Aside aside = new Aside();
+    private VBox container = new VBox();
     //主要区域
     private StackPane main = new StackPane();
 
@@ -27,12 +32,36 @@ public class HomeView extends HBox {
         //css
         this.getStylesheets().add(FxUtils.getCss("/css/home.css"));
         //布局
-        this.getChildren().addAll(aside, main);
-        HBox.setHgrow(main, Priority.ALWAYS);
+        this.getChildren().addAll(aside, container);
+        HBox.setHgrow(container, Priority.ALWAYS);
+        container.getChildren().addAll(header, main);
+        VBox.setVgrow(main, Priority.ALWAYS);
         //class
         this.getStyleClass().add("home");
         aside.getStyleClass().add("aside");
         main.getStyleClass().add("main");
+        header.getStyleClass().add("header");
+    }
+
+    /**
+     * 顶栏
+     */
+    public class Header extends HBox {
+        private Label titleLabel = new Label();
+        private Label msgLabel = new Label("这是一条消息提示");
+
+        {
+            this.getChildren().addAll(titleLabel, msgLabel);
+            HBox.setHgrow(msgLabel, Priority.ALWAYS);
+            msgLabel.setMaxWidth(Double.MAX_VALUE);
+            msgLabel.setGraphic(new FontIcon(AntDesignIconsFilled.MESSAGE));
+            titleLabel.getStyleClass().add("title-label");
+            msgLabel.getStyleClass().add("msg-label");
+        }
+
+        public Label getTitleLabel() {
+            return titleLabel;
+        }
     }
 
     /**
@@ -88,6 +117,12 @@ public class HomeView extends HBox {
                     new MenuItem(new FontIcon(AntDesignIconsOutlined.TABLE), "表格/数据"),
                     new MenuItem(new FontIcon(AntDesignIconsOutlined.AREA_CHART), "统计图")
             );
+            //菜单选中事件
+            menu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                Optional.ofNullable(newValue).ifPresent(menuItem -> {
+                    header.getTitleLabel().setText(menuItem.getNameLabel().getText());
+                });
+            });
             //选中
             menu.getSelectionModel().select(0);
         }
@@ -108,6 +143,10 @@ public class HomeView extends HBox {
             public MenuItem(Node icon, String name) {
                 this.iconLabel.setGraphic(icon);
                 this.nameLabel.setText(name);
+            }
+
+            public Label getNameLabel() {
+                return nameLabel;
             }
         }
     }
