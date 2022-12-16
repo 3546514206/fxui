@@ -92,7 +92,7 @@ public class HomeView extends HBox {
         private StackPane top = new StackPane();
         private Pane userLogo = new Pane();
         private ImageView logoImg = new ImageView();
-        private Label userLabel = new Label("你好！ChenFei Li");
+        private Label userLabel = new Label("你好！小羊人");
         private Label bellLabel = new Label();
         private Label userMenu = new Label();
         //菜单栏

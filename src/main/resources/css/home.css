@@ -57,22 +57,6 @@
 .menu:hover .scroll-bar{
     -fx-opacity:1;
 }
-.menu-item{
-    -fx-spacing: 15px;
-    -fx-alignment: center-left;
-    -fx-padding: 10px 5px 10px 20px;
-    -fx-border-width: 0 0 0 5px;
-    -fx-border-color: transparent transparent transparent transparent;
-}
-.menu-item > .icon-label > .ikonli-font-icon{
-    -fx-icon-color: text-color;
-    -fx-icon-size: 18px;
-}
-.menu-item > .name-label{
-    -fx-font-size:15px;
-    -fx-font-weight:700;
-    -fx-text-fill:text-color;
-}
 .menu .cell.indexed-cell.list-cell{
     -fx-background-color:transparent;
     -fx-padding:0px;
@@ -92,6 +76,22 @@
 }
 .menu .cell.indexed-cell.list-cell:selected .icon-label > .ikonli-font-icon{
     -fx-icon-color: primary-color;
+}
+.menu-item{
+    -fx-spacing: 15px;
+    -fx-alignment: center-left;
+    -fx-padding: 10px 5px 10px 20px;
+    -fx-border-width: 0 0 0 5px;
+    -fx-border-color: transparent transparent transparent transparent;
+}
+.menu-item > .icon-label > .ikonli-font-icon{
+    -fx-icon-color: text-color;
+    -fx-icon-size: 18px;
+}
+.menu-item > .name-label{
+    -fx-font-size:15px;
+    -fx-font-weight:700;
+    -fx-text-fill:text-color;
 }
 /*顶部*/
 .header{
