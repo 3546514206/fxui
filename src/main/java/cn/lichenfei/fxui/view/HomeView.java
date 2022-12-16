@@ -47,7 +47,7 @@ public class HomeView extends HBox {
         //初始化菜单数据
         MenuInfo[] menuInfo = {
                 new MenuInfo(new FontIcon(AntDesignIconsFilled.HOME), "首页", new StackPane()),
-                new MenuInfo(new FontIcon(AntDesignIconsOutlined.TABLE), "表格/数据", new DataView()),
+                new MenuInfo(new FontIcon(AntDesignIconsOutlined.TABLE), "表格/数据", new CFTableView()),
                 new MenuInfo(new FontIcon(AntDesignIconsOutlined.AREA_CHART), "统计图", new StackPane())
         };
         aside.setMenuInfo(menuInfo);
@@ -59,8 +59,8 @@ public class HomeView extends HBox {
             });
         });
         //选中
-        main.getChildren().add(menuInfo[0].getContent());
-        menu.getSelectionModel().select(0);
+        main.getChildren().add(menuInfo[1].getContent());
+        menu.getSelectionModel().select(1);
     }
 
     /**

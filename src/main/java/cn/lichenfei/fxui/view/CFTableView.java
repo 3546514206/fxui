@@ -3,7 +3,6 @@ package cn.lichenfei.fxui.view;
 import cn.lichenfei.fxui.common.model.User;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Node;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -19,7 +18,7 @@ import java.util.List;
  * @author ChenFei
  * @date 2022/12/12
  */
-public class DataView extends StackPane {
+public class CFTableView extends StackPane {
 
     //布局容器
     private VBox vBox = new VBox();
@@ -31,7 +30,7 @@ public class DataView extends StackPane {
     private TableColumn ageCol = new TableColumn("年龄");
     private TableColumn addressCol = new TableColumn("地址");
     private TableColumn birthdayCol = new TableColumn("生日");
-    private TableColumn operateCol = new TableColumn("操作");
+
 
     {
         this.getChildren().addAll(vBox);
@@ -40,14 +39,11 @@ public class DataView extends StackPane {
         tableView.getStyleClass().addAll("cf-table-view", "scroll-bar-style");//class
         tableView.setColumnResizePolicy(javafx.scene.control.TableView.CONSTRAINED_RESIZE_POLICY);
         //绑定TableColumn，TableView
-        tableView.getColumns().addAll(nameCol, ageCol, addressCol, birthdayCol, operateCol);
+        tableView.getColumns().addAll(nameCol, ageCol, addressCol, birthdayCol);
         nameCol.setCellValueFactory(new PropertyValueFactory<User, String>("name"));
         ageCol.setCellValueFactory(new PropertyValueFactory<User, Integer>("age"));
         addressCol.setCellValueFactory(new PropertyValueFactory<User, String>("address"));
         birthdayCol.setCellValueFactory(new PropertyValueFactory<User, LocalDate>("birthday"));
-        operateCol.setCellValueFactory(new PropertyValueFactory<User, Node>("operateBox"));
-        operateCol.setMaxWidth(100);
-        operateCol.setMinWidth(100);
         setTableViewInfo();
     }
 
