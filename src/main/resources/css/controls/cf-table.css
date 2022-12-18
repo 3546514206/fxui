@@ -1,0 +1,60 @@
+.cf-table-view{
+    -fx-background-insets: 0;
+    -fx-padding:0px;
+    -fx-border-width: 1px;
+    -fx-border-color:border-color;
+    -fx-background-color: transparent;
+}
+.cf-table-view > .column-header-background{
+    -fx-background-color: transparent;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color: border-color;
+}
+.cf-table-view .column-header{
+    -fx-background-color: transparent;
+    -fx-pref-height:36px;
+    -fx-border-width: 0;
+    -fx-padding: 0 10px 0 10px;
+}
+.cf-table-view .column-header:last-visible{
+    -fx-border-width: 0;
+}
+.cf-table-view .column-header .label {
+    -fx-alignment: center-left;
+    -fx-text-fill: rgb(144, 147, 153);
+    -fx-font-size: 15px;
+}
+.cf-table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled:selected,
+.cf-table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled:hover{
+    -fx-background-color: rgba(0,0,0,0.07);
+}
+.cf-table-view > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled > .table-cell,
+.cf-table-view:focused > .virtual-flow > .clipped-container > .sheet > .table-row-cell:filled:selected > .table-cell{
+    -fx-text-fill: text-color;
+    -fx-font-size: 14px;
+}
+.cf-table-view .table-row-cell {
+    -fx-min-height:36px;
+    -fx-background-insets: 0;
+    -fx-border-width: 0 0 1px 0;
+    -fx-border-color:border-color;
+}
+.cf-table-view .table-cell {
+    -fx-border-width: 0;
+    -fx-alignment: center-left;
+    -fx-padding: 0 10px 0 10px;
+}
+.cf-table-view .table-row-cell:even {
+    -fx-background-color: rgba(0,0,0,0.03);
+}
+.cf-table-view .table-row-cell:odd {
+    -fx-background-color: transparent;
+}
+.cf-table-view .table-cell:empty {
+    -fx-border-width: 0px;
+}
+.cf-table-view .table-row-cell:empty {
+    -fx-background-color: transparent;
+    -fx-border-width: 0px;
+    -fx-background-insets: 0;
+}

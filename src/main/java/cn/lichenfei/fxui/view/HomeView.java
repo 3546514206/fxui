@@ -47,7 +47,7 @@ public class HomeView extends HBox {
         //初始化菜单数据
         MenuInfo[] menuInfo = {
                 new MenuInfo(new FontIcon(AntDesignIconsFilled.HOME), "首页", new StackPane()),
-                new MenuInfo(new FontIcon(AntDesignIconsOutlined.TABLE), "表格/数据", new CFTableView()),
+                new MenuInfo(new FontIcon(AntDesignIconsOutlined.TABLE), "表格/数据", new DataView()),
                 new MenuInfo(new FontIcon(AntDesignIconsOutlined.AREA_CHART), "统计图", new StackPane())
         };
         aside.setMenuInfo(menuInfo);
