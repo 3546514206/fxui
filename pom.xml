@@ -39,6 +39,12 @@
             <artifactId>ikonli-antdesignicons-pack</artifactId>
             <version>${kordamp.ikonli.version}</version>
         </dependency>
+        <!--仪表盘、统计图 ：https://github.com/HanSolo/tilesfx-->
+        <dependency>
+            <groupId>eu.hansolo</groupId>
+            <artifactId>tilesfx</artifactId>
+            <version>17.1.15</version>
+        </dependency>
 
     </dependencies>
 
