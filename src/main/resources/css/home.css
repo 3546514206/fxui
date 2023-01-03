@@ -67,9 +67,11 @@
 .menu .cell.indexed-cell.list-cell:empty:hover{
     -fx-background-color:transparent;
 }
-.menu .cell.indexed-cell.list-cell:hover,
+.menu .cell.indexed-cell.list-cell:hover{
+    -fx-background-color: derive(primary-color,95%);
+}
 .menu .cell.indexed-cell.list-cell:selected{
-    -fx-background-color: rgba(0,0,0,0.05);
+    -fx-background-color: derive(primary-color,85%);
 }
 .menu .cell.indexed-cell.list-cell:selected .menu-item{
     -fx-border-color: transparent transparent transparent primary-color;
