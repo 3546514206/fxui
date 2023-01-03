@@ -60,20 +60,29 @@
                 </configuration>
             </plugin>
             <plugin>
-                <groupId>org.openjfx</groupId>
-                <artifactId>javafx-maven-plugin</artifactId>
-                <version>0.0.7</version>
+                <groupId>io.github.fvarrui</groupId>
+                <artifactId>javapackager</artifactId>
+                <version>1.6.6</version>
                 <configuration>
-                    <stripDebug>true</stripDebug>
-                    <compress>2</compress>
-                    <noHeaderFiles>true</noHeaderFiles>
-                    <noManPages>true</noManPages>
-                    <launcher>fxui.start</launcher>
-                    <jlinkImageName>fxui-image</jlinkImageName>
-                    <jlinkZipName>fxui-zip</jlinkZipName>
-                    <mainClass>cn.lichenfei.fxui.FxApplication</mainClass>
+                    <bundleJre>true</bundleJre>
+                    <mainClass>cn.lichenfei.fxui.StartUp</mainClass>
+                    <generateInstaller>false</generateInstaller>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>bundling-for-windows</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>package</goal>
+                        </goals>
+                        <configuration>
+                            <platform>windows</platform>
+                            <createZipball>true</createZipball>
+                        </configuration>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
+
 </project>

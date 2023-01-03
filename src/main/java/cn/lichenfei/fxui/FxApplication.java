@@ -14,7 +14,6 @@ import javafx.stage.Stage;
 public class FxApplication extends Application {
     @Override
     public void start(Stage stage) {
-        long l = System.currentTimeMillis();
         //基础尺寸
         stage.setWidth(1100);
         stage.setHeight(650);
@@ -23,10 +22,10 @@ public class FxApplication extends Application {
         //
         Scene scene = new Scene(new HomeView());
         scene.getStylesheets().addAll(FxUtils.getCss("/css/base.css"));
-        stage.setTitle("Hello!");
+        stage.setTitle("Hello!");// 标题
+        stage.getIcons().add(FxUtils.getImage("/img/logo.jpg"));// icon
         stage.setScene(scene);
         stage.show();
-        System.out.println("-----------------启动耗时：" + (System.currentTimeMillis() - l) + "/ms");
     }
 
     public static void main(String[] args) {
