@@ -1,10 +1,7 @@
 package cn.lichenfei.fxui.controls;
 
 import cn.lichenfei.fxui.common.FxUtils;
-import javafx.animation.Interpolator;
-import javafx.animation.ParallelTransition;
-import javafx.animation.PauseTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -20,15 +17,19 @@ import java.util.List;
  */
 public class CFCarousel extends StackPane {
 
-    private Duration interval = Duration.millis(3000);// 自动切换的时间间隔，单位为秒
-    private Duration duration = Duration.millis(1000); // 动画时间
+    private Duration interval = Duration.millis(3000);// 自动切换的时间间隔
+    private Duration duration = Duration.millis(1000); // 动画移动时间
     private List<StackPane> spList;
     private Integer currentIndex = 0;
 
     // 动画
-    private TranslateTransition t1 = new TranslateTransition();
+    private TranslateTransition t1 = new TranslateTransition();// 移动动画
     private TranslateTransition t2 = new TranslateTransition();
-    private ParallelTransition pt = new ParallelTransition(t1, t2, new PauseTransition(interval));
+    private ParallelTransition pt = new ParallelTransition(t1, t2);// 平行动画
+    private SequentialTransition st = new SequentialTransition(
+            pt,
+            new PauseTransition(interval)// 停顿时间
+    );//顺序动画
 
     public CFCarousel(List<StackPane> spList) {
         StackPane sp1 = new StackPane();
@@ -49,12 +50,10 @@ public class CFCarousel extends StackPane {
         this.getChildren().addAll(spList.get(0), spList.get(1));
         setLeftNode(this.getChildren().get(1));
         setRightNode(this.getChildren().get(0));
-        //
-        pt.setInterpolator(Interpolator.LINEAR);
-        pt.setCycleCount(-1);
-        pt.play();
-
-        t1.setOnFinished(event -> new Thread(() -> {
+        //开始动画
+        st.setCycleCount(-1);
+        st.play();
+        pt.setOnFinished(event -> new Thread(() -> {// 一次轮播执行完毕
             System.out.println("动画完成。。。");
             /*try {
                 TimeUnit.SECONDS.sleep(interval);
