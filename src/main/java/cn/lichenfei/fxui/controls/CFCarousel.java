@@ -3,15 +3,14 @@ package cn.lichenfei.fxui.controls;
 import cn.lichenfei.fxui.common.FxUtils;
 import javafx.animation.Interpolator;
 import javafx.animation.ParallelTransition;
+import javafx.animation.PauseTransition;
 import javafx.animation.TranslateTransition;
-import javafx.application.Platform;
 import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 /**
  * @author ChenFei
@@ -21,7 +20,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class CFCarousel extends StackPane {
 
-    private int interval = 3;// 自动切换的时间间隔，单位为秒
+    private Duration interval = Duration.millis(3000);// 自动切换的时间间隔，单位为秒
     private Duration duration = Duration.millis(1000); // 动画时间
     private List<StackPane> spList;
     private Integer currentIndex = 0;
@@ -29,7 +28,7 @@ public class CFCarousel extends StackPane {
     // 动画
     private TranslateTransition t1 = new TranslateTransition();
     private TranslateTransition t2 = new TranslateTransition();
-    private ParallelTransition pt = new ParallelTransition(t1, t2);
+    private ParallelTransition pt = new ParallelTransition(t1, t2, new PauseTransition(interval));
 
     public CFCarousel(List<StackPane> spList) {
         StackPane sp1 = new StackPane();
@@ -52,10 +51,12 @@ public class CFCarousel extends StackPane {
         setRightNode(this.getChildren().get(0));
         //
         pt.setInterpolator(Interpolator.LINEAR);
+        pt.setCycleCount(-1);
         pt.play();
 
-        pt.setOnFinished(event -> new Thread(() -> {
-            try {
+        t1.setOnFinished(event -> new Thread(() -> {
+            System.out.println("动画完成。。。");
+            /*try {
                 TimeUnit.SECONDS.sleep(interval);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -75,7 +76,7 @@ public class CFCarousel extends StackPane {
                     setRightNode(spList.get(currentIndex + 1));
                 }
                 pt.play();
-            });
+            });*/
         }).start());
 
     }
