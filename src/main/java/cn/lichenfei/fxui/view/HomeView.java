@@ -2,6 +2,7 @@ package cn.lichenfei.fxui.view;
 
 import cn.lichenfei.fxui.common.FxUtils;
 import cn.lichenfei.fxui.common.model.MenuInfo;
+import cn.lichenfei.fxui.controls.CFCarousel;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -49,7 +50,8 @@ public class HomeView extends HBox {
                 new MenuInfo(new FontIcon(AntDesignIconsFilled.HOME), "首页", new StackPane()),
                 new MenuInfo(new FontIcon(AntDesignIconsOutlined.TABLE), "表格/数据", new DataView()),
                 new MenuInfo(new FontIcon(AntDesignIconsOutlined.AREA_CHART), "统计图", new ChartView()),
-                new MenuInfo(new FontIcon(AntDesignIconsOutlined.CREDIT_CARD), "卡片", new CardView())
+                new MenuInfo(new FontIcon(AntDesignIconsOutlined.CREDIT_CARD), "卡片", new CardView()),
+                new MenuInfo(new FontIcon(AntDesignIconsOutlined.COMMENT), "轮播", new CFCarousel(null))
         };
         aside.setMenuInfo(menuInfo);
         //菜单选中事件监听
