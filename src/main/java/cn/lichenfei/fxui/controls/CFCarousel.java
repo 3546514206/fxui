@@ -1,18 +1,17 @@
 package cn.lichenfei.fxui.controls;
 
 import cn.lichenfei.fxui.common.FxUtils;
-import javafx.animation.Animation;
 import javafx.animation.Interpolator;
-import javafx.animation.Timeline;
+import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import javafx.application.Platform;
+import javafx.scene.Node;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
 import java.util.Arrays;
 import java.util.List;
-import java.util.Optional;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author ChenFei
@@ -22,10 +21,15 @@ import java.util.Optional;
  */
 public class CFCarousel extends StackPane {
 
+    private int interval = 3;// 自动切换的时间间隔，单位为秒
+    private Duration duration = Duration.millis(1000); // 动画时间
     private List<StackPane> spList;
+    private Integer currentIndex = 0;
 
-    TranslateTransition t1 = new TranslateTransition();
-    TranslateTransition t2 = new TranslateTransition();
+    // 动画
+    private TranslateTransition t1 = new TranslateTransition();
+    private TranslateTransition t2 = new TranslateTransition();
+    private ParallelTransition pt = new ParallelTransition(t1, t2);
 
     public CFCarousel(List<StackPane> spList) {
         StackPane sp1 = new StackPane();
@@ -33,33 +37,72 @@ public class CFCarousel extends StackPane {
         StackPane sp2 = new StackPane();
         sp2.setStyle("-fx-background-color:blue;");
         //
-        this.setStyle("-fx-border-color:green;");
         this.spList = Arrays.asList(sp1, sp2);
-        FxUtils.setClip(this, 0);
-        this.setWidth(500);
+        FxUtils.setClip(this, 10);
+        this.setPrefWidth(500);
+        this.setPrefHeight(300);
+        this.setMaxWidth(Double.NEGATIVE_INFINITY);
+        this.setMaxHeight(Double.NEGATIVE_INFINITY);
         setEvent();
     }
 
     private void setEvent() {
+        this.getChildren().addAll(spList.get(0), spList.get(1));
+        setLeftNode(this.getChildren().get(1));
+        setRightNode(this.getChildren().get(0));
+        //
+        pt.setInterpolator(Interpolator.LINEAR);
+        pt.play();
 
+        pt.setOnFinished(event -> new Thread(() -> {
+            try {
+                TimeUnit.SECONDS.sleep(interval);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            Platform.runLater(() -> {
+                currentIndex++;
+                if (currentIndex + 1 == spList.size()) {
+                    StackPane lp = spList.get(currentIndex);
+                    setLeftNode(lp);
+                    this.getChildren().set(1, lp);
+                    setRightNode(spList.get(0));
+                    currentIndex = 0;
+                } else {
+                    StackPane lp = spList.get(currentIndex);
+                    setLeftNode(lp);
+                    this.getChildren().set(0, lp);
+                    setRightNode(spList.get(currentIndex + 1));
+                }
+                pt.play();
+            });
+        }).start());
 
-        spList.forEach(sp -> {
-            sp.prefWidthProperty().bind(this.widthProperty());
-            sp.prefHeightProperty().bind(this.heightProperty());
-        });
-        StackPane left = spList.get(0);
-        StackPane right = spList.get(1);
-        this.getChildren().addAll(left, right);
-        left.translateXProperty().bind(this.widthProperty().multiply(-1));
+    }
+
+    /**
+     * 设置左侧内容
+     *
+     * @param sp
+     */
+    private void setLeftNode(Node sp) {
+        sp.setTranslateX(-500);
+        t1.setFromX(sp.getTranslateX());
+        t1.setToX(0);
+        t1.setNode(sp);
+        t1.setDuration(duration);
+    }
+
+    /**
+     * 设置右侧内容
+     *
+     * @param sp
+     */
+    private void setRightNode(Node sp) {
         t2.setFromX(0);
-        t2.setToX(this.getWidth());
-        t2.setNode(right);
-        t2.setDuration(Duration.seconds(2));
-        t2.setCycleCount(-1);//次数：无数次
-        t2.setInterpolator(Interpolator.LINEAR);//：每次旋转完的过渡:均匀过渡
-        t2.play();
-
-
+        t2.setToX(500);
+        t2.setNode(sp);
+        t2.setDuration(duration);
     }
 
 }
