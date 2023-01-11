@@ -3,6 +3,7 @@ package cn.lichenfei.fxui.controls;
 import cn.lichenfei.fxui.common.FxUtils;
 import javafx.animation.*;
 import javafx.scene.Node;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
@@ -33,11 +34,13 @@ public class CFCarousel extends StackPane {
 
     public CFCarousel(List<StackPane> spList) {
         StackPane sp1 = new StackPane();
-        sp1.setStyle("-fx-background-color:red;");
+        sp1.getChildren().add(new ImageView(FxUtils.getImage("/img/img1.png")));
         StackPane sp2 = new StackPane();
-        sp2.setStyle("-fx-background-color:blue;");
+        sp2.getChildren().add(new ImageView(FxUtils.getImage("/img/img2.png")));
+        StackPane sp3 = new StackPane();
+        sp3.getChildren().add(new ImageView(FxUtils.getImage("/img/img3.png")));
         //
-        this.spList = Arrays.asList(sp1, sp2);
+        this.spList = Arrays.asList(sp1, sp2, sp3);
         FxUtils.setClip(this, 10);
         this.setPrefWidth(500);
         this.setPrefHeight(300);
