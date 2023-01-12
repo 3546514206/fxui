@@ -62,8 +62,8 @@ public class HomeView extends HBox {
             });
         });
         //选中
-        main.getChildren().add(menuInfo[1].getContent());
-        menu.getSelectionModel().select(1);
+        main.getChildren().add(menuInfo[4].getContent());
+        menu.getSelectionModel().select(4);
     }
 
     /**
