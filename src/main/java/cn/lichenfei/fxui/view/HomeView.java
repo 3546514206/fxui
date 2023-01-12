@@ -51,7 +51,7 @@ public class HomeView extends HBox {
                 new MenuInfo(new FontIcon(AntDesignIconsOutlined.TABLE), "表格/数据", new DataView()),
                 new MenuInfo(new FontIcon(AntDesignIconsOutlined.AREA_CHART), "统计图", new ChartView()),
                 new MenuInfo(new FontIcon(AntDesignIconsOutlined.CREDIT_CARD), "卡片", new CardView()),
-                new MenuInfo(new FontIcon(AntDesignIconsOutlined.COMMENT), "轮播", new CFCarousel(null))
+                new MenuInfo(new FontIcon(AntDesignIconsOutlined.COMMENT), "轮播", new CFCarousel(null, 500, 300))
         };
         aside.setMenuInfo(menuInfo);
         //菜单选中事件监听
