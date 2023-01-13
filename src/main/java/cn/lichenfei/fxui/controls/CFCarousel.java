@@ -2,8 +2,10 @@ package cn.lichenfei.fxui.controls;
 
 import cn.lichenfei.fxui.common.FxUtils;
 import javafx.animation.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
@@ -25,7 +27,7 @@ public class CFCarousel extends StackPane {
     private Duration interval = Duration.millis(3000);// 隔多少时间切换下一个
     private Duration duration = Duration.millis(1000); // 动画时间
     private List<StackPane> spList;// 需要轮播的容器列表
-    private int currentIndex = 1;
+    private IntegerProperty currentIndex = new SimpleIntegerProperty(1);
     private double width;
     private double height;
 
@@ -85,12 +87,12 @@ public class CFCarousel extends StackPane {
         });
         // 每次轮播执行完毕
         TT.setOnFinished(event -> {
-            if (currentIndex + 1 >= spList.size()) {
-                currentIndex = 0;
+            if (currentIndex.get() + 1 >= spList.size()) {
+                currentIndex.set(0);
             } else {
-                currentIndex++;
+                currentIndex.set(currentIndex.get() + 1);
             }
-            StackPane currentNode = spList.get(currentIndex);
+            StackPane currentNode = spList.get(currentIndex.get());
             currentNode.setUserData(LEFT);
             currentNode.setTranslateX(-width);
             if (RIGHT.equals(this.getChildren().get(0).getUserData())) {
