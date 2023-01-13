@@ -10,6 +10,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -24,8 +25,8 @@ public class CFCarousel extends StackPane {
     private static final String LEFT = "L";
     private static final String RIGHT = "R";
     //
-    private Duration interval = Duration.millis(3000);// 隔多少时间切换下一个
-    private Duration duration = Duration.millis(1000); // 动画时间
+    private Duration interval = Duration.millis(1000);// 隔多少时间切换下一个
+    private Duration duration = Duration.millis(500); // 动画时间
     private List<StackPane> spList;// 需要轮播的容器列表
     private IntegerProperty currentIndex = new SimpleIntegerProperty(1);
     private double width;
@@ -43,13 +44,18 @@ public class CFCarousel extends StackPane {
 
 
     public CFCarousel(List<StackPane> spList, double width, double height) {
-        StackPane sp1 = new StackPane();
+        /*StackPane sp1 = new StackPane();
         sp1.getChildren().add(new ImageView(FxUtils.getImage("/img/img1.png")));
         StackPane sp2 = new StackPane();
         sp2.getChildren().add(new ImageView(FxUtils.getImage("/img/img2.png")));
         StackPane sp3 = new StackPane();
         sp3.getChildren().add(new ImageView(FxUtils.getImage("/img/img3.png")));
-        this.spList = Arrays.asList(sp1, sp2, sp3);
+        this.spList = Arrays.asList(sp1, sp2, sp3);*/
+        this.spList = new ArrayList<>();
+        for (int i = 0; i < 2; i++) {
+            this.spList.add(getSp((i + 1) + ""));
+        }
+
         this.width = width;
         this.height = height;
         //
@@ -111,5 +117,13 @@ public class CFCarousel extends StackPane {
         ST.setCycleCount(-1);
         ST.setDelay(interval);// 延迟动画的开始
         ST.play();
+    }
+
+    private StackPane getSp(String index) {
+        Label label = new Label(index);
+        label.setStyle("-fx-font-size: 50px;");
+        StackPane stackPane = new StackPane(label);
+        stackPane.setStyle("-fx-background-color:rgb(255,255,255);");
+        return stackPane;
     }
 }
