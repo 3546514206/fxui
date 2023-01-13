@@ -4,12 +4,10 @@ import cn.lichenfei.fxui.common.FxUtils;
 import javafx.animation.*;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -21,12 +19,15 @@ import java.util.List;
  */
 public class CFCarousel extends StackPane {
 
+    private static final String LEFT = "L";
+    private static final String RIGHT = "R";
+    //
     private Duration interval = Duration.millis(3000);// 隔多少时间切换下一个
     private Duration duration = Duration.millis(1000); // 动画时间
-    private List<StackPane> spList = new ArrayList<>();// 需要轮播的容器列表
+    private List<StackPane> spList;// 需要轮播的容器列表
     private int currentIndex = 1;
-    private double width = 500;
-    private double height = 300;
+    private double width;
+    private double height;
 
     private Button button = new Button();// 没用的button
     // 动画
@@ -68,13 +69,13 @@ public class CFCarousel extends StackPane {
         }
         this.getChildren().addAll(spList.get(0), spList.get(1));
         spList.get(1).setTranslateX(-width);
-        spList.get(1).setUserData("L");
-        spList.get(0).setUserData("R");
+        spList.get(1).setUserData(LEFT);
+        spList.get(0).setUserData(RIGHT);
         // 动画效果（根据动画设置节点的偏移量）
         button.translateXProperty().addListener((observable, oldValue, newValue) -> {
             Node node1 = this.getChildren().get(0);
             Node node2 = this.getChildren().get(1);
-            if ("L".equals(node1.getUserData())) {
+            if (LEFT.equals(node1.getUserData())) {
                 node1.setTranslateX(newValue.doubleValue() - width);
                 node2.setTranslateX(newValue.doubleValue());
             } else {
@@ -90,14 +91,14 @@ public class CFCarousel extends StackPane {
                 currentIndex++;
             }
             StackPane currentNode = spList.get(currentIndex);
-            currentNode.setUserData("L");
+            currentNode.setUserData(LEFT);
             currentNode.setTranslateX(-width);
-            if ("R".equals(this.getChildren().get(0).getUserData())) {
+            if (RIGHT.equals(this.getChildren().get(0).getUserData())) {
                 this.getChildren().set(0, currentNode);
-                this.getChildren().get(1).setUserData("R");
+                this.getChildren().get(1).setUserData(LEFT);
             } else {
                 this.getChildren().set(1, currentNode);
-                this.getChildren().get(0).setUserData("R");
+                this.getChildren().get(0).setUserData(RIGHT);
             }
         });
         TT.setFromX(0);
