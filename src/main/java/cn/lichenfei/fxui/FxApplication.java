@@ -19,7 +19,6 @@ public class FxApplication extends Application {
         stage.setHeight(650);
         stage.setMinWidth(1100);
         stage.setMinHeight(650);
-        //
         Scene scene = new Scene(new HomeView());
         scene.getStylesheets().addAll(FxUtils.getCss("/css/base.css"));
         stage.setTitle("Hello!");// 标题

@@ -2,15 +2,13 @@ package cn.lichenfei.fxui.controls;
 
 import cn.lichenfei.fxui.common.FxUtils;
 import javafx.animation.*;
-import javafx.beans.property.IntegerProperty;
-import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.*;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -25,8 +23,8 @@ public class CFCarousel extends StackPane {
     private static final String LEFT = "L";
     private static final String RIGHT = "R";
     //
-    private Duration interval = Duration.millis(1000);// 隔多少时间切换下一个
-    private Duration duration = Duration.millis(500); // 动画时间
+    private Duration interval = Duration.millis(3000);// 隔多少时间切换下一个
+    private Duration duration = Duration.millis(1000); // 动画时间
     private List<StackPane> spList;// 需要轮播的容器列表
     private IntegerProperty currentIndex = new SimpleIntegerProperty(1);
     private double width;
@@ -44,17 +42,13 @@ public class CFCarousel extends StackPane {
 
 
     public CFCarousel(List<StackPane> spList, double width, double height) {
-        /*StackPane sp1 = new StackPane();
+        StackPane sp1 = new StackPane();
         sp1.getChildren().add(new ImageView(FxUtils.getImage("/img/img1.png")));
         StackPane sp2 = new StackPane();
         sp2.getChildren().add(new ImageView(FxUtils.getImage("/img/img2.png")));
         StackPane sp3 = new StackPane();
         sp3.getChildren().add(new ImageView(FxUtils.getImage("/img/img3.png")));
-        this.spList = Arrays.asList(sp1, sp2, sp3);*/
-        this.spList = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
-            this.spList.add(getSp((i + 1) + ""));
-        }
+        this.spList = Arrays.asList(sp1, sp2, sp3);
 
         this.width = width;
         this.height = height;
@@ -98,16 +92,18 @@ public class CFCarousel extends StackPane {
             } else {
                 currentIndex.set(currentIndex.get() + 1);
             }
-            StackPane currentNode = spList.get(currentIndex.get());
+            Node currentNode;
+            boolean rb = RIGHT.equals(this.getChildren().get(0).getUserData());
+            if (spList.size() == 2) {// 轮播为2特殊判断
+                currentNode = this.getChildren().get(rb ? 0 : 1);
+                this.getChildren().get(rb ? 1 : 0).setUserData(RIGHT);
+            } else {
+                currentNode = spList.get(currentIndex.get());
+                this.getChildren().set(rb ? 0 : 1, currentNode);
+                this.getChildren().get(rb ? 1 : 0).setUserData(rb ? LEFT : RIGHT);
+            }
             currentNode.setUserData(LEFT);
             currentNode.setTranslateX(-width);
-            if (RIGHT.equals(this.getChildren().get(0).getUserData())) {
-                this.getChildren().set(0, currentNode);
-                this.getChildren().get(1).setUserData(LEFT);
-            } else {
-                this.getChildren().set(1, currentNode);
-                this.getChildren().get(0).setUserData(RIGHT);
-            }
         });
         TT.setFromX(0);
         TT.setToX(width);
@@ -118,12 +114,5 @@ public class CFCarousel extends StackPane {
         ST.setDelay(interval);// 延迟动画的开始
         ST.play();
     }
-
-    private StackPane getSp(String index) {
-        Label label = new Label(index);
-        label.setStyle("-fx-font-size: 50px;");
-        StackPane stackPane = new StackPane(label);
-        stackPane.setStyle("-fx-background-color:rgb(255,255,255);");
-        return stackPane;
-    }
 }
+
