@@ -52,6 +52,14 @@
             <version>1.3.0</version>
         </dependency>
 
+        <!-- https://mvnrepository.com/artifact/org.silentsoft/silentsoft-ui -->
+        <dependency>
+            <groupId>org.silentsoft</groupId>
+            <artifactId>silentsoft-ui</artifactId>
+            <version>1.3.0</version>
+        </dependency>
+
+
     </dependencies>
 
     <repositories>
