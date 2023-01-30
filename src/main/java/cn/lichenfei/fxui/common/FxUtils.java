@@ -14,7 +14,7 @@ public class FxUtils {
     /**
      * 从resources文件夹下获取css
      *
-     * @param resources eg：/css/base.css
+     * @param resources eg：/css/core.css
      * @return
      */
     public static String getCss(String resources) {

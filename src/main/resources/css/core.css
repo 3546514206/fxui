@@ -1,0 +1,132 @@
+/*********************************** 配色 ***********************************/
+.root{
+
+    primary-color:#5C80EF;
+    success-color:#33C437;
+    info-color:#68C0FF;
+    warn-color:#FFDC42;
+    danger-color:#FF4B3A;
+
+    text-color:#303133;
+    border-color:#D4D7DE;
+    base-color:#F2F3F5;
+}
+/*********************************** Button ***********************************/
+.cf-but{
+    -fx-background-insets: 0;
+    -fx-border-radius: 3px;
+    /*-fx-border-color: transparent;*/
+    -fx-background-radius: 3px;
+    -fx-pref-height: 32px;
+    /*-fx-min-height: 32px;*/
+    -fx-padding: 0px 15px 0px 15px;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-text-fill: rgb(255,255,255);
+    -fx-cursor:hand;
+}
+.cf-but > .ikonli-font-icon{
+    -fx-icon-size: 17px;
+    -fx-icon-color: rgb(255, 255, 255);
+}
+.cf-but.primary{-fx-background-color: primary-color;}
+.cf-but.success{-fx-background-color: success-color;}
+.cf-but.info{-fx-background-color: info-color;}
+.cf-but.warn{-fx-background-color: warn-color;}
+.cf-but.danger{-fx-background-color: danger-color;}
+/*hover:*/
+.cf-but.primary:hover{-fx-background-color: derive(primary-color,30%);}
+.cf-but.success:hover{-fx-background-color: derive(success-color,30%);}
+.cf-but.info:hover{-fx-background-color: derive(info-color,30%);}
+.cf-but.warn:hover{-fx-background-color: derive(warn-color,30%);}
+.cf-but.danger:hover{-fx-background-color: derive(danger-color,30%);}
+/*pressed:*/
+.cf-but.primary:pressed{-fx-background-color: derive(primary-color,-10%);}
+.cf-but.success:pressed{-fx-background-color: derive(success-color,-10%);}
+.cf-but.info:pressed{-fx-background-color: derive(info-color,-10%);}
+.cf-but.warn:pressed{-fx-background-color: derive(warn-color,-10%);}
+.cf-but.danger:pressed{-fx-background-color: derive(danger-color,-10%);}
+/*focused:*/
+.cf-but:focused{
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.7), 5.0,0, 0, 1);*/
+}
+/*圆角按钮*/
+.cf-but.round{
+    -fx-border-radius: 16px;
+    -fx-background-radius: 16px;
+}
+/*朴素按钮*/
+.cf-but.plain{
+    -fx-background-color: transparent;
+}
+.cf-but.primary.plain{-fx-border-color: primary-color;-fx-text-fill: primary-color;}
+.cf-but.success.plain{-fx-border-color: success-color;-fx-text-fill: success-color;}
+.cf-but.info.plain{-fx-border-color: info-color;-fx-text-fill: info-color;}
+.cf-but.warn.plain{-fx-border-color: warn-color;-fx-text-fill: warn-color;}
+.cf-but.danger.plain{-fx-border-color: danger-color;-fx-text-fill: danger-color;}
+
+.cf-but.primary.plain:hover,
+.cf-but.primary.plain:focused{-fx-background-color: primary-color;-fx-text-fill: rgb(255,255,255);}
+.cf-but.success.plain:hover,
+.cf-but.success.plain:focused{-fx-background-color: success-color;-fx-text-fill: rgb(255,255,255);}
+.cf-but.info.plain:hover,
+.cf-but.info.plain:focused{-fx-background-color: info-color;-fx-text-fill: rgb(255,255,255);}
+.cf-but.warn.plain:hover,
+.cf-but.warn.plain:focused{-fx-background-color: warn-color;-fx-text-fill: rgb(255,255,255);}
+.cf-but.danger.plain:hover,
+.cf-but.danger.plain:focused{-fx-background-color: danger-color;-fx-text-fill: rgb(255,255,255);}
+
+.cf-but.primary.plain:pressed{-fx-background-color: derive(primary-color,-10%);}
+.cf-but.success.plain:pressed{-fx-background-color: derive(success-color,-10%);}
+.cf-but.info.plain:pressed{-fx-background-color: derive(info-color,-10%);}
+.cf-but.warn.plain:pressed{-fx-background-color: derive(warn-color,-10%);}
+.cf-but.danger.plain:pressed{-fx-background-color: derive(danger-color,-10%);}
+
+
+/***********************************ScrollBar***********************************/
+.scroll-bar-style{
+    -fx-background-color: transparent;
+}
+.scroll-bar-style > .viewport{
+    -fx-background-color: transparent;
+}
+.scroll-bar-style .scroll-bar{
+    /*-fx-block-increment:10000;*/
+    -fx-unit-increment:20;
+    -fx-background-color: transparent;
+}
+.scroll-bar-style .scroll-bar > .decrement-button > .decrement-arrow,
+.scroll-bar-style .scroll-bar > .increment-button > .increment-arrow{
+    -fx-background-color: transparent;
+}
+.scroll-bar-style .scroll-bar:vertical > .decrement-button,
+.scroll-bar-style .scroll-bar:vertical > .increment-button{
+    -fx-pref-height:0px;
+    -fx-pref-width:0.01px;
+}
+.scroll-bar-style .scroll-bar:horizontal > .decrement-button,
+.scroll-bar-style .scroll-bar:horizontal > .increment-button{
+    -fx-pref-width:0px;
+    -fx-pref-height:0.01px;
+}
+.scroll-bar-style .scroll-bar > .track{
+    -fx-background-radius: 0px;
+    -fx-background-color: transparent;
+}
+.scroll-bar-style .scroll-bar:vertical > .thumb, .scroll-bar-style .scroll-bar:horizontal > .thumb{
+    -fx-background-color: rgba(0,0,0,0.2);
+    -fx-background-insets: 0px;
+    -fx-background-radius: 3px;
+}
+.scroll-bar-style .scroll-bar:vertical{
+    -fx-padding:6px 0px 6px 0px;
+}
+.scroll-bar-style .scroll-bar:horizontal{
+    -fx-padding:0px 6px 0px 6px;
+}
+.scroll-bar-style .scroll-bar:vertical > .thumb,.scroll-bar-style .scroll-bar:vertical > .track{
+    -fx-background-insets: 0px 0px 0px -6px;
+}
+.scroll-bar-style .scroll-bar:horizontal > .thumb,.scroll-bar-style .scroll-bar:horizontal > .track{
+    -fx-background-insets: -6px 0px 0px 0px;
+}
