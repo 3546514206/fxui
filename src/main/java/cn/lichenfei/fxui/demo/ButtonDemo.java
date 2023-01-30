@@ -2,12 +2,14 @@ package cn.lichenfei.fxui.demo;
 
 import cn.lichenfei.fxui.common.FxUtils;
 import cn.lichenfei.fxui.common.Level;
-import cn.lichenfei.fxui.common.SimpleButton;
+import cn.lichenfei.fxui.controls.SimpleButton;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.antdesignicons.AntDesignIconsFilled;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 public class ButtonDemo extends Application {
 
@@ -27,17 +29,23 @@ public class ButtonDemo extends Application {
         gridPane.add(SimpleButton.get("普通按钮", Level.WARN), 3, 0);
         gridPane.add(SimpleButton.get("普通按钮", Level.DANGER), 4, 0);
         //圆角按钮
-        gridPane.add(SimpleButton.get("圆角按钮", Level.PRIMARY, true), 0, 1);
-        gridPane.add(SimpleButton.get("圆角按钮", Level.SUCCESS, true), 1, 1);
-        gridPane.add(SimpleButton.get("圆角按钮", Level.INFO, true), 2, 1);
-        gridPane.add(SimpleButton.get("圆角按钮", Level.WARN, true), 3, 1);
-        gridPane.add(SimpleButton.get("圆角按钮", Level.DANGER, true), 4, 1);
+        gridPane.add(SimpleButton.get("圆角按钮", Level.PRIMARY).round(), 0, 1);
+        gridPane.add(SimpleButton.get("圆角按钮", Level.SUCCESS).round(), 1, 1);
+        gridPane.add(SimpleButton.get("圆角按钮", Level.INFO).round(), 2, 1);
+        gridPane.add(SimpleButton.get("圆角按钮", Level.WARN).round(), 3, 1);
+        gridPane.add(SimpleButton.get("圆角按钮", Level.DANGER).round(), 4, 1);
         //朴素按钮
-        gridPane.add(SimpleButton.get("朴素按钮", Level.PRIMARY, false, true), 0, 2);
-        gridPane.add(SimpleButton.get("朴素按钮", Level.SUCCESS, false, true), 1, 2);
-        gridPane.add(SimpleButton.get("朴素按钮", Level.INFO, true, true), 2, 2);
-        gridPane.add(SimpleButton.get("朴素按钮", Level.WARN, false, true), 3, 2);
-        gridPane.add(SimpleButton.get("朴素按钮", Level.DANGER, false, true), 4, 2);
+        gridPane.add(SimpleButton.get("朴素按钮", Level.PRIMARY).plain(), 0, 2);
+        gridPane.add(SimpleButton.get("朴素按钮", Level.SUCCESS).plain(), 1, 2);
+        gridPane.add(SimpleButton.get("朴素按钮", Level.INFO).plain().round(), 2, 2);
+        gridPane.add(SimpleButton.get("朴素按钮", Level.WARN).plain(), 3, 2);
+        gridPane.add(SimpleButton.get("朴素按钮", Level.DANGER).plain(), 4, 2);
+        //图标按钮
+        gridPane.add(SimpleButton.get("图标按钮", Level.PRIMARY).setFontIcon(new FontIcon(AntDesignIconsFilled.LIKE)), 0, 3);
+        gridPane.add(SimpleButton.get("图标按钮", Level.SUCCESS).round().setFontIcon(new FontIcon(AntDesignIconsFilled.WECHAT)), 1, 3);
+        gridPane.add(SimpleButton.get("图标按钮", Level.INFO).plain().round().setFontIcon(new FontIcon(AntDesignIconsFilled.SETTING)), 2, 3);
+        gridPane.add(SimpleButton.get("图标按钮", Level.WARN).plain().setFontIcon(new FontIcon(AntDesignIconsFilled.MESSAGE)), 3, 3);
+        gridPane.add(SimpleButton.get("图标按钮", Level.DANGER).setFontIcon(new FontIcon(AntDesignIconsFilled.ALIPAY_CIRCLE)), 4, 3);
         //
         Scene scene = new Scene(root);
         scene.getStylesheets().add(FxUtils.getCss("/css/core.css"));// 加载css
