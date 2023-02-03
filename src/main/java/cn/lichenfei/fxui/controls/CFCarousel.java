@@ -3,8 +3,6 @@ package cn.lichenfei.fxui.controls;
 import cn.lichenfei.fxui.common.FxUtils;
 import javafx.animation.*;
 import javafx.beans.property.*;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
