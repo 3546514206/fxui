@@ -1,14 +1,16 @@
 package cn.lichenfei.fxui.view;
 
-import eu.hansolo.tilesfx.Tile;
+/*import eu.hansolo.tilesfx.Tile;
 import eu.hansolo.tilesfx.TileBuilder;
 import eu.hansolo.tilesfx.chart.ChartData;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
+import javafx.scene.paint.Color;*/
+
+import javafx.scene.layout.StackPane;
 
 public class ChartView extends StackPane {
 
-    private Tile radialChartTile;
+    /*private Tile radialChartTile;
 
     private ChartData       chartData1;
     private ChartData       chartData2;
@@ -34,5 +36,5 @@ public class ChartView extends StackPane {
                 .chartData(chartData1, chartData2, chartData3, chartData4)
                 .build();
         this.getChildren().add(radialChartTile);
-    }
+    }*/
 }

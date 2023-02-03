@@ -85,7 +85,41 @@
 .cf-but.warn.plain:pressed{-fx-background-color: derive(warn-color,-10%);}
 .cf-but.danger.plain:pressed{-fx-background-color: derive(danger-color,-10%);}
 
-/***********************************ScrollBar***********************************/
+/*********************************** cf-carousel ***********************************/
+.cf-carousel > .left-but, .cf-carousel > .right-but{
+    -fx-padding: 0;
+    -fx-background-insets: 0;
+    -fx-background-color: rgba(0,0,0,0.2);
+    -fx-pref-height: 32px;
+    -fx-pref-width: 32px;
+    -fx-background-radius: 16px;
+    -fx-cursor: hand;
+}
+.cf-carousel > .left-but:hover, .cf-carousel > .right-but:hover{
+    -fx-background-color: rgba(0,0,0,0.4);
+}
+.cf-carousel > .left-but > .ikonli-font-icon, .cf-carousel > .right-but > .ikonli-font-icon{
+    -fx-icon-size: 15px;
+    -fx-icon-color: rgba(255, 255, 255,0.8);
+}
+.cf-indicator{
+    -fx-spacing: 4px;
+}
+.cf-indicator >.toggle-button{
+    -fx-min-height: 0;
+    -fx-min-width: 0;
+    -fx-pref-height: 12px;
+    -fx-pref-width: 20px;
+    -fx-background-radius: 0;
+    -fx-background-insets: 5px 0 5px 0;
+    -fx-background-color: rgba(255,255,255,0.6);
+    -fx-cursor: hand;
+}
+.cf-indicator >.toggle-button:selected{
+    -fx-background-color: rgb(255,255,255);
+}
+
+/*********************************** ScrollBar ***********************************/
 .scroll-bar-style{
     -fx-background-color: transparent;
 }
