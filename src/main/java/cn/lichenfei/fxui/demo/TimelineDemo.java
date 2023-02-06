@@ -106,15 +106,15 @@ public class TimelineDemo extends Application {
         label.setAlignment(Pos.CENTER);
         // 旋转
         //Rotate rotate = new Rotate(0, 0, 100);//左下角旋转
-        Rotate rotate = new Rotate(0, new Point3D(1, 1, 0));//3D x 旋转
-        rotate.setPivotY(100);
+        Rotate rotate = new Rotate(0, new Point3D(1, 0, 0));//3D x 旋转
         rotate.setPivotX(0);
+        rotate.setPivotY(100);
         label.getTransforms().add(rotate);
         //
         KeyValue px1 = new KeyValue(rotate.angleProperty(), 0);
         KeyFrame kfpx1 = new KeyFrame(Duration.seconds(0), px1);
         //
-        KeyValue px2 = new KeyValue(rotate.angleProperty(), 90);
+        KeyValue px2 = new KeyValue(rotate.angleProperty(), 180);
         KeyFrame kfpx2 = new KeyFrame(Duration.seconds(1), px2);
         //
         timeline3.getKeyFrames().addAll(kfpx1, kfpx2);
