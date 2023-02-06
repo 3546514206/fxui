@@ -1,7 +1,6 @@
 package cn.lichenfei.fxui;
 
-import cn.lichenfei.fxui.demo.CarouselDemo;
-import cn.lichenfei.fxui.demo.LoadingDemo;
+import cn.lichenfei.fxui.demo.TimelineDemo;
 
 public class StartUp {
 
@@ -9,7 +8,8 @@ public class StartUp {
         // FxApplication.main(args);
         // ButtonDemo.main(args);
         // LoadingDemo.main(args);
-         CarouselDemo.main(args); // 这个重写
+        // CarouselDemo.main(args); // 这个重写
+        TimelineDemo.main(args);
     }
 
 }
