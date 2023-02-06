@@ -23,8 +23,8 @@ import java.util.List;
  */
 public class CFCarousel extends StackPane {
 
-    private static final String LEFT = "L";
-    private static final String RIGHT = "R";
+    private static final String NEXT = "NEXT";
+    private static final String CURRENT = "CURRENT";
     //
     private Duration interval = Duration.millis(3000);// 隔多少时间切换下一个
     private Duration duration = Duration.millis(500); // 动画时间
@@ -32,14 +32,14 @@ public class CFCarousel extends StackPane {
     private IntegerProperty currentIndex = new SimpleIntegerProperty(1);
     private double width;
     private double height;
+    private boolean autoplay;
+    private Direction direction;// 轮播方向，默认向右
 
     private Button TRANSITION_NODE = new Button();// 没用的button
     // 动画
     private TranslateTransition TT = new TranslateTransition();// 移动动画
-    private SequentialTransition ST = new SequentialTransition(// 顺序动画
-            TT,
-            new PauseTransition(interval)// 停顿时间
-    );
+    PauseTransition PT = new PauseTransition(interval);// 停顿时间
+    private SequentialTransition ST = new SequentialTransition(TT, PT);// 顺序动画
     // 轮播内容区域
     private StackPane content = new StackPane();
     // 轮播指示器
@@ -49,10 +49,24 @@ public class CFCarousel extends StackPane {
     // 下一个
     private Button rightBut = new Button();
 
-    public CFCarousel(List<StackPane> spList, double width, double height) {
+    public static CFCarousel create(List<StackPane> spList, double width, double height) {
+        return new CFCarousel(spList, width, height, true, Direction.RIGHT);
+    }
+
+    public static CFCarousel create(List<StackPane> spList, double width, double height, boolean autoplay) {
+        return new CFCarousel(spList, width, height, autoplay, Direction.RIGHT);
+    }
+
+    public static CFCarousel create(List<StackPane> spList, double width, double height, boolean autoplay, Direction direction) {
+        return new CFCarousel(spList, width, height, autoplay, direction);
+    }
+
+    private CFCarousel(List<StackPane> spList, double width, double height, boolean autoplay, Direction direction) {
         this.spList = spList;
         this.width = width;
         this.height = height;
+        this.autoplay = autoplay;
+        this.direction = direction;
         setLayout();
         setAnimation();
     }
@@ -79,7 +93,7 @@ public class CFCarousel extends StackPane {
         leftBut.getStyleClass().add("left-but");
         rightBut.getStyleClass().add("right-but");
         leftBut.opacityProperty().bind(rightBut.opacityProperty());
-        // 鼠标移入再显示轮播图
+        // 鼠标移入显示按钮
         this.hoverProperty().addListener((observable, oldValue, newValue) -> rightBut.setOpacity(newValue ? 1 : 0));
         rightBut.setOpacity(0);// 初始化不显示
     }
@@ -89,7 +103,7 @@ public class CFCarousel extends StackPane {
         indicator = new Indicator(this.spList.size(), currentIndex.get() - 1);
         this.getChildren().add(indicator);
         StackPane.setAlignment(indicator, Pos.BOTTOM_CENTER);
-        indicator.setSelected(0);
+        indicator.setSelected(0);// 默认选中第一个
         StackPane.setMargin(indicator, new Insets(0, 0, 5, 0));
     }
 
@@ -102,19 +116,19 @@ public class CFCarousel extends StackPane {
             return;
         }
         content.getChildren().addAll(spList.get(0), spList.get(1));
-        spList.get(1).setTranslateX(-width);
-        spList.get(1).setUserData(LEFT);
-        spList.get(0).setUserData(RIGHT);
+        setPlace(spList.get(0), spList.get(1));// 设置轮播初始位置
         // 动画效果（根据动画设置节点的偏移量）
         TRANSITION_NODE.translateXProperty().addListener((observable, oldValue, newValue) -> {
             Node node1 = content.getChildren().get(0);
             Node node2 = content.getChildren().get(1);
-            if (LEFT.equals(node1.getUserData())) {
-                node1.setTranslateX(newValue.doubleValue() - width);
-                node2.setTranslateX(newValue.doubleValue());
+            boolean b = direction.equals(Direction.RIGHT);
+            double doubleValue = newValue.doubleValue();
+            if (NEXT.equals(node1.getUserData())) {
+                node1.setTranslateX(b ? doubleValue - width : width - doubleValue);
+                node2.setTranslateX(b ? doubleValue : -doubleValue);
             } else {
-                node1.setTranslateX(newValue.doubleValue());
-                node2.setTranslateX(newValue.doubleValue() - width);
+                node1.setTranslateX(b ? doubleValue : -doubleValue);
+                node2.setTranslateX(b ? doubleValue - width : width - doubleValue);
             }
         });
         // 每次轮播执行完毕
@@ -126,7 +140,21 @@ public class CFCarousel extends StackPane {
         //开始动画
         ST.setCycleCount(-1);
         ST.setDelay(interval);// 延迟动画的开始
-        ST.play();
+        if (autoplay) {
+            ST.play();
+        }
+    }
+
+    /**
+     * 设置轮播图位置
+     *
+     * @param current
+     * @param next
+     */
+    private void setPlace(Node current, Node next) {
+        current.setUserData(CURRENT);
+        next.setUserData(NEXT);
+        next.setTranslateX(this.direction.equals(Direction.RIGHT) ? -width : width);
     }
 
     /**
@@ -139,18 +167,21 @@ public class CFCarousel extends StackPane {
         } else {
             currentIndex.set(currentIndex.get() + 1);
         }
-        Node currentNode;
-        boolean rb = RIGHT.equals(content.getChildren().get(0).getUserData());
+        boolean isCurrent = CURRENT.equals(content.getChildren().get(0).getUserData());
         if (spList.size() == 2) {// 轮播为2特殊判断
-            currentNode = content.getChildren().get(rb ? 0 : 1);
-            content.getChildren().get(rb ? 1 : 0).setUserData(RIGHT);
+            setPlace(this.content.getChildren().get(isCurrent ? 1 : 0), content.getChildren().get(isCurrent ? 0 : 1));
         } else {
-            currentNode = spList.get(currentIndex.get());
-            content.getChildren().set(rb ? 0 : 1, currentNode);
-            content.getChildren().get(rb ? 1 : 0).setUserData(rb ? LEFT : RIGHT);
+            Node currentNode = spList.get(currentIndex.get());
+            content.getChildren().set(isCurrent ? 0 : 1, currentNode);
+            setPlace(content.getChildren().get(isCurrent ? 1 : 0), currentNode);
         }
-        currentNode.setUserData(LEFT);
-        currentNode.setTranslateX(-width);
+    }
+
+    /**
+     * 轮播图方向
+     */
+    public enum Direction {
+        LEFT, RIGHT
     }
 
     /**
