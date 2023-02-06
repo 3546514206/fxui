@@ -20,7 +20,7 @@ public class CarouselDemo extends Application {
     @Override
     public void start(Stage primaryStage) {
         List<StackPane> paneList = new ArrayList<>();
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < 5; i++) {
             StackPane sp = new StackPane(getLabel(i + 1));
             sp.setBackground(new Background(new BackgroundFill(Color.rgb(
                     new Random().nextInt(255),
@@ -28,7 +28,7 @@ public class CarouselDemo extends Application {
                     new Random().nextInt(255)), null, null)));
             paneList.add(sp);
         }
-        CFCarousel carousel = CFCarousel.create(paneList, 500, 300, true, CFCarousel.Direction.LEFT);
+        CFCarousel carousel = CFCarousel.create(paneList, 500, 300, false, CFCarousel.Direction.RIGHT);
         //
         StackPane root = new StackPane(carousel);
         Scene scene = new Scene(root);

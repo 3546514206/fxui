@@ -29,16 +29,17 @@ public class CFCarousel extends StackPane {
     private Duration interval = Duration.millis(3000);// 隔多少时间切换下一个
     private Duration duration = Duration.millis(500); // 动画时间
     private List<StackPane> spList;// 需要轮播的容器列表
-    private IntegerProperty currentIndex = new SimpleIntegerProperty(1);
+    private IntegerProperty currentIndex = new SimpleIntegerProperty(0);
     private double width;
     private double height;
     private boolean autoplay;
-    private Direction direction;// 轮播方向，默认向右
+    private Direction direction; // 轮播方向，默认向右
+    private Direction directionCache; // 轮播方向缓存
 
     private Button TRANSITION_NODE = new Button();// 没用的button
     // 动画
     private TranslateTransition TT = new TranslateTransition();// 移动动画
-    PauseTransition PT = new PauseTransition(interval);// 停顿时间
+    private PauseTransition PT = new PauseTransition(interval);// 停顿时间
     private SequentialTransition ST = new SequentialTransition(TT, PT);// 顺序动画
     // 轮播内容区域
     private StackPane content = new StackPane();
@@ -67,8 +68,10 @@ public class CFCarousel extends StackPane {
         this.height = height;
         this.autoplay = autoplay;
         this.direction = direction;
+        this.directionCache = direction;
         setLayout();
         setAnimation();
+        setEvent();
     }
 
     // 布局
@@ -100,11 +103,57 @@ public class CFCarousel extends StackPane {
 
     // 设置轮播指示器
     private void setIndicator() {
-        indicator = new Indicator(this.spList.size(), currentIndex.get() - 1);
+        indicator = new Indicator(this.spList.size(), currentIndex.get());
         this.getChildren().add(indicator);
         StackPane.setAlignment(indicator, Pos.BOTTOM_CENTER);
-        indicator.setSelected(0);// 默认选中第一个
         StackPane.setMargin(indicator, new Insets(0, 0, 5, 0));
+        this.currentIndex.addListener((observable, oldValue, newValue) -> indicator.setSelected(newValue.intValue()));// 更新指示器
+    }
+
+    /**
+     * 设置相关事件
+     */
+    private void setEvent() {
+        this.rightBut.setOnMouseClicked(event -> {
+            if (!directionCache.equals(Direction.RIGHT)) {
+
+            }
+            directionCache = Direction.RIGHT;
+            PT.setDuration(Duration.millis(0));
+            ST.setDelay(Duration.millis(0));
+            ST.setCycleCount(1);
+            ST.play();
+        });
+        this.leftBut.setOnMouseClicked(event -> {
+            if (!directionCache.equals(Direction.LEFT)) {
+
+            }
+            directionCache = Direction.LEFT;
+            PT.setDuration(Duration.millis(0));
+            ST.setDelay(Duration.millis(0));
+            ST.setCycleCount(1);
+            ST.play();
+        });
+    }
+
+    /**
+     * 下一个轮播
+     */
+    private void currentIndexNext() {
+        if (direction.equals(directionCache)) { // 方向相同，递增
+            if (currentIndex.get() + 1 >= spList.size()) {
+                currentIndex.set(0);
+            } else {
+                currentIndex.set(currentIndex.get() + 1);
+            }
+        } else {// 方向相反，递减
+            if (currentIndex.get() <= 0) {
+                currentIndex.set(spList.size() - 1);
+            } else {
+                currentIndex.set(currentIndex.get() - 1);
+            }
+        }
+        System.out.println(currentIndex);
     }
 
     /**
@@ -115,13 +164,13 @@ public class CFCarousel extends StackPane {
             content.getChildren().add(spList.get(0));
             return;
         }
-        content.getChildren().addAll(spList.get(0), spList.get(1));
+        content.getChildren().addAll(spList.get(1), spList.get(0));
         setPlace(spList.get(0), spList.get(1));// 设置轮播初始位置
         // 动画效果（根据动画设置节点的偏移量）
         TRANSITION_NODE.translateXProperty().addListener((observable, oldValue, newValue) -> {
             Node node1 = content.getChildren().get(0);
             Node node2 = content.getChildren().get(1);
-            boolean b = direction.equals(Direction.RIGHT);
+            boolean b = Direction.RIGHT.equals(directionCache);
             double doubleValue = newValue.doubleValue();
             if (NEXT.equals(node1.getUserData())) {
                 node1.setTranslateX(b ? doubleValue - width : width - doubleValue);
@@ -132,7 +181,10 @@ public class CFCarousel extends StackPane {
             }
         });
         // 每次轮播执行完毕
-        TT.setOnFinished(event -> setPosition());
+        TT.setOnFinished(event -> {
+            currentIndexNext();
+            setPosition();
+        });
         TT.setFromX(0);
         TT.setToX(width);
         TT.setNode(TRANSITION_NODE);
@@ -154,24 +206,25 @@ public class CFCarousel extends StackPane {
     private void setPlace(Node current, Node next) {
         current.setUserData(CURRENT);
         next.setUserData(NEXT);
-        next.setTranslateX(this.direction.equals(Direction.RIGHT) ? -width : width);
+        next.setTranslateX(Direction.RIGHT.equals(directionCache) ? -width : width);
     }
 
     /**
      * 设置位置
      */
     private void setPosition() {
-        indicator.setSelected(currentIndex.get());// 轮播完毕，选中当前的指示器
-        if (currentIndex.get() + 1 >= spList.size()) {
-            currentIndex.set(0);
-        } else {
-            currentIndex.set(currentIndex.get() + 1);
-        }
         boolean isCurrent = CURRENT.equals(content.getChildren().get(0).getUserData());
         if (spList.size() == 2) {// 轮播为2特殊判断
             setPlace(this.content.getChildren().get(isCurrent ? 1 : 0), content.getChildren().get(isCurrent ? 0 : 1));
         } else {
-            Node currentNode = spList.get(currentIndex.get());
+            int i;
+            if (!direction.equals(directionCache)) {
+                i = currentIndex.get() == 0 ? spList.size() - 1 : currentIndex.get() - 1;
+            } else {
+                i = currentIndex.get() + 1 == spList.size() ? 0 : currentIndex.get() + 1;
+            }
+            System.out.println(i);
+            Node currentNode = spList.get(i);
             content.getChildren().set(isCurrent ? 0 : 1, currentNode);
             setPlace(content.getChildren().get(isCurrent ? 1 : 0), currentNode);
         }
