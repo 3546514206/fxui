@@ -91,7 +91,7 @@ public class CFClock extends HBox {
 
     private void setEvent() {
         PT1.setOnFinished(event -> {
-            LocalTime now = LocalTime.now();
+            LocalTime now = LocalTime.now().plusSeconds(1); // 多加一秒
             String hh = DateTimeFormatter.ofPattern("HH").format(now);
             String mm = DateTimeFormatter.ofPattern("mm").format(now);
             if (!mm.equals(this.mm)) {// 分钟逻辑
