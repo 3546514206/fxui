@@ -4,12 +4,14 @@ import javafx.animation.*;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Point3D;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.scene.transform.Rotate;
 import javafx.util.Duration;
 
@@ -36,7 +38,7 @@ public class CFClock extends HBox {
         this.setPadding(new Insets(10, 10, 10, 10));
         this.getChildren().addAll(clockItem1, clockItem2, clockItem3);
         this.setStyle("-fx-background-radius: 3px;" +
-                "-fx-background-color: derive(rgb(60,60,60),50%);");
+                "-fx-background-color: derive(primary-color,50%);");
     }
 
     // 动画
@@ -210,12 +212,15 @@ public class CFClock extends HBox {
         }
 
         private Label getLabel(String text, boolean isBottom) {
-            int height = 1;
+            int height = 2;
             Label label = new Label(text);
             label.setStyle("-fx-background-radius: 3px;" +
-                    "-fx-background-color: rgb(60,60,60);" +
-                    "-fx-padding: 10px 5px;");
-            label.setFont(new Font(60));
+                    "-fx-background-color: primary-color;");
+            Font font = Font.font("Impact",60);
+            label.setFont(font);
+            label.setAlignment(Pos.CENTER);
+            label.setPrefWidth(80);
+            label.setPrefHeight(100);
             label.setTextFill(Color.rgb(255, 255, 255, 0.5));
             //
             Rectangle rectangle = new Rectangle();
