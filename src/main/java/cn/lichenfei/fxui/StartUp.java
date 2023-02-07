@@ -1,5 +1,6 @@
 package cn.lichenfei.fxui;
 
+import cn.lichenfei.fxui.demo.ClockDemo;
 import cn.lichenfei.fxui.demo.TimelineDemo;
 
 public class StartUp {
@@ -9,7 +10,8 @@ public class StartUp {
         // ButtonDemo.main(args);
         // LoadingDemo.main(args);
         // CarouselDemo.main(args); // 这个重写
-        TimelineDemo.main(args);
+        // TimelineDemo.main(args);
+        ClockDemo.main(args);
     }
 
 }
