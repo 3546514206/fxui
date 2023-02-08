@@ -1,15 +1,18 @@
 package cn.lichenfei.fxui.controls;
 
 import javafx.animation.TranslateTransition;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
+import javafx.beans.property.DoubleProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
+
+import java.text.DecimalFormat;
 
 /**
  * 这个东西只是为了玩一玩
@@ -56,17 +59,35 @@ public class CFTextLoading extends StackPane {
             setTranslate();
             TT.play();
         });
+        // 进度显示
+        Label label = new Label("0.00%");
+        Font font = Font.font("Impact", 30);
+        label.setFont(font);
+        label.setTranslateY(50);
+        label.setStyle("-fx-text-fill:primary-color;");
+
+        this.getChildren().add(label);
+        StackPane.setAlignment(label, Pos.BOTTOM_CENTER);
+        TRANSITION_NODE.translateXProperty().addListener((observable, oldValue, newValue) -> {
+            DoubleProperty doubleProperty = new SimpleDoubleProperty(newValue.doubleValue());
+            double v = doubleProperty.divide(this.widthProperty()).get();
+            label.setText(DF.format(v));
+        });
     }
+
+    DecimalFormat DF = new DecimalFormat("0.00%");
 
     private void setTranslate() {
         //
         TT.setNode(TRANSITION_NODE);
         TT.setCycleCount(1);
         if (TRANSITION_NODE.getTranslateX() > 0) {
+            TT.setDelay(Duration.seconds(0));
             TT.setToX(0);
             TT.setFromX(this.getWidth());
             TT.setDuration(Duration.seconds(2));
         } else {
+            TT.setDelay(Duration.seconds(1));
             TT.setFromX(0);
             TT.setToX(this.getWidth());
             TT.setDuration(Duration.seconds(1));
@@ -76,7 +97,8 @@ public class CFTextLoading extends StackPane {
 
     public Label getLabel(String text) {
         Label label = new Label(text);
-        Font font = Font.font("Impact", 60);
+        Font font = Font.font("", FontWeight.BLACK, 60);
+
         label.setFont(font);
         label.setPadding(new Insets(0, 0, 0, 0));
         return label;

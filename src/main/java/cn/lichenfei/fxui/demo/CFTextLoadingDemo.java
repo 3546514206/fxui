@@ -12,7 +12,7 @@ public class CFTextLoadingDemo extends Application {
     @Override
     public void start(Stage primaryStage) {
 
-        StackPane root = new StackPane(new CFTextLoading("Loading..."));
+        StackPane root = new StackPane(new CFTextLoading("加载中..."));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(FxUtils.getCss("/css/core.css"));// 加载css
         primaryStage.setScene(scene);
