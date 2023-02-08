@@ -1,8 +1,6 @@
 package cn.lichenfei.fxui.controls;
 
 import cn.lichenfei.fxui.common.FxUtils;
-import javafx.animation.ParallelTransition;
-import javafx.animation.TranslateTransition;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -14,17 +12,14 @@ import javafx.scene.paint.Color;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javafx.util.Duration;
 import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.silentsoft.ui.util.StageDragResizer;
 
-import java.util.function.Consumer;
-
 public class CFStage extends Stage {
 
-    private static final double DEFAULT_WIDTH = 1100;
-    private static final double DEFAULT_HEIGHT = 650;
+    private static final double DEFAULT_WIDTH = 750;
+    private static final double DEFAULT_HEIGHT = 500;
     private DropShadow dropShadow = new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.8), 10, 0, 1.5, 1.5);
     private Background background = new Background(new BackgroundFill(Color.WHITE, null, new Insets(0, 0, 0, 0)));
     //
@@ -35,9 +30,10 @@ public class CFStage extends Stage {
     private StackPane aside = new StackPane();// 侧边栏容器
     private VBox container = new VBox();// 右侧
     private Header header = new Header(this);// 顶栏容器
-    private StackPane content = new StackPane();
+    private StackPane content;
 
-    public CFStage() {
+    public CFStage(StackPane stackPane) {
+        content = new StackPane(stackPane);
         initializeStyle();
         stageMove();
         StageDragResizer.makeResizable(this, this.root, 10, 5);// 窗口拖动缩放
@@ -78,7 +74,7 @@ public class CFStage extends Stage {
         // class
         root.getStyleClass().add("cf-stage");
         // css
-        this.scene.getStylesheets().add(FxUtils.getCss("/css/chenfei-fxui.css"));
+        this.scene.getStylesheets().add(FxUtils.getCss("/css/core.css"));
     }
 
     /**************************************************** 窗口拖动 ****************************************************/
