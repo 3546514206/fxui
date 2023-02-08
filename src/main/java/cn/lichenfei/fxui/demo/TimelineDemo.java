@@ -7,6 +7,7 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.geometry.Point3D;
 import javafx.geometry.Pos;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
@@ -101,20 +102,19 @@ public class TimelineDemo extends Application {
         label.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
         label.setLayoutX(400);
         label.setLayoutY(200);
-        label.setPrefWidth(100);
-        label.setPrefHeight(100);
+        label.setPrefWidth(300);
+        label.setPrefHeight(300);
         label.setAlignment(Pos.CENTER);
         // 旋转
         //Rotate rotate = new Rotate(0, 0, 100);//左下角旋转
-        Rotate rotate = new Rotate(0, new Point3D(1, 0, 0));//3D x 旋转
-        rotate.setPivotX(0);
-        rotate.setPivotY(100);
+        Rotate rotate = new Rotate(0, Rotate.Y_AXIS);//3D Y 旋转
+        rotate.setPivotX(300);
         label.getTransforms().add(rotate);
         //
         KeyValue px1 = new KeyValue(rotate.angleProperty(), 0);
         KeyFrame kfpx1 = new KeyFrame(Duration.seconds(0), px1);
         //
-        KeyValue px2 = new KeyValue(rotate.angleProperty(), 180);
+        KeyValue px2 = new KeyValue(rotate.angleProperty(), 360);
         KeyFrame kfpx2 = new KeyFrame(Duration.seconds(1), px2);
         //
         timeline3.getKeyFrames().addAll(kfpx1, kfpx2);
@@ -126,6 +126,8 @@ public class TimelineDemo extends Application {
         Pane root = new Pane();
         root.getChildren().addAll(rectangle1, rectangle2, label);
         Scene scene = new Scene(root);
+        PerspectiveCamera perspectiveCamera = new PerspectiveCamera();
+        scene.setCamera(perspectiveCamera);// 立体相机
         scene.getStylesheets().add(FxUtils.getCss("/css/core.css"));// 加载css
         primaryStage.setScene(scene);
         primaryStage.setWidth(1200);

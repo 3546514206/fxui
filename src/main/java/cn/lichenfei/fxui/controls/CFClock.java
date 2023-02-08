@@ -55,7 +55,7 @@ public class CFClock extends HBox {
         Label topLabel = clockItem3.getFrontLabel(0);
         Label bottomLabel = clockItem3.getFrontLabel(1);
         // 动画相关1
-        Rotate rotate1 = new Rotate(0, new Point3D(1, 0, 0));//3D x 旋转
+        Rotate rotate1 = new Rotate(0, Rotate.X_AXIS);//3D x 旋转
         rotate1.pivotYProperty().bind(((Rectangle) topLabel.getClip()).heightProperty());
         topLabel.getTransforms().add(rotate1);
         //
@@ -66,7 +66,7 @@ public class CFClock extends HBox {
         KeyFrame tkfpx1 = new KeyFrame(Duration.millis(250), tpx1);
         TL1.getKeyFrames().addAll(fkfpx1, tkfpx1);
         // 动画相关2
-        Rotate rotate2 = new Rotate(0, new Point3D(1, 0, 0));//3D x 旋转
+        Rotate rotate2 = new Rotate(0, Rotate.X_AXIS);//3D x 旋转
         rotate2.setAngle(-90);
         rotate2.pivotYProperty().bind(((Rectangle) bottomLabel.getClip()).layoutYProperty());
         bottomLabel.getTransforms().add(rotate2);
