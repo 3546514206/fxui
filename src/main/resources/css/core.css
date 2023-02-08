@@ -85,6 +85,50 @@
 .cf-but.warn.plain:pressed{-fx-background-color: derive(warn-color,-10%);}
 .cf-but.danger.plain:pressed{-fx-background-color: derive(danger-color,-10%);}
 
+/*********************************** CFInput ***********************************/
+.cf-input{}
+.cf-input > .text-field{
+    -fx-pref-height: 32px;
+    -fx-text-fill: text-color;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-border-color: border-color;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-background-insets:0;
+    -fx-padding: 0 24px 0 6px;
+    -fx-background-color:transparent;
+    -fx-highlight-fill: primary-color;
+}
+.cf-input > .text-field:focused{
+    -fx-border-color: primary-color;
+}
+/*left-icon*/
+.cf-input > .left-icon > .ikonli-font-icon{
+    -fx-icon-color: border-color;
+    -fx-icon-size: 20px;
+}
+.cf-input.selected > .left-icon > .ikonli-font-icon{
+    -fx-icon-color: primary-color;
+}
+.cf-input.left > .text-field{
+    -fx-padding: 0 24px 0 28px;
+}
+.cf-input.left > .left-icon{
+    -fx-padding: 0 6px 0 6px;
+}
+/*right-icon*/
+.cf-input > .right-icon{
+    -fx-cursor:hand;
+    -fx-padding: 0 6px 0 0px;
+}
+.cf-input > .right-icon > .ikonli-font-icon{
+    -fx-icon-color: border-color;
+    -fx-icon-size: 15px;
+}
+.cf-input > .right-icon:hover > .ikonli-font-icon{
+    -fx-icon-color: info-color;
+}
 /*********************************** cf-carousel ***********************************/
 .cf-carousel > .left-but, .cf-carousel > .right-but{
     -fx-padding: 0;
