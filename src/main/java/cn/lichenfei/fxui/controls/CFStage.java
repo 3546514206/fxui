@@ -20,8 +20,8 @@ public class CFStage extends Stage {
 
     private static final String STYLE_SHEET = FxUtils.getCss("/css/cf-stage.css");
 
-    private static final double DEFAULT_WIDTH = 750;
-    private static final double DEFAULT_HEIGHT = 500;
+    private static final double DEFAULT_WIDTH = 400;
+    private static final double DEFAULT_HEIGHT = 600;
     private DropShadow dropShadow = new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.8), 10, 0, 1.5, 1.5);
     private Background background = new Background(new BackgroundFill(Color.WHITE, null, new Insets(0, 0, 0, 0)));
     //

@@ -4,6 +4,8 @@ import cn.lichenfei.fxui.common.FxUtils;
 import javafx.beans.value.ChangeListener;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -19,7 +21,7 @@ public class CFTextField extends HBox {
     private Type type = Type.TEXT;
     //
     private Label iconLabel = new Label();// 左侧图标
-    private TextField textField = new TextField();
+    private TextField textField = new TextField("");
     private PasswordField passwordField = new PasswordField();
     private Label rightIcon = new Label(); // 右侧图标
 
@@ -57,8 +59,11 @@ public class CFTextField extends HBox {
         setMaxWidth(USE_PREF_SIZE);
         getStyleClass().add(this.STYLE_CLASS);
         setAlignment(Pos.CENTER);
+        setCursor(Cursor.TEXT);
         HBox.setHgrow(this.textField, Priority.ALWAYS);
         HBox.setHgrow(this.passwordField, Priority.ALWAYS);
+        this.textField.prefHeightProperty().bind(heightProperty());
+        this.passwordField.prefHeightProperty().bind(heightProperty());
         this.iconLabel.getStyleClass().add("icon-label");
         this.rightIcon.getStyleClass().add("right-icon");
         if (Type.TEXT.equals(this.type)) {
@@ -85,16 +90,28 @@ public class CFTextField extends HBox {
                 this.textField.setText(""); // 文本框直接清空
             } else {
                 FontIcon fontIcon = (FontIcon) this.rightIcon.getGraphic();
-                int i = getChildren().contains(this.iconLabel) ? 1 : 0;
+                int i = childrenContains(this.iconLabel) ? 1 : 0;
                 boolean isEyeInvisible = fontIcon.getIconCode().equals(AntDesignIconsFilled.EYE_INVISIBLE);
                 TextField setField = isEyeInvisible ? this.textField : this.passwordField;
                 setField.setText(isEyeInvisible ? this.passwordField.getText() : this.textField.getText());
                 getChildren().set(i, setField);
-                setField.requestFocus();
-                setField.positionCaret(setField.getText().length());
+                setRequestFocus(setField);
                 this.rightIcon.setGraphic(new FontIcon(isEyeInvisible ? AntDesignIconsFilled.EYE : AntDesignIconsFilled.EYE_INVISIBLE));
             }
         });
+        // 点击则选中输入框
+        setOnMouseClicked(event -> setRequestFocus(childrenContains(this.textField) ? this.textField : this.passwordField));
+    }
+
+    // 输入框选择，并且光标移动到最后
+    private void setRequestFocus(TextField textField) {
+        textField.requestFocus();
+        textField.positionCaret(textField.getText().length());
+    }
+
+    // 当前容器是否存在此组件
+    private boolean childrenContains(Node node) {
+        return getChildren().contains(node);
     }
 
     @Override
