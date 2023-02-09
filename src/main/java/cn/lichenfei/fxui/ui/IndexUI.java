@@ -2,7 +2,7 @@ package cn.lichenfei.fxui.ui;
 
 import cn.lichenfei.fxui.common.FxUtils;
 import cn.lichenfei.fxui.common.Level;
-import cn.lichenfei.fxui.common.SimpleButton;
+import cn.lichenfei.fxui.controls.CFButton;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
@@ -24,8 +24,8 @@ public class IndexUI extends StackPane {
         main.setStyle("-fx-background-color: rgba(255,255,255,0.8);");
 
         // 登录，注册测试按钮
-        SimpleButton signIn = SimpleButton.get("登录", Level.PRIMARY);
-        SimpleButton signUp = SimpleButton.get("注册", Level.PRIMARY);
+        CFButton signIn = CFButton.get("登录", Level.PRIMARY);
+        CFButton signUp = CFButton.get("注册", Level.PRIMARY);
         main.getChildren().addAll(signIn, signUp);
         main.setAlignment(Pos.CENTER);
         main.setSpacing(200);

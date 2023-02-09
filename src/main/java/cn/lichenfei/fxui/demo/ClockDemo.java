@@ -16,7 +16,7 @@ public class ClockDemo extends Application {
         StackPane root = new StackPane(new CFClock());
         Scene scene = new Scene(root);
         scene.setCamera(new PerspectiveCamera());// 立体相机
-        scene.getStylesheets().add(FxUtils.getCss("/css/core.css"));// 加载css
+        scene.getStylesheets().add(FxUtils.getCss("/css/cf-button.css"));// 加载css
         primaryStage.setScene(scene);
         primaryStage.setWidth(500);
         primaryStage.setHeight(300);

@@ -74,7 +74,7 @@ public class CFStage extends Stage {
         // class
         root.getStyleClass().add("cf-stage");
         // css
-        this.scene.getStylesheets().add(FxUtils.getCss("/css/core.css"));
+        this.scene.getStylesheets().add(FxUtils.getCss("/css/cf-button.css"));
     }
 
     /**************************************************** 窗口拖动 ****************************************************/

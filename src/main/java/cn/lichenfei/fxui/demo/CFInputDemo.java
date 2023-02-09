@@ -19,11 +19,12 @@ public class CFInputDemo extends Application {
         gridPane.setMaxWidth(Double.NEGATIVE_INFINITY);
         gridPane.setVgap(20);
         gridPane.setHgap(20);
-        //普通按钮
+
         gridPane.add(new CFInput(), 0, 0);
+        gridPane.add(new CFInput(), 1, 0);
         //
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(FxUtils.getCss("/css/core.css"));// 加载css
+        scene.getStylesheets().add(FxUtils.getCss("/css/cf-button.css"));// 加载css
         primaryStage.setScene(scene);
         primaryStage.setWidth(500);
         primaryStage.setHeight(300);

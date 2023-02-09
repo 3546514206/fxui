@@ -5,7 +5,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.application.Application;
-import javafx.geometry.Point3D;
 import javafx.geometry.Pos;
 import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
@@ -128,7 +127,7 @@ public class TimelineDemo extends Application {
         Scene scene = new Scene(root);
         PerspectiveCamera perspectiveCamera = new PerspectiveCamera();
         scene.setCamera(perspectiveCamera);// 立体相机
-        scene.getStylesheets().add(FxUtils.getCss("/css/core.css"));// 加载css
+        scene.getStylesheets().add(FxUtils.getCss("/css/cf-button.css"));// 加载css
         primaryStage.setScene(scene);
         primaryStage.setWidth(1200);
         primaryStage.setHeight(700);

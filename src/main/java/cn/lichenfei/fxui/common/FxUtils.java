@@ -1,6 +1,5 @@
 package cn.lichenfei.fxui.common;
 
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -15,7 +14,7 @@ public class FxUtils {
     /**
      * 从resources文件夹下获取css
      *
-     * @param resources eg：/css/core.css
+     * @param resources eg：/css/cf-button.css
      * @return
      */
     public static String getCss(String resources) {

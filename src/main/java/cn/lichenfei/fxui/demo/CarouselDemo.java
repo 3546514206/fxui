@@ -32,7 +32,7 @@ public class CarouselDemo extends Application {
         //
         StackPane root = new StackPane(carousel);
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(FxUtils.getCss("/css/core.css"));// 加载css
+        scene.getStylesheets().add(FxUtils.getCss("/css/cf-button.css"));// 加载css
         primaryStage.setScene(scene);
         primaryStage.setWidth(1200);
         primaryStage.setHeight(700);

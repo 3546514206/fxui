@@ -4,7 +4,7 @@ import cn.lichenfei.fxui.common.FxUtils;
 import cn.lichenfei.fxui.common.Level;
 import cn.lichenfei.fxui.common.LoadingUtils;
 import cn.lichenfei.fxui.controls.CFLoading;
-import cn.lichenfei.fxui.common.SimpleButton;
+import cn.lichenfei.fxui.controls.CFButton;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -26,7 +26,7 @@ public class LoadingDemo extends Application {
         hBox.setAlignment(Pos.CENTER);
         hBox.setSpacing(50);
         //按钮加载
-        Button button1 = SimpleButton.get("按钮加载", Level.PRIMARY);
+        Button button1 = CFButton.get("按钮加载", Level.PRIMARY);
         button1.setOnMouseClicked(event ->
                 LoadingUtils.buttonLoad(button1, () -> {
                     // 在这个里边可以执行业务逻辑
@@ -39,7 +39,7 @@ public class LoadingDemo extends Application {
                 }));
 
         //指定容器
-        Button button2 = SimpleButton.get("指定容器", Level.SUCCESS);
+        Button button2 = CFButton.get("指定容器", Level.SUCCESS);
         button2.setOnMouseClicked(event ->
                 LoadingUtils.nodeLoad(root, () -> {
                     // 在这个里边可以执行业务逻辑
@@ -51,7 +51,7 @@ public class LoadingDemo extends Application {
                     return true;
                 }));
         //指定大小
-        Button button3 = SimpleButton.get("指定大小", Level.INFO);
+        Button button3 = CFButton.get("指定大小", Level.INFO);
         button3.setOnMouseClicked(event ->
                 LoadingUtils.nodeLoad(root, new CFLoading(CFLoading.Size.LARGE).setMessage("稍等片刻!"), () -> {
                     // 在这个里边可以执行业务逻辑
@@ -66,7 +66,7 @@ public class LoadingDemo extends Application {
         hBox.getChildren().addAll(button1, button2, button3);
         //
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(FxUtils.getCss("/css/core.css"));// 加载css
+        scene.getStylesheets().add(FxUtils.getCss("/css/cf-button.css"));// 加载css
         primaryStage.setScene(scene);
         primaryStage.setWidth(700);
         primaryStage.setHeight(400);
