@@ -1,14 +1,16 @@
 package cn.lichenfei.fxui.ui;
 
 import cn.lichenfei.fxui.common.FxUtils;
-import cn.lichenfei.fxui.common.Level;
 import cn.lichenfei.fxui.controls.CFButton;
+import cn.lichenfei.fxui.controls.CFTextField;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 public class IndexUI extends StackPane {
 
@@ -19,25 +21,25 @@ public class IndexUI extends StackPane {
     private HBox main = new HBox(); // 登录,注册容器
     private Backdrop backdrop2 = new Backdrop(FxUtils.getImage("/img/backdrop.png")); // 上层背景容器
 
+    //
+    private SignInBox signInBox = new SignInBox();
+    private SignUpBox signUpBox = new SignUpBox();
+
     public IndexUI() {
-        this.getChildren().addAll(backdrop1, main, backdrop2);
-        main.setStyle("-fx-background-color: rgba(255,255,255,0.8);");
-
-        // 登录，注册测试按钮
-        CFButton signIn = CFButton.get("登录", Level.PRIMARY);
-        CFButton signUp = CFButton.get("注册", Level.PRIMARY);
-        main.getChildren().addAll(signIn, signUp);
-        main.setAlignment(Pos.CENTER);
-        main.setSpacing(200);
-        signIn.setOnMouseClicked(event -> translatePlay(false));
-        signUp.setOnMouseClicked(event -> translatePlay(true));
-
+        getChildren().addAll(backdrop1, main, backdrop2);
+        main.setStyle("-fx-background-color: rgba(255,255,255,0.5);");
+        main.getChildren().addAll(signInBox, signUpBox);
+        signInBox.prefWidthProperty().bind(widthProperty().divide(2));
+        signUpBox.prefWidthProperty().bind(widthProperty().divide(2));
+        //
         Rectangle rectangle = new Rectangle();
         rectangle.widthProperty().bind(this.widthProperty().divide(2));
         rectangle.heightProperty().bind(this.heightProperty());
         backdrop2.setClip(rectangle);
         // 动画
         rectangle.layoutXProperty().bind(TRANSITION_NODE.translateXProperty());
+
+        backdrop2.setOnMouseClicked(event -> translatePlay(!(TRANSITION_NODE.getTranslateX() > 0)));
     }
 
     /**
@@ -76,4 +78,32 @@ public class IndexUI extends StackPane {
             this.setBackground(background);
         }
     }
+
+    public class SignInBox extends VBox {
+        private CFTextField email = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.MAIL));
+        private CFTextField password = new CFTextField(CFTextField.Type.PASSWORD, new FontIcon(AntDesignIconsOutlined.KEY));
+        private CFButton signIn = new CFButton("登录");
+
+        public SignInBox() {
+            getChildren().addAll(email, password, signIn);
+            signIn.prefWidthProperty().bind(password.widthProperty());
+            setAlignment(Pos.CENTER);
+            setSpacing(20);
+        }
+    }
+
+    public class SignUpBox extends VBox {
+        private CFTextField user = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.USER));
+        private CFTextField email = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.MAIL));
+        private CFTextField password = new CFTextField(CFTextField.Type.PASSWORD, new FontIcon(AntDesignIconsOutlined.KEY));
+        private CFButton signUp = new CFButton("注册");
+
+        public SignUpBox() {
+            getChildren().addAll(user, email, password, signUp);
+            signUp.prefWidthProperty().bind(password.widthProperty());
+            setAlignment(Pos.CENTER);
+            setSpacing(20);
+        }
+    }
+
 }

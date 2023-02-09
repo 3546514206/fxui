@@ -18,6 +18,8 @@ import org.silentsoft.ui.util.StageDragResizer;
 
 public class CFStage extends Stage {
 
+    private static final String STYLE_SHEET = FxUtils.getCss("/css/cf-stage.css");
+
     private static final double DEFAULT_WIDTH = 750;
     private static final double DEFAULT_HEIGHT = 500;
     private DropShadow dropShadow = new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.8), 10, 0, 1.5, 1.5);
@@ -74,7 +76,7 @@ public class CFStage extends Stage {
         // class
         root.getStyleClass().add("cf-stage");
         // css
-        this.scene.getStylesheets().add(FxUtils.getCss("/css/cf-button.css"));
+        root.getStylesheets().add(STYLE_SHEET);
     }
 
     /**************************************************** 窗口拖动 ****************************************************/

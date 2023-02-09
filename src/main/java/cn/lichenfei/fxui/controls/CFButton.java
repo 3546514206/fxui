@@ -17,11 +17,18 @@ public class CFButton extends Button {
         return new CFButton(text, level);
     }
 
+    /**
+     * @param text
+     */
     public CFButton(String text) {
         this.setText(text);
         setStyleClass(STYLE_CLASS, Level.PRIMARY.getStyleClass());
     }
 
+    /**
+     * @param text
+     * @param level
+     */
     public CFButton(String text, Level level) {
         this.setText(text);
         setStyleClass(STYLE_CLASS, level.getStyleClass());
