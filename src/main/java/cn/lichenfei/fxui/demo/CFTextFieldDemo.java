@@ -26,7 +26,9 @@ public class CFTextFieldDemo extends Application {
         gridPane.add(new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsFilled.SETTING)), 1, 0);
 
         // 密码框
-        gridPane.add(new CFTextField(CFTextField.Type.PASSWORD), 0, 1);
+        CFTextField cfTextField = new CFTextField(CFTextField.Type.PASSWORD);
+        cfTextField.setPromptText("请输入密码");
+        gridPane.add(cfTextField, 0, 1);
         gridPane.add(new CFTextField(CFTextField.Type.PASSWORD, new FontIcon(AntDesignIconsFilled.LOCK)), 1, 1);
 
         //

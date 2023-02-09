@@ -4,6 +4,7 @@
 @import "cf-colors.css";
 
 .cf-text-field{
+    -fx-pref-height: 32px;
     -fx-padding: 0px 8px;
     -fx-spacing: 6px;
     -fx-alignment: center;
@@ -16,7 +17,6 @@
 .cf-text-field > .text-field,
 .cf-text-field > .password-field{
     -fx-padding: 0px;
-    -fx-pref-height: 32px;
     -fx-text-fill: -cf-text-color;
     -fx-font-size: 14px;
     -fx-border-width: 0;

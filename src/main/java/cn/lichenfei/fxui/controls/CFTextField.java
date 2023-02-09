@@ -41,6 +41,11 @@ public class CFTextField extends HBox {
         initialize();
     }
 
+    public void setPromptText(String promptText) {
+        this.textField.setPromptText(promptText);
+        this.passwordField.setPromptText(promptText);
+    }
+
     private void initialize() {
         setLayout();
         setEvent();
@@ -58,6 +63,7 @@ public class CFTextField extends HBox {
         this.rightIcon.getStyleClass().add("right-icon");
         if (Type.TEXT.equals(this.type)) {
             this.rightIcon.setGraphic(new FontIcon(AntDesignIconsFilled.CLOSE_CIRCLE));
+            this.rightIcon.setVisible(false);
         } else {
             this.rightIcon.setGraphic(new FontIcon(AntDesignIconsFilled.EYE_INVISIBLE));
         }
@@ -69,6 +75,10 @@ public class CFTextField extends HBox {
         ChangeListener<Boolean> tChangeListener = (observable, oldValue, newValue) -> this.pseudoClassStateChanged(this.CF_FOCUSED, newValue);
         this.textField.focusedProperty().addListener(tChangeListener);
         this.passwordField.focusedProperty().addListener(tChangeListener);
+        //是否显示右侧图标
+        this.textField.textProperty()
+                .addListener((observable, oldValue, newValue) ->
+                        this.rightIcon.setVisible(!(newValue == null || "".equals(newValue) && Type.TEXT.equals(this.type))));
         // 点击右侧图标事件
         this.rightIcon.setOnMouseClicked(event -> {
             if (Type.TEXT.equals(this.type)) {

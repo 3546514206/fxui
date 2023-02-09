@@ -12,7 +12,7 @@ public class StartUp {
         // TimelineDemo.main(args);
         // ClockDemo.main(args);
         // CFTextLoadingDemo.main(args);
-        // CFTextFieldDemo.main(args);
+         CFTextFieldDemo.main(args);
     }
 
 }
