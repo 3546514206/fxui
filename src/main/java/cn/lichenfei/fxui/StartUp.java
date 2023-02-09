@@ -1,8 +1,6 @@
 package cn.lichenfei.fxui;
 
-import cn.lichenfei.fxui.demo.CFTextLoadingDemo;
-import cn.lichenfei.fxui.demo.ClockDemo;
-import cn.lichenfei.fxui.demo.TimelineDemo;
+import cn.lichenfei.fxui.demo.*;
 
 public class StartUp {
 
@@ -13,7 +11,8 @@ public class StartUp {
         // CarouselDemo.main(args); // 这个重写
         // TimelineDemo.main(args);
         // ClockDemo.main(args);
-        CFTextLoadingDemo.main(args);
+        // CFTextLoadingDemo.main(args);
+        //CFInputDemo.main(args);
     }
 
 }

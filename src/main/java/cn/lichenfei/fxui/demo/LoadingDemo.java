@@ -4,7 +4,7 @@ import cn.lichenfei.fxui.common.FxUtils;
 import cn.lichenfei.fxui.common.Level;
 import cn.lichenfei.fxui.common.LoadingUtils;
 import cn.lichenfei.fxui.controls.CFLoading;
-import cn.lichenfei.fxui.controls.SimpleButton;
+import cn.lichenfei.fxui.common.SimpleButton;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -31,7 +31,7 @@ public class LoadingDemo extends Application {
                 LoadingUtils.buttonLoad(button1, () -> {
                     // 在这个里边可以执行业务逻辑
                     try {
-                        TimeUnit.SECONDS.sleep(3);
+                        TimeUnit.SECONDS.sleep(5);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -44,7 +44,7 @@ public class LoadingDemo extends Application {
                 LoadingUtils.nodeLoad(root, () -> {
                     // 在这个里边可以执行业务逻辑
                     try {
-                        TimeUnit.SECONDS.sleep(3);
+                        TimeUnit.SECONDS.sleep(5);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -56,7 +56,7 @@ public class LoadingDemo extends Application {
                 LoadingUtils.nodeLoad(root, new CFLoading(CFLoading.Size.LARGE).setMessage("稍等片刻!"), () -> {
                     // 在这个里边可以执行业务逻辑
                     try {
-                        TimeUnit.SECONDS.sleep(3);
+                        TimeUnit.SECONDS.sleep(5);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }

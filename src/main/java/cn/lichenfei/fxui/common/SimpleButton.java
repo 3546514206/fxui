@@ -1,33 +1,35 @@
-package cn.lichenfei.fxui.controls;
+package cn.lichenfei.fxui.common;
 
-import cn.lichenfei.fxui.common.CFStyleClass;
-import cn.lichenfei.fxui.common.Level;
 import javafx.scene.control.Button;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 public class SimpleButton extends Button {
 
-    public static SimpleButton get(String text, Level level){
-        return new SimpleButton(text,level);
+    private static final String BUT_CLASS = "cf-but";
+    private static final String PLAIN_CLASS = "plain";
+    private static final String ROUND_CLASS = "round";
+
+    public static SimpleButton get(String text, Level level) {
+        return new SimpleButton(text, level);
     }
 
     public SimpleButton(String text) {
         this.setText(text);
-        setStyleClass(CFStyleClass.BUT, Level.PRIMARY.getStyleClass());
+        setStyleClass(BUT_CLASS, Level.PRIMARY.getStyleClass());
     }
 
     public SimpleButton(String text, Level level) {
         this.setText(text);
-        setStyleClass(CFStyleClass.BUT, level.getStyleClass());
+        setStyleClass(BUT_CLASS, level.getStyleClass());
     }
 
     public SimpleButton round() {
-        setStyleClass(CFStyleClass.ROUND_BUT);
+        setStyleClass(ROUND_CLASS);
         return this;
     }
 
     public SimpleButton plain() {
-        setStyleClass(CFStyleClass.PLAIN_BUT);
+        setStyleClass(PLAIN_CLASS);
         return this;
     }
 

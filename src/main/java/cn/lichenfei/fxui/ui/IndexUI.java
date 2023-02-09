@@ -2,7 +2,7 @@ package cn.lichenfei.fxui.ui;
 
 import cn.lichenfei.fxui.common.FxUtils;
 import cn.lichenfei.fxui.common.Level;
-import cn.lichenfei.fxui.controls.SimpleButton;
+import cn.lichenfei.fxui.common.SimpleButton;
 import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
 import javafx.scene.image.Image;

@@ -1,9 +1,6 @@
 package cn.lichenfei.fxui.controls;
 
-import javafx.animation.Interpolator;
-import javafx.animation.ParallelTransition;
-import javafx.animation.RotateTransition;
-import javafx.animation.TranslateTransition;
+import javafx.animation.*;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -110,14 +107,14 @@ public class CFLoading extends StackPane {
         TT.setDuration(Duration.millis(1000));
         TT.setInterpolator(Interpolator.LINEAR);
         TT.setAutoReverse(true);
-        TT.setCycleCount(-1);
+        TT.setCycleCount(Timeline.INDEFINITE);
         //旋转动画
         RT.setNode(TRANSITION_NODE);
         RT.setFromAngle(360);
         RT.setToAngle(0);
         RT.setDuration(Duration.millis(700));
         RT.setInterpolator(Interpolator.LINEAR);
-        RT.setCycleCount(-1);
+        RT.setCycleCount(Timeline.INDEFINITE);
         //
         PT.play();
     }

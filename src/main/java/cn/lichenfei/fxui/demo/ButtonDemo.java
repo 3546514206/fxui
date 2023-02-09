@@ -2,7 +2,7 @@ package cn.lichenfei.fxui.demo;
 
 import cn.lichenfei.fxui.common.FxUtils;
 import cn.lichenfei.fxui.common.Level;
-import cn.lichenfei.fxui.controls.SimpleButton;
+import cn.lichenfei.fxui.common.SimpleButton;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
