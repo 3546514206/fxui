@@ -6,13 +6,13 @@ public class StartUp {
 
     public static void main(String[] args) {
         // FxApplication.main(args);
-         ButtonDemo.main(args);
+        // ButtonDemo.main(args);
         // LoadingDemo.main(args);
         // CarouselDemo.main(args); // 这个重写
         // TimelineDemo.main(args);
         // ClockDemo.main(args);
         // CFTextLoadingDemo.main(args);
-        // CFInputDemo.main(args);
+        // CFTextFieldDemo.main(args);
     }
 
 }

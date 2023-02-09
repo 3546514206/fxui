@@ -1,14 +1,15 @@
 package cn.lichenfei.fxui.demo;
 
-import cn.lichenfei.fxui.common.FxUtils;
-import cn.lichenfei.fxui.controls.CFInput;
+import cn.lichenfei.fxui.controls.CFTextField;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.stage.Stage;
+import org.kordamp.ikonli.antdesignicons.AntDesignIconsFilled;
+import org.kordamp.ikonli.javafx.FontIcon;
 
-public class CFInputDemo extends Application {
+public class CFTextFieldDemo extends Application {
 
     @Override
     public void start(Stage primaryStage) {
@@ -20,14 +21,19 @@ public class CFInputDemo extends Application {
         gridPane.setVgap(20);
         gridPane.setHgap(20);
 
-        gridPane.add(new CFInput(), 0, 0);
-        gridPane.add(new CFInput(), 1, 0);
+        // 文本框
+        gridPane.add(new CFTextField(), 0, 0);
+        gridPane.add(new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsFilled.SETTING)), 1, 0);
+
+        // 密码框
+        gridPane.add(new CFTextField(CFTextField.Type.PASSWORD), 0, 1);
+        gridPane.add(new CFTextField(CFTextField.Type.PASSWORD, new FontIcon(AntDesignIconsFilled.LOCK)), 1, 1);
+
         //
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(FxUtils.getCss("/css/cf-button.css"));// 加载css
         primaryStage.setScene(scene);
-        primaryStage.setWidth(500);
-        primaryStage.setHeight(300);
+        primaryStage.setWidth(900);
+        primaryStage.setHeight(500);
         primaryStage.show();
     }
 

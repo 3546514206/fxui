@@ -1,0 +1,43 @@
+
+
+
+@import "cf-colors.css";
+
+.cf-text-field{
+    -fx-padding: 0px 8px;
+    -fx-spacing: 6px;
+    -fx-alignment: center;
+    -fx-border-radius: 3px;
+    -fx-border-color: -cf-border-color;
+}
+.cf-text-field:cf-focused{
+    -fx-border-color: -cf-primary-color;
+}
+.cf-text-field > .text-field,
+.cf-text-field > .password-field{
+    -fx-padding: 0px;
+    -fx-pref-height: 32px;
+    -fx-text-fill: -cf-text-color;
+    -fx-font-size: 14px;
+    -fx-border-width: 0;
+    -fx-background-insets:0;
+    -fx-background-color:transparent;
+    -fx-highlight-fill: -cf-primary-color;
+}
+.cf-text-field > .icon-label > .ikonli-font-icon{
+    -fx-icon-size: 20px;
+    -fx-icon-color: -cf-border-color;
+}
+.cf-text-field:cf-focused > .icon-label > .ikonli-font-icon{
+    -fx-icon-color: -cf-primary-color;
+}
+.cf-text-field > .right-icon{
+    -fx-cursor: hand;
+}
+.cf-text-field > .right-icon > .ikonli-font-icon{
+    -fx-icon-size: 15px;
+    -fx-icon-color: rgba(0,0,0,0.2);
+}
+.cf-text-field > .right-icon:hover > .ikonli-font-icon{
+    -fx-icon-color: rgba(0,0,0,0.3);
+}

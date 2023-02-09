@@ -1,6 +1,0 @@
-.cf-input{
-    -fx-border-color:red;
-}
-.cf-input:selected{
-    -fx-border-color:blue;
-}
