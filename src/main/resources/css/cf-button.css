@@ -43,14 +43,14 @@
     -fx-background-radius: 16px;
 }
 /*朴素按钮*/
-.cf-but.plain{
+.cf-but.plain, .cf-but.plain:focused{
     -fx-background-color: transparent;
 }
-.cf-but.primary.plain{-fx-border-color: -cf-primary-color;-fx-text-fill: -cf-primary-color;-fx-background-color: derive(-cf-primary-color,95%);}
-.cf-but.success.plain{-fx-border-color: -cf-success-color;-fx-text-fill: -cf-success-color;-fx-background-color: derive(-cf-success-color,95%);}
-.cf-but.info.plain{-fx-border-color: -cf-info-color;-fx-text-fill: -cf-info-color;-fx-background-color: derive(-cf-info-color,95%);}
-.cf-but.warn.plain{-fx-border-color: -cf-warn-color;-fx-text-fill: -cf-warn-color;-fx-background-color: derive(-cf-warn-color,95%);}
-.cf-but.danger.plain{-fx-border-color: -cf-danger-color;-fx-text-fill: -cf-danger-color;-fx-background-color: derive(-cf-danger-color,95%);}
+.cf-but.primary.plain{-fx-border-color: -cf-primary-color;-fx-text-fill: -cf-primary-color;}
+.cf-but.success.plain{-fx-border-color: -cf-success-color;-fx-text-fill: -cf-success-color;}
+.cf-but.info.plain{-fx-border-color: -cf-info-color;-fx-text-fill: -cf-info-color;}
+.cf-but.warn.plain{-fx-border-color: -cf-warn-color;-fx-text-fill: -cf-warn-color;}
+.cf-but.danger.plain{-fx-border-color: -cf-danger-color;-fx-text-fill: -cf-danger-color;}
 
 .cf-but.primary.plain > .ikonli-font-icon{-fx-icon-color: -cf-primary-color;}
 .cf-but.success.plain > .ikonli-font-icon{-fx-icon-color: -cf-success-color;}
@@ -58,17 +58,17 @@
 .cf-but.warn.plain > .ikonli-font-icon{-fx-icon-color: -cf-warn-color;}
 .cf-but.danger.plain > .ikonli-font-icon{-fx-icon-color: -cf-danger-color;}
 
-.cf-but.primary.plain:hover > .ikonli-font-icon, .cf-but.primary.plain:focused > .ikonli-font-icon{-fx-icon-color: rgb(255,255,255);}
-.cf-but.success.plain:hover > .ikonli-font-icon, .cf-but.success.plain:focused > .ikonli-font-icon{-fx-icon-color: rgb(255,255,255);}
-.cf-but.info.plain:hover > .ikonli-font-icon, .cf-but.info.plain:focused > .ikonli-font-icon{-fx-icon-color: rgb(255,255,255);}
-.cf-but.warn.plain:hover > .ikonli-font-icon, .cf-but.warn.plain:focused > .ikonli-font-icon{-fx-icon-color: rgb(255,255,255);}
-.cf-but.danger.plain:hover > .ikonli-font-icon, .cf-but.danger.plain:focused > .ikonli-font-icon{-fx-icon-color: rgb(255,255,255);}
+.cf-but.primary.plain:hover > .ikonli-font-icon{-fx-icon-color: rgb(255,255,255);}
+.cf-but.success.plain:hover > .ikonli-font-icon{-fx-icon-color: rgb(255,255,255);}
+.cf-but.info.plain:hover > .ikonli-font-icon{-fx-icon-color: rgb(255,255,255);}
+.cf-but.warn.plain:hover > .ikonli-font-icon{-fx-icon-color: rgb(255,255,255);}
+.cf-but.danger.plain:hover > .ikonli-font-icon{-fx-icon-color: rgb(255,255,255);}
 
-.cf-but.primary.plain:hover, .cf-but.primary.plain:focused{-fx-background-color: -cf-primary-color;-fx-text-fill: rgb(255,255,255);}
-.cf-but.success.plain:hover, .cf-but.success.plain:focused{-fx-background-color: -cf-success-color;-fx-text-fill: rgb(255,255,255);}
-.cf-but.info.plain:hover, .cf-but.info.plain:focused{-fx-background-color: -cf-info-color;-fx-text-fill: rgb(255,255,255);}
-.cf-but.warn.plain:hover, .cf-but.warn.plain:focused{-fx-background-color: -cf-warn-color;-fx-text-fill: rgb(255,255,255);}
-.cf-but.danger.plain:hover, .cf-but.danger.plain:focused{-fx-background-color: -cf-danger-color;-fx-text-fill: rgb(255,255,255);}
+.cf-but.primary.plain:hover{-fx-background-color: -cf-primary-color;-fx-text-fill: rgb(255,255,255);}
+.cf-but.success.plain:hover{-fx-background-color: -cf-success-color;-fx-text-fill: rgb(255,255,255);}
+.cf-but.info.plain:hover{-fx-background-color: -cf-info-color;-fx-text-fill: rgb(255,255,255);}
+.cf-but.warn.plain:hover{-fx-background-color: -cf-warn-color;-fx-text-fill: rgb(255,255,255);}
+.cf-but.danger.plain:hover{-fx-background-color: -cf-danger-color;-fx-text-fill: rgb(255,255,255);}
 
 .cf-but.primary.plain:pressed{-fx-background-color: derive(-cf-primary-color,-10%);}
 .cf-but.success.plain:pressed{-fx-background-color: derive(-cf-success-color,-10%);}
