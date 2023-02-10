@@ -10,8 +10,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Hyperlink;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
@@ -121,31 +119,4 @@ public class Login extends StackPane {
         }
     }
 
-    public class MyVBox extends VBox {
-
-        public MyVBox(Node... nodes) {
-            super(nodes);
-            setMaxHeight(Control.USE_PREF_SIZE);
-            setMaxWidth(Control.USE_PREF_SIZE);
-        }
-    }
-
-    /**
-     * 背景
-     */
-    public class Backdrop extends StackPane {
-        private Image image;
-        private ImageView imageView = new ImageView();
-
-        public Backdrop(Image image) {
-            this.image = image;
-            setLayout();
-        }
-
-        private void setLayout() {
-            getChildren().addAll(imageView);
-            StackPane.setAlignment(imageView, Pos.TOP_CENTER);
-            imageView.setImage(image);
-        }
-    }
 }
