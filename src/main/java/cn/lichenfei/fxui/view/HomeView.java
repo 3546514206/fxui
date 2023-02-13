@@ -50,8 +50,7 @@ public class HomeView extends HBox {
                 new MenuInfo(new FontIcon(AntDesignIconsFilled.HOME), "首页", new StackPane()),
                 new MenuInfo(new FontIcon(AntDesignIconsOutlined.TABLE), "表格/数据", new DataView()),
                 new MenuInfo(new FontIcon(AntDesignIconsOutlined.AREA_CHART), "统计图", new ChartView()),
-                new MenuInfo(new FontIcon(AntDesignIconsOutlined.CREDIT_CARD), "卡片", new CardView()),
-                new MenuInfo(new FontIcon(AntDesignIconsOutlined.COMMENT), "轮播", CFCarousel.create(null, 500, 300, true))
+                new MenuInfo(new FontIcon(AntDesignIconsOutlined.CREDIT_CARD), "卡片", new CardView())
         };
         aside.setMenuInfo(menuInfo);
         //菜单选中事件监听
@@ -62,8 +61,8 @@ public class HomeView extends HBox {
             });
         });
         //选中
-        main.getChildren().add(menuInfo[4].getContent());
-        menu.getSelectionModel().select(4);
+        main.getChildren().add(menuInfo[3].getContent());
+        menu.getSelectionModel().select(3);
     }
 
     /**

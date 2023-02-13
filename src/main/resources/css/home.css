@@ -1,7 +1,10 @@
+
+@import "cf-colors.css";
+
 .home{
     -fx-border-width: 1px 0 0 0;
-    /*-fx-border-color: linear-gradient(from 0.0% 0.0% to 100.0% 0.0%, #fc8bffff 0.0%, #2bd4fdff 50.0%, #2dff89ff 100.0%);*/
-    -fx-border-color: border-color;
+    /*-fx--cf-border-color: linear-gradient(from 0.0% 0.0% to 100.0% 0.0%, #fc8bffff 0.0%, #2bd4fdff 50.0%, #2dff89ff 100.0%);*/
+    -fx--cf-border-color: -cf-border-color;
 }
 /*左侧*/
 .aside{
@@ -29,29 +32,29 @@
 .aside > .bottom > .logout-label{
     -fx-font-size: 14px;
     -fx-font-weight: 600;
-    -fx-text-fill: text-color;
+    -fx-text-fill: -cf-text-color;
 }
 .aside > .top > .bell-label > .ikonli-font-icon,
 .aside > .top > .user-menu > .ikonli-font-icon,
 .aside > .bottom > .logout-label > .ikonli-font-icon{
     -fx-icon-size: 20px;
-    -fx-icon-color: text-color;
+    -fx-icon-color: -cf-text-color;
 }
 .aside > .top > .bell-label:hover > .ikonli-font-icon,
 .aside > .top > .user-menu:hover > .ikonli-font-icon{
-    -fx-icon-color: primary-color;
+    -fx-icon-color: -cf-primary-color;
 }
 .aside > .bottom > .logout-label:hover{
-    -fx-text-fill: danger-color;
+    -fx-text-fill: -cf-danger-color;
 }
 .aside > .bottom > .logout-label:hover > .ikonli-font-icon{
-    -fx-icon-color: danger-color;
+    -fx-icon-color: -cf-danger-color;
 }
 .menu{
     -fx-background-insets: 0px;
     -fx-background-color:transparent;
     -fx-padding:5px 0 5px 0;
-    -fx-border-color: border-color transparent border-color transparent;
+    -fx--cf-border-color: -cf-border-color transparent -cf-border-color transparent;
     -fx-border-width: 1px 0 1px 0;
 }
 .menu .scroll-bar{
@@ -68,57 +71,57 @@
     -fx-background-color:transparent;
 }
 .menu .cell.indexed-cell.list-cell:hover{
-    -fx-background-color: derive(primary-color,95%);
+    -fx-background-color: derive(-cf-primary-color,95%);
 }
 .menu .cell.indexed-cell.list-cell:selected{
-    -fx-background-color: derive(primary-color,85%);
+    -fx-background-color: derive(-cf-primary-color,85%);
 }
 .menu .cell.indexed-cell.list-cell:selected .menu-item{
-    -fx-border-color: transparent transparent transparent primary-color;
+    -fx--cf-border-color: transparent transparent transparent -cf-primary-color;
 }
 .menu .cell.indexed-cell.list-cell:selected .name-label{
-    -fx-text-fill: primary-color;
+    -fx-text-fill: -cf-primary-color;
 }
 .menu .cell.indexed-cell.list-cell:selected .icon-label > .ikonli-font-icon{
-    -fx-icon-color: primary-color;
+    -fx-icon-color: -cf-primary-color;
 }
 .menu-item{
     -fx-spacing: 15px;
     -fx-alignment: center-left;
     -fx-padding: 10px 5px 10px 20px;
     -fx-border-width: 0 0 0 5px;
-    -fx-border-color: transparent transparent transparent transparent;
+    -fx--cf-border-color: transparent transparent transparent transparent;
 }
 .menu-item > .icon-label > .ikonli-font-icon{
-    -fx-icon-color: text-color;
+    -fx-icon-color: -cf-text-color;
     -fx-icon-size: 18px;
 }
 .menu-item > .name-label{
     -fx-font-size:15px;
     -fx-font-weight:700;
-    -fx-text-fill:text-color;
+    -fx-text-fill:-cf-text-color;
 }
 /*顶部*/
 .header{
     -fx-padding: 10px 20px 10px 20px;
     -fx-alignment: center-left;
-    -fx-border-color: transparent transparent border-color transparent;
+    -fx--cf-border-color: transparent transparent -cf-border-color transparent;
     -fx-border-width: 0 0 1px 0;
 }
 .header > .title-label{
     -fx-font-size:15px;
     -fx-font-weight:700;
-    -fx-text-fill:text-color;
+    -fx-text-fill:-cf-text-color;
 }
 .header > .msg-label{
     -fx-pref-height: 20px;
     -fx-font-size: 13px;
-    -fx-text-fill: primary-color;
+    -fx-text-fill: -cf-primary-color;
     -fx-alignment: center-right;
 }
 .header > .msg-label > .ikonli-font-icon{
     -fx-icon-size: 18px;
-    -fx-icon-color: primary-color;
+    -fx-icon-color: -cf-primary-color;
 }
 /*主要内容*/
 .main{

@@ -31,7 +31,7 @@ public class CFTableView extends TableView {
 
     @Override
     public String getUserAgentStylesheet() {
-        return FxUtils.getCss("/css/controls/cf-table.css");
+        return FxUtils.getCss("/css/cf-button.css");
     }
 
     /**
