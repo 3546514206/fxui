@@ -1,6 +1,6 @@
 package cn.lichenfei.fxui.demo;
 
-import cn.lichenfei.fxui.common.FxUtils;
+import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.controls.CFTextLoading;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -14,7 +14,7 @@ public class CFTextLoadingDemo extends Application {
 
         StackPane root = new StackPane(new CFTextLoading("加载中..."));
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(FxUtils.getCss("/css/cf-button.css"));// 加载css
+        scene.getStylesheets().add(FxUtil.getResource("/css/cf-button.css"));// 加载css
         primaryStage.setScene(scene);
         primaryStage.setWidth(500);
         primaryStage.setHeight(300);

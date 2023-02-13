@@ -1,6 +1,6 @@
 package cn.lichenfei.fxui.controls;
 
-import cn.lichenfei.fxui.common.FxUtils;
+import cn.lichenfei.fxui.common.FxUtil;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Scene;
@@ -18,7 +18,7 @@ import org.silentsoft.ui.util.StageDragResizer;
 
 public class CFStage extends Stage {
 
-    private static final String STYLE_SHEET = FxUtils.getCss("/css/cf-stage.css");
+    private static final String STYLE_SHEET = FxUtil.getResource("/css/cf-stage.css");
 
     private static final double DEFAULT_WIDTH = 1100;
     private static final double DEFAULT_HEIGHT = 650;
@@ -67,7 +67,7 @@ public class CFStage extends Stage {
         this.shadow.setEffect(dropShadow); // 窗口阴影
         // 内容
         this.backgroundBox.setBackground(background);
-        FxUtils.setClip(this.backgroundBox, 8);
+        FxUtil.setClip(this.backgroundBox, 8);
         //
         this.backgroundBox.getChildren().addAll(aside, container);
         HBox.setHgrow(container, Priority.ALWAYS);

@@ -1,6 +1,6 @@
 package cn.lichenfei.fxui.controls;
 
-import cn.lichenfei.fxui.common.FxUtils;
+import cn.lichenfei.fxui.common.FxUtil;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -31,7 +31,7 @@ public class CFTableView extends TableView {
 
     @Override
     public String getUserAgentStylesheet() {
-        return FxUtils.getCss("/css/cf-button.css");
+        return FxUtil.getResource("/css/cf-button.css");
     }
 
     /**

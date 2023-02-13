@@ -1,6 +1,6 @@
 package cn.lichenfei.fxui.controls;
 
-import cn.lichenfei.fxui.common.FxUtils;
+import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.common.Level;
 import javafx.scene.control.Button;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -8,7 +8,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 public class CFButton extends Button {
 
     private static final String STYLE_CLASS = "cf-but";
-    private static final String STYLE_SHEET = FxUtils.getCss("/css/cf-button.css");
+    private static final String STYLE_SHEET = FxUtil.getResource("/css/cf-button.css");
     //
     private static final String PLAIN_CLASS = "plain";
     private static final String ROUND_CLASS = "round";

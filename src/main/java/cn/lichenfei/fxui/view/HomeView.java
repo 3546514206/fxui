@@ -1,8 +1,7 @@
 package cn.lichenfei.fxui.view;
 
-import cn.lichenfei.fxui.common.FxUtils;
+import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.common.model.MenuInfo;
-import cn.lichenfei.fxui.controls.CFCarousel;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.*;
@@ -30,7 +29,7 @@ public class HomeView extends HBox {
 
     {
         //css
-        this.getStylesheets().add(FxUtils.getCss("/css/home.css"));
+        this.getStylesheets().add(FxUtil.getResource("/css/home.css"));
         //布局
         this.getChildren().addAll(aside, container);
         HBox.setHgrow(container, Priority.ALWAYS);
@@ -115,10 +114,10 @@ public class HomeView extends HBox {
             userLogo.getChildren().add(logoImg);
             userLogo.setMaxWidth(Control.USE_PREF_SIZE);
             userLogo.setMaxHeight(Control.USE_PREF_SIZE);
-            logoImg.setImage(FxUtils.getImage("/img/logo.jpg"));
+            logoImg.setImage(FxUtil.getImage("/img/logo.jpg"));
             logoImg.setFitHeight(60);
             logoImg.setFitWidth(60);
-            FxUtils.setClip(userLogo, 60);
+            FxUtil.setClip(userLogo, 60);
             bellLabel.setGraphic(new FontIcon(AntDesignIconsOutlined.BELL));
             userMenu.setGraphic(new FontIcon(AntDesignIconsOutlined.MENU));
             //bottom

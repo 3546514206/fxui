@@ -1,6 +1,6 @@
 package cn.lichenfei.fxui.controls;
 
-import cn.lichenfei.fxui.common.FxUtils;
+import cn.lichenfei.fxui.common.FxUtil;
 import javafx.animation.*;
 import javafx.beans.property.*;
 import javafx.geometry.Insets;
@@ -76,7 +76,7 @@ public class CFCarousel extends StackPane {
 
     // 布局
     private void setLayout() {
-        FxUtils.setClip(this, 10);
+        FxUtil.setClip(this, 10);
         this.setMaxWidth(Double.NEGATIVE_INFINITY);
         this.setMaxHeight(Double.NEGATIVE_INFINITY);
         this.getChildren().add(content);

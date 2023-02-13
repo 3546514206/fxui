@@ -1,6 +1,6 @@
 package cn.lichenfei.fxui.demo;
 
-import cn.lichenfei.fxui.common.FxUtils;
+import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.common.Level;
 import cn.lichenfei.fxui.common.LoadingUtils;
 import cn.lichenfei.fxui.controls.CFLoading;
@@ -66,7 +66,7 @@ public class LoadingDemo extends Application {
         hBox.getChildren().addAll(button1, button2, button3);
         //
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(FxUtils.getCss("/css/cf-button.css"));// 加载css
+        scene.getStylesheets().add(FxUtil.getResource("/css/cf-button.css"));// 加载css
         primaryStage.setScene(scene);
         primaryStage.setWidth(700);
         primaryStage.setHeight(400);

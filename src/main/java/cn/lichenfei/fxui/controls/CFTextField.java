@@ -1,6 +1,6 @@
 package cn.lichenfei.fxui.controls;
 
-import cn.lichenfei.fxui.common.FxUtils;
+import cn.lichenfei.fxui.common.FxUtil;
 import javafx.beans.value.ChangeListener;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
@@ -16,7 +16,7 @@ import org.kordamp.ikonli.javafx.FontIcon;
 public class CFTextField extends HBox {
 
     private static final String STYLE_CLASS = "cf-text-field";
-    private static final String STYLE_SHEET = FxUtils.getCss("/css/cf-text-field.css");
+    private static final String STYLE_SHEET = FxUtil.getResource("/css/cf-text-field.css");
     private PseudoClass CF_FOCUSED = PseudoClass.getPseudoClass("cf-focused");// 自定义伪类
     private Type type = Type.TEXT;
     //
