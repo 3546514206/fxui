@@ -76,14 +76,14 @@ public class Login extends StackPane {
      */
     public class SignInBox extends VBox {
 
-        private Label title = SimpleControl.getLabel("登录", SimpleControl.LabelEnum.TEXT_DEFAULT);
+        private Label titleLabel = SimpleControl.getLabel("登录", SimpleControl.LabelEnum.H1);
         private CFTextField email = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.MAIL));
         private CFTextField password = new CFTextField(CFTextField.Type.PASSWORD, new FontIcon(AntDesignIconsOutlined.KEY));
         private SimpleButton signIn = new SimpleButton("登录");
         private Hyperlink toSignUp = new Hyperlink("没有账户？去注册！");
 
         public SignInBox() {
-            getChildren().addAll(title, email, password, signIn, toSignUp);
+            getChildren().addAll(titleLabel, email, password, signIn, toSignUp);
             signIn.prefWidthProperty().bind(password.widthProperty());
             //
             email.setPromptText("邮箱");
@@ -102,7 +102,7 @@ public class Login extends StackPane {
      */
     public class SignUpBox extends VBox {
 
-        private Label title = SimpleControl.getLabel("注册", SimpleControl.LabelEnum.H1);
+        private Label titleLabel = SimpleControl.getLabel("注册", SimpleControl.LabelEnum.H1);
         private CFTextField user = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.USER));
         private CFTextField email = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.MAIL));
         private CFTextField password = new CFTextField(CFTextField.Type.PASSWORD, new FontIcon(AntDesignIconsOutlined.KEY));
@@ -110,7 +110,7 @@ public class Login extends StackPane {
         private Hyperlink toSignIn = new Hyperlink("已有账户？去登录！");
 
         public SignUpBox() {
-            getChildren().addAll(title, user, email, password, signUp, toSignIn);
+            getChildren().addAll(titleLabel, user, email, password, signUp, toSignIn);
             signUp.prefWidthProperty().bind(password.widthProperty());
             //
             user.setPromptText("用户名");
