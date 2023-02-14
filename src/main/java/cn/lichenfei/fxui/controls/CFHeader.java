@@ -1,6 +1,9 @@
 package cn.lichenfei.fxui.controls;
 
 import cn.lichenfei.fxui.common.FxUtil;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
@@ -14,16 +17,14 @@ import java.util.function.Consumer;
 public class CFHeader extends HBox {
 
     private static final String STYLE_SHEET = FxUtil.getResource("/css/cf-header.css");
+    private ObjectProperty<HeaderStyle> headerStylePro = new SimpleObjectProperty<>(HeaderStyle.ALL);
 
     private StackPane titleBox = new StackPane();
     private Button iconifyBut = new Button();
     private Button maximizeBut = new Button();
     private Button closeBut = new Button();
 
-    private CFStage stage;
-
-    public CFHeader(CFStage stage) {
-        this.stage = stage;
+    public CFHeader() {
         initialize();
     }
 
@@ -37,6 +38,10 @@ public class CFHeader extends HBox {
 
     public void setCloseMouseClicked(Consumer<MouseEvent> consumer) {
         closeBut.setOnMouseClicked(event -> consumer.accept(event));
+    }
+
+    public void setHeaderStyle(HeaderStyle headerStyle) {
+        this.headerStylePro.set(headerStyle);
     }
 
     private void initialize() {
@@ -53,12 +58,37 @@ public class CFHeader extends HBox {
         maximizeBut.getStyleClass().add("maximize-but");
         closeBut.getStyleClass().add("close-but");
         //
-        iconifyBut.setOnMouseClicked(event -> stage.setIconified(true));
-        closeBut.setOnMouseClicked(event -> stage.close());
+        headerStylePro.addListener((observable, oldValue, newValue) -> {
+            switch (newValue) {
+                case ICONIFY_CLOSE:
+                    showNode(false, maximizeBut);
+                    showNode(true, iconifyBut, closeBut);
+                    break;
+                case CLOSE:
+                    showNode(false, iconifyBut, maximizeBut);
+                    showNode(true, closeBut);
+                    break;
+                case ALL:
+                default:
+                    showNode(true, iconifyBut, maximizeBut, closeBut);
+                    break;
+            }
+        });
+    }
+
+    private void showNode(boolean value, Node... node) {
+        for (int i = 0; i < node.length; i++) {
+            node[i].setVisible(value ? true : false);
+            node[i].setManaged(value ? true : false);
+        }
     }
 
     @Override
     public String getUserAgentStylesheet() {
         return STYLE_SHEET;
+    }
+
+    public enum HeaderStyle {
+        ALL, ICONIFY_CLOSE, CLOSE
     }
 }

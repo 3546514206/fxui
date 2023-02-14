@@ -1,5 +1,6 @@
 package cn.lichenfei.fxui.controls;
 
+import cn.lichenfei.fxui.common.FxUtil;
 import javafx.beans.property.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
@@ -17,9 +18,10 @@ import org.silentsoft.ui.util.StageDragResizer;
 
 public class CFStage extends Stage {
 
-    private ObjectProperty<Insets> insets = new SimpleObjectProperty<>(new Insets(10));
-    private DoubleProperty arc = new SimpleDoubleProperty(6); // 窗口圆角程度
-    private BooleanProperty maximize = new SimpleBooleanProperty(false);
+    private ObjectProperty<Insets> insetsPro = new SimpleObjectProperty<>(new Insets(10));
+    private BooleanProperty maximizePro = new SimpleBooleanProperty(false);
+    private DoubleProperty arcPro = new SimpleDoubleProperty(6); // 窗口圆角程度
+    private double arc;
     private double height = 650;
     private double width = 1100;
     private Rectangle2D stageBounds;
@@ -30,7 +32,7 @@ public class CFStage extends Stage {
     private Scene scene = new Scene(root);
 
     //
-    private CFHeader cfHeader = new CFHeader(this);
+    private CFHeader cfHeader = new CFHeader();
 
     public CFStage() {
         initialize();
@@ -54,13 +56,18 @@ public class CFStage extends Stage {
         StageDragResizer.makeResizable(this, this.root, 10, 5);// 窗口拖动缩放
     }
 
-    public CFStage setArc(double arc) {
-        this.arc.set(arc);
+    public CFStage setArc(double arcPro) {
+        this.arcPro.set(arcPro);
         return this;
     }
 
     public CFStage setContent(Node content) {
         this.content.setCenter(content);
+        return this;
+    }
+
+    public CFStage setHeaderStyle(CFHeader.HeaderStyle headerStyle) {
+        cfHeader.setHeaderStyle(headerStyle);
         return this;
     }
 
@@ -74,14 +81,14 @@ public class CFStage extends Stage {
         Rectangle rectangle = new Rectangle();
         rectangle.widthProperty().bind(content.widthProperty());
         rectangle.heightProperty().bind(content.heightProperty());
-        rectangle.arcHeightProperty().bind(arc);
-        rectangle.arcWidthProperty().bind(arc);
+        rectangle.arcHeightProperty().bind(arcPro);
+        rectangle.arcWidthProperty().bind(arcPro);
         content.setClip(rectangle);
         //显示阴影效果
         backdrop.setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.8), 10, 0, 1.5, 1.5));
-        this.root.setPrefHeight(height + insets.get().getBottom() * 2);
-        this.root.setPrefWidth(width + insets.get().getBottom() * 2);
-        this.root.paddingProperty().bind(insets);
+        this.root.setPrefHeight(height + insetsPro.get().getBottom() * 2);
+        this.root.setPrefWidth(width + insetsPro.get().getBottom() * 2);
+        this.root.paddingProperty().bind(insetsPro);
         // header
         content.setTop(cfHeader);
         headerEvent();
@@ -91,20 +98,21 @@ public class CFStage extends Stage {
      * 窗口事件监听
      */
     private void headerEvent() {
-        cfHeader.setMaximizeMouseClicked(event -> maximize.set(!maximize.get()));
-        maximize.addListener((observable, oldValue, newValue) -> {
+        cfHeader.setMaximizeMouseClicked(event -> maximizePro.set(!maximizePro.get()));
+        maximizePro.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
                 stageBounds = new Rectangle2D(getX(), getY(), getWidth(), getHeight());
-                Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
-                insets.set(new Insets(0));
-                arc.set(0);
+                arc = arcPro.get();
+                Rectangle2D visualBounds = FxUtil.getVisualBounds();
+                insetsPro.set(new Insets(0));
+                arcPro.set(0);
                 setWidth(visualBounds.getWidth());
                 setHeight(visualBounds.getHeight());
                 setX(visualBounds.getMinX());
                 setY(visualBounds.getMinY());
             } else {
-                insets.set(new Insets(10));
-                arc.set(6);
+                insetsPro.set(new Insets(10));
+                arcPro.set(arc);
                 setWidth(stageBounds.getWidth());
                 setHeight(stageBounds.getHeight());
                 setX(stageBounds.getMinX());

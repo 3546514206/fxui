@@ -1,8 +1,10 @@
 package cn.lichenfei.fxui.common;
 
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Screen;
 
 /**
  * @author ChenFei
@@ -18,7 +20,10 @@ public class FxUtil {
         return new Image(getResource(resources));
     }
 
-
+    // 获取主屏幕的可视边界
+    public static Rectangle2D getVisualBounds() {
+        return Screen.getPrimary().getVisualBounds();
+    }
 
     /**
      * 设置裁剪圆角
