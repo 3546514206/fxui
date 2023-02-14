@@ -46,6 +46,10 @@
     -fx-border-width:0;
     -fx-font-size:14px;
     -fx-text-fill: -cf-text-color;
+    -fx-underline: false;
+}
+.cf-link:hover{
+    -fx-underline: true;
 }
 .cf-link.primary{-fx-text-fill: -cf-primary-color;}
 .cf-link.success{-fx-text-fill: -cf-success-color;}

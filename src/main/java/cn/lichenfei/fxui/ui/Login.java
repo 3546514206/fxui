@@ -1,11 +1,11 @@
 package cn.lichenfei.fxui.ui;
 
+import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.common.SimpleButton;
 import cn.lichenfei.fxui.common.SimpleControl;
+import cn.lichenfei.fxui.controls.CFAvatar;
 import cn.lichenfei.fxui.controls.CFTextField;
-import javafx.animation.FadeTransition;
-import javafx.animation.ParallelTransition;
-import javafx.animation.ScaleTransition;
+import javafx.animation.*;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
@@ -29,36 +29,37 @@ public class Login extends StackPane {
     private SignUpBox signUpBox = new SignUpBox();
 
     //动画
-    private ScaleTransition ST = new ScaleTransition(Duration.millis(500));
-    private FadeTransition RT = new FadeTransition(Duration.millis(200));
-    private ParallelTransition PT = new ParallelTransition(ST, RT);
+    private TranslateTransition TT = new TranslateTransition(Duration.millis(500));
+    private FadeTransition RT_OUT = new FadeTransition(Duration.millis(500));
+    private ParallelTransition PT = new ParallelTransition(TT, RT_OUT);
+    private FadeTransition RT_IN = new FadeTransition(Duration.millis(500));
+    private SequentialTransition SEQ_T = new SequentialTransition(PT, RT_IN);
 
     public Login() {
         getChildren().addAll(signInBox);
         //动画监听
-        signInBox.toSignUpClicked(event -> {
-            play(signInBox, signUpBox);
-        });
-        signUpBox.toSignInClicked(event -> {
-            play(signUpBox, signInBox);
-        });
-        setPadding(new Insets(0,40,0,40));
+        signInBox.toSignUpClicked(event -> play(signInBox, signUpBox));
+        signUpBox.toSignInClicked(event -> play(signUpBox, signInBox));
+        setPadding(new Insets(0, 40, 0, 40));
     }
 
     private void play(Node out, Node in) {
-        RT.setNode(out);
-        RT.setFromValue(1);
-        RT.setToValue(0);
-        //
-        ST.setNode(out);
-        ST.setFromX(1);
-        ST.setToX(0);
-        ST.setFromY(1);
-        ST.setToY(0);
-        //
-        PT.setCycleCount(2);
-        PT.setAutoReverse(true);
-        PT.play();
+        // 消失动画
+        RT_OUT.setNode(out);
+        RT_OUT.setFromValue(1);
+        RT_OUT.setToValue(0);
+        RT_OUT.setOnFinished(event -> {
+            getChildren().remove(out);
+            getChildren().add(in);
+        });
+        TT.setNode(out);
+        TT.setFromY(0);
+        TT.setToY(40);
+        // 显现动画
+        RT_IN.setFromValue(0);
+        RT_IN.setToValue(1);
+        RT_IN.setNode(in);
+        SEQ_T.play();
     }
 
     private void bindWidthHeight(Region... node) {
@@ -74,7 +75,8 @@ public class Login extends StackPane {
     public class SignInBox extends VBox {
 
         private Label titleLabel = SimpleControl.getLabel("登录", SimpleControl.LabelEnum.H1);
-        private StackPane titlePane = new StackPane(titleLabel);
+        private CFAvatar avatar = new CFAvatar(64, 10);
+        private StackPane titlePane = new StackPane(titleLabel, avatar);
         private CFTextField email = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.MAIL));
         private CFTextField password = new CFTextField(CFTextField.Type.PASSWORD, new FontIcon(AntDesignIconsOutlined.KEY));
         private SimpleButton signIn = new SimpleButton("登录");
@@ -82,7 +84,9 @@ public class Login extends StackPane {
 
         public SignInBox() {
             getChildren().addAll(titlePane, email, password, signIn, toSignUp);
-            StackPane.setAlignment(titleLabel, Pos.CENTER_LEFT);
+            StackPane.setAlignment(titleLabel, Pos.BOTTOM_LEFT);
+            avatar.setImage(FxUtil.getImage("/img/logo.jpg"));
+            StackPane.setAlignment(avatar, Pos.BOTTOM_RIGHT);
             bindWidthHeight(email, password, signIn);
             setAlignment(Pos.BOTTOM_CENTER);
             setSpacing(20);
@@ -92,7 +96,6 @@ public class Login extends StackPane {
             email.setPromptText("邮箱");
             password.setPromptText("密码");
         }
-
 
         public void toSignUpClicked(Consumer<MouseEvent> consumer) {
             this.toSignUp.setOnMouseClicked(event -> consumer.accept(event));
