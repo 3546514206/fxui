@@ -16,7 +16,7 @@ public class FxApplication extends Application {
     @Override
     public void start(Stage stage) {
         //基础尺寸
-        stage = new CFStage(new Login(), 600, 600).setHeaderStyle(CFHeader.HeaderStyle.NONE);
+        stage = new CFStage(new Login(), 500, 400).setHeaderStyle(CFHeader.HeaderStyle.NONE);
         stage.setTitle("chenfei-fx");// 标题
         stage.getIcons().add(FxUtil.getImage("/img/logo.jpg"));// icon
         stage.show();
