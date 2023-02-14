@@ -1,0 +1,42 @@
+
+
+
+@import "cf-colors.css";
+
+.cf-header{
+    -fx-padding: 5px;
+    -fx-spacing: 5px;
+}
+.cf-header > .iconified-but,
+.cf-header > .maximize-but,
+.cf-header > .close-but{
+    -fx-padding:0px;
+    -fx-pref-width:20px;
+    -fx-pref-height:20px;
+    -fx-background-radius:10px;
+    -fx-background-insets:0;
+    -fx-background-color:rgba(0,0,0,0.25);
+    -fx-cursor:hand;
+}
+.cf-header > .close-but{
+    -fx-background-color:-cf-danger-color;
+}
+.cf-header > .iconified-but > .ikonli-font-icon,
+.cf-header > .maximize-but > .ikonli-font-icon,
+.cf-header > .close-but > .ikonli-font-icon{
+    -fx-icon-size:16px;
+    -fx-icon-color: transparent;
+}
+.cf-header > .close-but > .ikonli-font-icon{
+    -fx-icon-size:15px;
+}
+.cf-header > .iconified-but:pressed,
+.cf-header > .maximize-but:pressed,
+.cf-header > .close-but:pressed{
+    -fx-opacity: 0.8;
+}
+.cf-header > .iconified-but:hover > .ikonli-font-icon,
+.cf-header > .maximize-but:hover > .ikonli-font-icon,
+.cf-header > .close-but:hover > .ikonli-font-icon{
+    -fx-icon-color: rgb(255,255,255);
+}

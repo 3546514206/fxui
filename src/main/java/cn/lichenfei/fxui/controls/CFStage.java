@@ -1,82 +1,118 @@
 package cn.lichenfei.fxui.controls;
 
-import cn.lichenfei.fxui.common.FxUtil;
+import javafx.beans.property.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
+import javafx.scene.Node;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
-import org.kordamp.ikonli.javafx.FontIcon;
 import org.silentsoft.ui.util.StageDragResizer;
 
 public class CFStage extends Stage {
 
-    private static final String STYLE_SHEET = FxUtil.getResource("/css/cf-stage.css");
+    private ObjectProperty<Insets> insets = new SimpleObjectProperty<>(new Insets(10));
+    private DoubleProperty arc = new SimpleDoubleProperty(6); // 窗口圆角程度
+    private BooleanProperty maximize = new SimpleBooleanProperty(false);
+    private double height = 650;
+    private double width = 1100;
+    private Rectangle2D stageBounds;
 
-    private static final double DEFAULT_WIDTH = 1100;
-    private static final double DEFAULT_HEIGHT = 650;
-    private DropShadow dropShadow = new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.8), 10, 0, 1.5, 1.5);
-    private Background background = new Background(new BackgroundFill(Color.WHITE, null, new Insets(0, 0, 0, 0)));
-    //
-    private StackPane root = new StackPane();
-    private StackPane shadow = new StackPane();
+    private BorderPane content = new BorderPane(); // 内容区域
+    private StackPane backdrop = new StackPane(content); // 背景区域，为了展示阴影效果
+    private StackPane root = new StackPane(backdrop); // 根节点
     private Scene scene = new Scene(root);
-    private HBox backgroundBox = new HBox();
-    private StackPane aside = new StackPane();// 侧边栏容器
-    private VBox container = new VBox();// 右侧
-    private Header header = new Header(this);// 顶栏容器
-    private StackPane content;
 
-    public CFStage(StackPane stackPane) {
-        content = new StackPane(stackPane);
-        initializeStyle();
+    //
+    private CFHeader cfHeader = new CFHeader(this);
+
+    public CFStage() {
+        initialize();
         stageMove();
         StageDragResizer.makeResizable(this, this.root, 10, 5);// 窗口拖动缩放
     }
 
-    public StackPane getRoot() {
-        return root;
+    public CFStage(Node node) {
+        setContent(node);
+        initialize();
+        stageMove();
+        StageDragResizer.makeResizable(this, this.root, 10, 5);// 窗口拖动缩放
     }
 
-    public HBox getBackgroundBox() {
-        return backgroundBox;
+    public CFStage(Node node, double height, double width) {
+        setContent(node);
+        this.height = height;
+        this.width = width;
+        initialize();
+        stageMove();
+        StageDragResizer.makeResizable(this, this.root, 10, 5);// 窗口拖动缩放
+    }
+
+    public CFStage setArc(double arc) {
+        this.arc.set(arc);
+        return this;
+    }
+
+    public CFStage setContent(Node content) {
+        this.content.setCenter(content);
+        return this;
+    }
+
+    private void initialize() {
+        initStyle(StageStyle.TRANSPARENT); // 修改窗口样式
+        scene.setFill(null);
+        setScene(scene);
+        root.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, null, null)));
+        content.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null))); // 窗口默认颜色
+        //裁剪为圆角
+        Rectangle rectangle = new Rectangle();
+        rectangle.widthProperty().bind(content.widthProperty());
+        rectangle.heightProperty().bind(content.heightProperty());
+        rectangle.arcHeightProperty().bind(arc);
+        rectangle.arcWidthProperty().bind(arc);
+        content.setClip(rectangle);
+        //显示阴影效果
+        backdrop.setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.8), 10, 0, 1.5, 1.5));
+        this.root.setPrefHeight(height + insets.get().getBottom() * 2);
+        this.root.setPrefWidth(width + insets.get().getBottom() * 2);
+        this.root.paddingProperty().bind(insets);
+        // header
+        content.setTop(cfHeader);
+        headerEvent();
     }
 
     /**
-     * 初始化样式
+     * 窗口事件监听
      */
-    private void initializeStyle() {
-        this.initStyle(StageStyle.TRANSPARENT);// 定义具有透明背景且没有装饰的舞台样式
-        this.setScene(scene);
-        this.scene.setFill(null);// 设置场景背景
-        this.root.setPadding(new Insets(10, 10, 10, 10));
-        this.root.setBackground(null);
-        this.root.setPrefWidth(DEFAULT_WIDTH);
-        this.root.setPrefHeight(DEFAULT_HEIGHT);
-        this.root.getChildren().add(this.shadow);
-        this.root.setMaxWidth(Double.NEGATIVE_INFINITY);
-        this.root.setMaxHeight(Double.NEGATIVE_INFINITY);
-        this.shadow.getChildren().add(backgroundBox);
-        this.shadow.setEffect(dropShadow); // 窗口阴影
-        // 内容
-        this.backgroundBox.setBackground(background);
-        FxUtil.setClip(this.backgroundBox, 8);
-        //
-        this.backgroundBox.getChildren().addAll(aside, container);
-        HBox.setHgrow(container, Priority.ALWAYS);
-        container.getChildren().addAll(header, content);
-        VBox.setVgrow(content, Priority.ALWAYS);
-        // class
-        root.getStyleClass().add("cf-stage");
-        // css
-        root.getStylesheets().add(STYLE_SHEET);
+    private void headerEvent() {
+        cfHeader.setMaximizeMouseClicked(event -> maximize.set(!maximize.get()));
+        maximize.addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                stageBounds = new Rectangle2D(getX(), getY(), getWidth(), getHeight());
+                Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
+                insets.set(new Insets(0));
+                arc.set(0);
+                setWidth(visualBounds.getWidth());
+                setHeight(visualBounds.getHeight());
+                setX(visualBounds.getMinX());
+                setY(visualBounds.getMinY());
+            } else {
+                insets.set(new Insets(10));
+                arc.set(6);
+                setWidth(stageBounds.getWidth());
+                setHeight(stageBounds.getHeight());
+                setX(stageBounds.getMinX());
+                setY(stageBounds.getMinY());
+            }
+        });
+        cfHeader.setIconifyMouseClicked(event -> setIconified(true));
+        cfHeader.setCloseMouseClicked(event -> close());
     }
 
     /**************************************************** 窗口拖动 ****************************************************/
@@ -85,72 +121,15 @@ public class CFStage extends Stage {
     private double yOffset;
 
     private void stageMove() {
-        this.backgroundBox.setOnMousePressed(event -> {
+        this.content.setOnMousePressed(event -> {
             event.consume();
             this.xOffset = this.getX() - event.getScreenX();
             this.yOffset = this.getY() - event.getScreenY();
         });
-        this.backgroundBox.setOnMouseDragged(event -> {
+        this.content.setOnMouseDragged(event -> {
             event.consume();
             this.setX(event.getScreenX() + this.xOffset);
             this.setY(event.getScreenY() + this.yOffset);
         });
-    }
-
-    /**************************************************** 顶栏容器 ****************************************************/
-
-    public class Header extends HBox {
-        private CFStage stage;
-        //
-        private StackPane title = new StackPane();
-        private HBox buttonBox = new HBox();
-        //
-        private Button iconifiedButton = new Button();
-        private Button fullScreenButton = new Button();
-        private Button closeButton = new Button();
-
-        public Header(CFStage stage) {
-            this.stage = stage;
-            initializeStyle();
-            initializeEvent();
-        }
-
-        public void initializeStyle() {
-            this.getChildren().addAll(title, buttonBox);
-            HBox.setHgrow(title, Priority.ALWAYS);
-            buttonBox.getChildren().addAll(iconifiedButton, fullScreenButton, closeButton);
-            // class
-            this.getStyleClass().add("header");
-            buttonBox.getStyleClass().add("button-box");
-            iconifiedButton.getStyleClass().add("iconified-button");
-            fullScreenButton.getStyleClass().add("full-screen-button");
-            closeButton.getStyleClass().add("close-button");
-            // icon
-            iconifiedButton.setGraphic(new FontIcon(AntDesignIconsOutlined.MINUS));
-            fullScreenButton.setGraphic(new FontIcon(AntDesignIconsOutlined.PLUS));
-            closeButton.setGraphic(new FontIcon(AntDesignIconsOutlined.CLOSE));
-        }
-
-        public void initializeEvent() {
-            /*this.onTopButton.selectedProperty().addListener((observable, oldValue, newValue) -> this.stage.setAlwaysOnTop(newValue));*/
-            this.closeButton.setOnMouseClicked(event -> {
-                event.consume();
-                this.stage.close();
-            });
-            this.iconifiedButton.setOnMouseClicked(event -> this.stage.setIconified(true));
-            this.fullScreenButton.setOnMouseClicked(event -> {
-                Rectangle2D visualBounds = Screen.getPrimary().getVisualBounds();
-                double height = visualBounds.getHeight();
-                double width = visualBounds.getWidth();
-                double minX = visualBounds.getMinX();
-                double minY = visualBounds.getMinY();
-                this.stage.setX(minX);
-                this.stage.setY(minY);
-                this.stage.setWidth(width);
-                this.stage.setHeight(height);
-                this.stage.getRoot().setPadding(new Insets(0, 0, 0, 0));
-                this.stage.getBackgroundBox().setClip(null);
-            });
-        }
     }
 }

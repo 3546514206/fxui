@@ -109,41 +109,7 @@
 .cf-indicator >.toggle-button:selected{
     -fx-background-color: rgb(255,255,255);
 }
-/*********************************** CFStage ***********************************/
-/*
-.cf-stage .header{
-    -fx-padding:5px 10px;
-}
-.cf-stage .header > .button-box{
-    -fx-spacing:5px;
-}
-.cf-stage .header > .button-box > .iconified-button,
-.cf-stage .header > .button-box > .full-screen-button,
-.cf-stage .header > .button-box > .close-button{
-    -fx-padding:0px;
-    -fx-pref-width:20px;
-    -fx-pref-height:20px;
-    -fx-background-radius:10px;
-    -fx-background-insets:0;
-    -fx-background-color:transparent;
-    -fx-cursor:hand;
-}
-.cf-stage .header > .button-box > .iconified-button > .ikonli-font-icon,
-.cf-stage .header > .button-box > .full-screen-button > .ikonli-font-icon,
-.cf-stage .header > .button-box > .close-button > .ikonli-font-icon{
-    -fx-icon-size:14px;
-    -fx-icon-color: text-color;
-}
-.cf-stage .header > .button-box > .iconified-button:hover > .ikonli-font-icon,
-.cf-stage .header > .button-box > .full-screen-button:hover > .ikonli-font-icon,
-.cf-stage .header > .button-box > .close-button:hover > .ikonli-font-icon{
-    -fx-icon-color: rgb(255,255,255);
-}
-.cf-stage .header > .button-box > .iconified-button:hover,
-.cf-stage .header > .button-box > .full-screen-button:hover{-fx-background-color:rgba(0,0,0,0.2);}
-.cf-stage .header > .button-box > .close-button:hover{-fx-background-color:-cf-danger-color;}
 
-*/
 /*********************************** ScrollBar ***********************************//*
 
 .scroll-bar-style{
