@@ -44,6 +44,10 @@ public class CFHeader extends HBox {
         this.headerStylePro.set(headerStyle);
     }
 
+    public HeaderStyle getHeaderStyle() {
+        return this.headerStylePro.get();
+    }
+
     private void initialize() {
         setMaxHeight(USE_PREF_SIZE);
         getChildren().addAll(titleBox, iconifyBut, maximizeBut, closeBut);
@@ -61,25 +65,30 @@ public class CFHeader extends HBox {
         headerStylePro.addListener((observable, oldValue, newValue) -> {
             switch (newValue) {
                 case ICONIFY_CLOSE:
-                    showNode(false, maximizeBut);
-                    showNode(true, iconifyBut, closeBut);
+                    showHideNode(new Node[]{iconifyBut, closeBut}, new Node[]{maximizeBut});
                     break;
                 case CLOSE:
-                    showNode(false, iconifyBut, maximizeBut);
-                    showNode(true, closeBut);
+                    showHideNode(new Node[]{closeBut}, new Node[]{iconifyBut, maximizeBut});
+                    break;
+                case NONE:
+                    showHideNode(new Node[]{}, new Node[]{closeBut, iconifyBut, maximizeBut});
                     break;
                 case ALL:
                 default:
-                    showNode(true, iconifyBut, maximizeBut, closeBut);
+                    showHideNode(new Node[]{closeBut, iconifyBut, maximizeBut}, new Node[]{});
                     break;
             }
         });
     }
 
-    private void showNode(boolean value, Node... node) {
-        for (int i = 0; i < node.length; i++) {
-            node[i].setVisible(value ? true : false);
-            node[i].setManaged(value ? true : false);
+    private void showHideNode(Node[] show, Node[] hide) {
+        for (int i = 0; i < show.length; i++) {
+            show[i].setVisible(true);
+            show[i].setManaged(true);
+        }
+        for (int i = 0; i < hide.length; i++) {
+            hide[i].setVisible(false);
+            hide[i].setManaged(false);
         }
     }
 
@@ -89,6 +98,9 @@ public class CFHeader extends HBox {
     }
 
     public enum HeaderStyle {
-        ALL, ICONIFY_CLOSE, CLOSE
+        ALL, // 显示所有按钮
+        ICONIFY_CLOSE, // 最小化和关闭按钮
+        CLOSE, // 关闭按钮
+        NONE // 隐藏所有按钮
     }
 }

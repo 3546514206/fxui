@@ -11,13 +11,13 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import org.silentsoft.ui.util.StageDragResizer;
 
 public class CFStage extends Stage {
 
+    private static final String ROOT_STYLE_SHEET = FxUtil.getResource("/css/cf-base.css");
     private ObjectProperty<Insets> insetsPro = new SimpleObjectProperty<>(new Insets(10));
     private BooleanProperty maximizePro = new SimpleBooleanProperty(false);
     private DoubleProperty arcPro = new SimpleDoubleProperty(6); // 窗口圆角程度
@@ -62,6 +62,12 @@ public class CFStage extends Stage {
     }
 
     public CFStage setHeaderStyle(CFHeader.HeaderStyle headerStyle) {
+        if (!CFHeader.HeaderStyle.ALL.equals(headerStyle)) {
+            stageDragResizer.setMargin(0);
+        }
+        if (CFHeader.HeaderStyle.NONE.equals(headerStyle)) {
+            content.setTop(null);
+        }
         cfHeader.setHeaderStyle(headerStyle);
         return this;
     }
@@ -69,6 +75,7 @@ public class CFStage extends Stage {
     private void initialize() {
         initStyle(StageStyle.TRANSPARENT); // 修改窗口样式
         scene.setFill(null);
+        scene.getStylesheets().add(ROOT_STYLE_SHEET);// 加载基础样式
         setScene(scene);
         root.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, null, null)));
         content.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null))); // 窗口默认颜色

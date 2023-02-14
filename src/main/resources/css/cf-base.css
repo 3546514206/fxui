@@ -1,0 +1,54 @@
+
+.root{
+    -cf-primary-color:#409EFF;
+    -cf-success-color:#67C23A;
+    -cf-info-color:#909399;
+    -cf-warn-color:#E6A23C;
+    -cf-danger-color:#F56C6C;
+
+    -cf-text-color:#303133;
+    -cf-border-color:#CDD0D6;
+    -cf-base-color:#F2F3F5;
+}
+
+.h1,.h2,.h3,.h4,.h5,.h6{
+    /* normal | bold | bolder | lighter | 100 | 200 | 300 | 400 | 500 | 600 | 700 | 800 | 900 */
+    -fx-font-weight: bold;
+    -fx-text-fill: -cf-text-color;
+}
+.h1 {
+    -fx-font-size: 32px;
+}
+.h2 {
+    -fx-font-size: 24px;
+}
+.h3 {
+    -fx-font-size: 18.72px;
+}
+.h4 {
+    -fx-font-size: 16px;
+}
+.h5 {
+    -fx-font-size: 13.28px;
+}
+.h6 {
+    -fx-font-size: 12px;
+}
+.text-default{
+    -fx-text-fill: -cf-text-color;
+    -fx-font-size: 14px;
+}
+.text-small{
+    -fx-font-size: 12px;
+}
+
+.cf-link{
+    -fx-border-width:0;
+    -fx-font-size:14px;
+    -fx-text-fill: -cf-text-color;
+}
+.cf-link.primary{-fx-text-fill: -cf-primary-color;}
+.cf-link.success{-fx-text-fill: -cf-success-color;}
+.cf-link.info{-fx-text-fill: -cf-info-color;}
+.cf-link.warn{-fx-text-fill: -cf-warn-color;}
+.cf-link.danger{-fx-text-fill: -cf-danger-color;}

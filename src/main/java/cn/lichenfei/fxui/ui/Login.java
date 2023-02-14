@@ -1,6 +1,7 @@
 package cn.lichenfei.fxui.ui;
 
-import cn.lichenfei.fxui.controls.CFButton;
+import cn.lichenfei.fxui.common.SimpleButton;
+import cn.lichenfei.fxui.common.SimpleControl;
 import cn.lichenfei.fxui.controls.CFTextField;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
@@ -10,6 +11,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.control.Control;
 import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
@@ -74,13 +76,14 @@ public class Login extends StackPane {
      */
     public class SignInBox extends VBox {
 
+        private Label title = SimpleControl.getLabel("登录", SimpleControl.LabelEnum.TEXT_DEFAULT);
         private CFTextField email = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.MAIL));
         private CFTextField password = new CFTextField(CFTextField.Type.PASSWORD, new FontIcon(AntDesignIconsOutlined.KEY));
-        private CFButton signIn = new CFButton("登录");
+        private SimpleButton signIn = new SimpleButton("登录");
         private Hyperlink toSignUp = new Hyperlink("没有账户？去注册！");
 
         public SignInBox() {
-            getChildren().addAll(email, password, signIn, toSignUp);
+            getChildren().addAll(title, email, password, signIn, toSignUp);
             signIn.prefWidthProperty().bind(password.widthProperty());
             //
             email.setPromptText("邮箱");
@@ -99,14 +102,15 @@ public class Login extends StackPane {
      */
     public class SignUpBox extends VBox {
 
+        private Label title = SimpleControl.getLabel("注册", SimpleControl.LabelEnum.H1);
         private CFTextField user = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.USER));
         private CFTextField email = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.MAIL));
         private CFTextField password = new CFTextField(CFTextField.Type.PASSWORD, new FontIcon(AntDesignIconsOutlined.KEY));
-        private CFButton signUp = new CFButton("注册");
+        private SimpleButton signUp = new SimpleButton("注册");
         private Hyperlink toSignIn = new Hyperlink("已有账户？去登录！");
 
         public SignUpBox() {
-            getChildren().addAll(user, email, password, signUp, toSignIn);
+            getChildren().addAll(title, user, email, password, signUp, toSignIn);
             signUp.prefWidthProperty().bind(password.widthProperty());
             //
             user.setPromptText("用户名");
