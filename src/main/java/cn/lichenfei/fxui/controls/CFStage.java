@@ -25,6 +25,7 @@ public class CFStage extends Stage {
     private double height = 650;
     private double width = 1100;
     private Rectangle2D stageBounds;
+    private StageDragResizer stageDragResizer;
 
     private BorderPane content = new BorderPane(); // 内容区域
     private StackPane backdrop = new StackPane(content); // 背景区域，为了展示阴影效果
@@ -36,15 +37,11 @@ public class CFStage extends Stage {
 
     public CFStage() {
         initialize();
-        stageMove();
-        StageDragResizer.makeResizable(this, this.root, 10, 5);// 窗口拖动缩放
     }
 
     public CFStage(Node node) {
         setContent(node);
         initialize();
-        stageMove();
-        StageDragResizer.makeResizable(this, this.root, 10, 5);// 窗口拖动缩放
     }
 
     public CFStage(Node node, double height, double width) {
@@ -52,8 +49,6 @@ public class CFStage extends Stage {
         this.height = height;
         this.width = width;
         initialize();
-        stageMove();
-        StageDragResizer.makeResizable(this, this.root, 10, 5);// 窗口拖动缩放
     }
 
     public CFStage setArc(double arcPro) {
@@ -92,6 +87,9 @@ public class CFStage extends Stage {
         // header
         content.setTop(cfHeader);
         headerEvent();
+        //窗口移动和缩放
+        stageMove();
+        stageDragResizer = StageDragResizer.makeResizable(this, this.root, 10, 5);// 窗口拖动缩放
     }
 
     /**
@@ -110,6 +108,7 @@ public class CFStage extends Stage {
                 setHeight(visualBounds.getHeight());
                 setX(visualBounds.getMinX());
                 setY(visualBounds.getMinY());
+                stageDragResizer.setMargin(0);
             } else {
                 insetsPro.set(new Insets(10));
                 arcPro.set(arc);
@@ -117,6 +116,7 @@ public class CFStage extends Stage {
                 setHeight(stageBounds.getHeight());
                 setX(stageBounds.getMinX());
                 setY(stageBounds.getMinY());
+                stageDragResizer.setMargin(10);
             }
         });
         cfHeader.setIconifyMouseClicked(event -> setIconified(true));
