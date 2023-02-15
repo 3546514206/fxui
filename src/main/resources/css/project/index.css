@@ -1,8 +1,16 @@
 
-.login{
-    -fx-padding: 80px 50px 50px 50px;
+.index > .close-but{
+    -fx-padding: 5px;
+    -fx-background-insets: 0;
+    -fx-background-color: rgba(0,0,0,0);
+    -fx-cursor: hand;
+}
+.index > .close-but > .ikonli-font-icon{
+    -fx-icon-size: 16px;
+    -fx-icon-color: rgba(255, 255, 255,0.8);
 }
 .sign-up-box, .sign-in-box{
+    -fx-pref-height: 370px;
     -fx-border-color: -cf-border-color;
     -fx-border-radius: 5px;
     -fx-background-color: rgb(255,255,255);

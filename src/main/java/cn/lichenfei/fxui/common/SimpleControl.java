@@ -3,6 +3,9 @@ package cn.lichenfei.fxui.common;
 import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.PopupControl;
+import javafx.scene.control.Tooltip;
+import javafx.util.Duration;
 
 
 /**
@@ -18,16 +21,12 @@ public class SimpleControl {
 
     public static Label getLabel(String text, LabelEnum labelEnum) {
         Label label = new Label(text);
-        setStyleClass(label, labelEnum.getStyleClass());
+        setStyleClass(label, getStyleClass(labelEnum.name()));
         return label;
     }
 
     public enum LabelEnum {
-        H1, H2, H3, H4, H5, H6, TEXT_DEFAULT, TEXT_SMALL;
-
-        public String getStyleClass() {
-            return name().toLowerCase().replaceAll("_", "-");
-        }
+        H1, H2, H3, H4, H5, H6, TEXT_DEFAULT, TEXT_SMALL
     }
 
     /********************************* Hyperlink *********************************/
@@ -35,15 +34,36 @@ public class SimpleControl {
     private static final String HYPERLINK_STYLE_CLASS = "cf-link";
 
     public static Hyperlink getHyperlink(String text) {
-        Hyperlink hyperlink = new Hyperlink(text);
-        setStyleClass(hyperlink, HYPERLINK_STYLE_CLASS);
-        return hyperlink;
+        return getHyperlink(text, null);
     }
 
     public static Hyperlink getHyperlink(String text, Level level) {
         Hyperlink hyperlink = new Hyperlink(text);
-        setStyleClass(hyperlink, HYPERLINK_STYLE_CLASS, level.getStyleClass());
+        if (level == null) {
+            setStyleClass(hyperlink, HYPERLINK_STYLE_CLASS);
+        } else {
+            setStyleClass(hyperlink, HYPERLINK_STYLE_CLASS, getStyleClass(level.name()));
+        }
         return hyperlink;
+    }
+
+    /********************************* Tooltip *********************************/
+
+    private static final String TOOLTIP_STYLE_CLASS = "cf-tooltip";
+
+    public static Tooltip getTooltip(String text) {
+        return getTooltip(text, TooltipEnum.LIGHT);
+    }
+
+    public static Tooltip getTooltip(String text, TooltipEnum tooltipEnum) {
+        Tooltip tooltip = new Tooltip(text);
+        tooltip.setShowDelay(Duration.millis(200));
+        setStyleClass(tooltip, TOOLTIP_STYLE_CLASS, getStyleClass(tooltipEnum.name()));
+        return tooltip;
+    }
+
+    public enum TooltipEnum {
+        DARK, LIGHT
     }
 
 
@@ -52,16 +72,18 @@ public class SimpleControl {
         SUCCESS,
         INFO,
         WARN,
-        DANGER;
-        public String getStyleClass() {
-            return name().toLowerCase();
-        }
-
+        DANGER
     }
 
+    public static String getStyleClass(String enumName) {
+        return enumName.toLowerCase().replaceAll("_", "-");
+    }
 
     private static void setStyleClass(Node node, String... styleClass) {
         node.getStyleClass().addAll(styleClass);
     }
 
+    private static void setStyleClass(PopupControl popup, String... styleClass) {
+        popup.getStyleClass().addAll(styleClass);
+    }
 }

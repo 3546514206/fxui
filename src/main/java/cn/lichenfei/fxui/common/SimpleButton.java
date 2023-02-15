@@ -20,7 +20,7 @@ public class SimpleButton extends Button {
      */
     public SimpleButton(String text) {
         this.setText(text);
-        setStyleClass(BUTTON_STYLE_CLASS, SimpleControl.Level.PRIMARY.getStyleClass());
+        setStyleClass(BUTTON_STYLE_CLASS, SimpleControl.getStyleClass(SimpleControl.Level.PRIMARY.name()));
     }
 
     /**
@@ -29,7 +29,7 @@ public class SimpleButton extends Button {
      */
     public SimpleButton(String text, SimpleControl.Level level) {
         this.setText(text);
-        setStyleClass(BUTTON_STYLE_CLASS, level.getStyleClass());
+        setStyleClass(BUTTON_STYLE_CLASS, SimpleControl.getStyleClass(level.name()));
     }
 
     public SimpleButton round() {

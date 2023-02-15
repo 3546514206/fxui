@@ -1,6 +1,7 @@
 package cn.lichenfei.fxui.controls;
 
 import cn.lichenfei.fxui.common.FxUtil;
+import cn.lichenfei.fxui.common.SimpleControl;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.scene.Node;
@@ -44,6 +45,10 @@ public class CFHeader extends HBox {
         this.headerStylePro.set(headerStyle);
     }
 
+    public void setMaximizeTooltip(String text) {
+        maximizeBut.setTooltip(SimpleControl.getTooltip(text));
+    }
+
     public HeaderStyle getHeaderStyle() {
         return this.headerStylePro.get();
     }
@@ -79,6 +84,9 @@ public class CFHeader extends HBox {
                     break;
             }
         });
+        iconifyBut.setTooltip(SimpleControl.getTooltip("最小化"));
+        closeBut.setTooltip(SimpleControl.getTooltip("关闭"));
+        maximizeBut.setTooltip(SimpleControl.getTooltip("最大化"));
     }
 
     private void showHideNode(Node[] show, Node[] hide) {

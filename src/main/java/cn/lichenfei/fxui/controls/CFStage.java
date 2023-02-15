@@ -125,6 +125,7 @@ public class CFStage extends Stage {
                 setY(stageBounds.getMinY());
                 stageDragResizer.setMargin(10);
             }
+            cfHeader.setMaximizeTooltip(newValue ? "向下还原" : "最大化");
         });
         cfHeader.setIconifyMouseClicked(event -> setIconified(true));
         cfHeader.setCloseMouseClicked(event -> close());

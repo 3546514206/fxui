@@ -56,3 +56,18 @@
 .cf-link.info{-fx-text-fill: -cf-info-color;}
 .cf-link.warn{-fx-text-fill: -cf-warn-color;}
 .cf-link.danger{-fx-text-fill: -cf-danger-color;}
+
+.cf-tooltip{
+    -fx-font-size: 12px;
+    -fx-background-radius: 2px;
+    -fx-border-radius: 2px;
+    -fx-padding: 5px;
+}
+.cf-tooltip.light{
+    -fx-background-color:rgb(255,255,255);
+    -fx-text-fill: -cf-text-color;
+}
+.cf-tooltip.dark{
+    -fx-background-color: -cf-text-color;
+    -fx-text-fill:rgb(255,255,255);
+}

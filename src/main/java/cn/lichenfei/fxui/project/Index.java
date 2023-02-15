@@ -8,7 +8,11 @@ import cn.lichenfei.fxui.controls.CFTextField;
 import javafx.animation.*;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.SceneAntialiasing;
+import javafx.scene.SubScene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -22,14 +26,17 @@ import org.kordamp.ikonli.javafx.FontIcon;
 
 import java.util.function.Consumer;
 
-public class Login extends StackPane {
-
+public class Index extends StackPane {
     private DoubleProperty DEFAULT_HEIGHT = new SimpleDoubleProperty(40);
     private DoubleProperty DEFAULT_WIDTH = new SimpleDoubleProperty(250);
+    //
+    private StackPane subSceneRoot = new StackPane();
+    private SubScene subScene = new SubScene(subSceneRoot, 0, 0, true, SceneAntialiasing.BALANCED);
     // 登录，注册容器
     private SignInBox signInBox = new SignInBox();
     private SignUpBox signUpBox = new SignUpBox();
-
+    //关闭按钮
+    private Button closeBut = new Button();
     //动画
     private TranslateTransition TT1 = new TranslateTransition(Duration.millis(500));
     private RotateTransition RT = new RotateTransition(Duration.millis(500));
@@ -39,20 +46,34 @@ public class Login extends StackPane {
     private double translateX = -400;
     private double rotateAngle = 5;
 
-    public Login() {
+    public Index() {
+        //背景
         setBackdropImage(FxUtil.getImage("/img/backdrop.png"));
-        getChildren().addAll(signUpBox, signInBox);
+        //布局
+        getChildren().addAll(subScene, closeBut);
+        subScene.widthProperty().bind(widthProperty());
+        subScene.heightProperty().bind(heightProperty());
+        subSceneRoot.getChildren().addAll(signUpBox, signInBox);
+        signUpBox.setMaxWidth(USE_PREF_SIZE);
+        signInBox.setMaxWidth(USE_PREF_SIZE);
+        signUpBox.setMaxHeight(USE_PREF_SIZE);
+        signInBox.setMaxHeight(USE_PREF_SIZE);
+        StackPane.setAlignment(signInBox, Pos.CENTER_RIGHT);
+        StackPane.setAlignment(signUpBox, Pos.CENTER_RIGHT);
+        StackPane.setMargin(signInBox, new Insets(50));
+        StackPane.setMargin(signUpBox, new Insets(50));
+        StackPane.setAlignment(closeBut, Pos.TOP_RIGHT);
+        closeBut.setGraphic(new FontIcon(AntDesignIconsOutlined.CLOSE));
+        closeBut.setOnMouseClicked(event -> closeBut.getParent().getScene().getWindow().hide());
         //动画
         signUpBox.setRotate(rotateAngle);
         signInBox.toSignUpClicked(event -> play(signInBox, signUpBox));
         signUpBox.toSignInClicked(event -> play(signUpBox, signInBox));
-        //
-        signUpBox.setMaxWidth(USE_PREF_SIZE);
-        signInBox.setMaxWidth(USE_PREF_SIZE);
-        StackPane.setAlignment(signInBox, Pos.CENTER_RIGHT);
-        StackPane.setAlignment(signUpBox, Pos.CENTER_RIGHT);
         // styleClass
-        getStyleClass().add("login");
+        getStyleClass().add("index");
+        closeBut.getStyleClass().add("close-but");
+        subSceneRoot.getStylesheets().add(FxUtil.getResource("/css/project/index.css"));
+        getStylesheets().add(FxUtil.getResource("/css/project/index.css"));
     }
 
     // 启动动画
@@ -81,7 +102,7 @@ public class Login extends StackPane {
         BackgroundSize backgroundSize = new BackgroundSize(-1, -1, false, false, false, true);
         BackgroundImage backgroundImage = new BackgroundImage(image, null, null, BackgroundPosition.DEFAULT, backgroundSize);
         Background background = new Background(backgroundImage);
-        setBackground(background);
+        this.subSceneRoot.setBackground(background);
     }
 
     private void bindWidthHeight(Region... node) {
@@ -121,6 +142,7 @@ public class Login extends StackPane {
             signIn.prefWidthProperty().bind(password.widthProperty());
             //属性
             qrCodeLabel.setGraphic(new FontIcon(AntDesignIconsOutlined.QRCODE));
+            qrCodeLabel.setTooltip(SimpleControl.getTooltip("扫描登录"));
             avatar.setImage(FxUtil.getImage("/img/logo.jpg"));
             email.setPromptText("邮箱");
             password.setPromptText("密码");
@@ -174,10 +196,5 @@ public class Login extends StackPane {
         public void toSignInClicked(Consumer<MouseEvent> consumer) {
             this.toSignIn.setOnMouseClicked(event -> consumer.accept(event));
         }
-    }
-
-    @Override
-    public String getUserAgentStylesheet() {
-        return FxUtil.getResource("/css/project/login.css");
     }
 }
