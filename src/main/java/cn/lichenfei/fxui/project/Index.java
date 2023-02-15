@@ -77,23 +77,23 @@ public class Index extends StackPane {
     }
 
     // 启动动画
-    private void play(Pane out, Pane in) {
-        TT1.setNode(out);
+    private void play(Pane hide, Pane show) {
+        TT1.setNode(hide);
         TT1.setFromX(0);
         TT1.setToX(translateX);
-        RT.setNode(out);
+        RT.setNode(hide);
         RT.setFromAngle(0);
         RT.setToAngle(rotateAngle);
-        out.rotateProperty()
+        hide.rotateProperty()
                 // 监听旋转角度恢复要显示的内容
-                .addListener((observable, oldValue, newValue) -> in.setRotate(rotateAngle - newValue.doubleValue()));
-        TT2.setNode(out);
+                .addListener((observable, oldValue, newValue) -> show.setRotate(rotateAngle - newValue.doubleValue()));
+        TT2.setNode(hide);
         TT2.setFromX(translateX);
         TT2.setToX(0);
         PT.setOnFinished(event -> {
             // 动画完成设置Z值（深度）
-            in.setTranslateZ(-1);
-            out.setTranslateZ(0);
+            show.setTranslateZ(-1);
+            hide.setTranslateZ(0);
         });
         SEQ_T.play();
     }
