@@ -7,7 +7,16 @@
     -fx-border-radius: 5px;
     -fx-background-color: rgb(255,255,255);
     -fx-background-radius: 5px;
-    -fx-padding: 10px 20px 20px 20px;
+    -fx-padding: 20px;
     -fx-spacing: 15px;
     -fx-alignment: bottom-center;
+}
+.qr-code-label{
+}
+.qr-code-label > .ikonli-font-icon{
+    -fx-icon-size: 50px;
+    -fx-icon-color: -cf-text-color;
+}
+.qr-code-label:hover > .ikonli-font-icon{
+    -fx-icon-color: -cf-primary-color;
 }

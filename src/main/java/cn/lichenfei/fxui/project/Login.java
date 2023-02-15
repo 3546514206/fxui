@@ -8,12 +8,16 @@ import cn.lichenfei.fxui.controls.CFTextField;
 import javafx.animation.*;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polyline;
 import javafx.util.Duration;
 import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
 import org.kordamp.ikonli.javafx.FontIcon;
@@ -51,8 +55,6 @@ public class Login extends StackPane {
         StackPane.setAlignment(signUpBox, Pos.CENTER_RIGHT);
         // styleClass
         getStyleClass().add("login");
-        signUpBox.getStyleClass().add("sign-up-box");
-        signInBox.getStyleClass().add("sign-in-box");
     }
 
     // 启动动画
@@ -94,8 +96,9 @@ public class Login extends StackPane {
     /**
      * 登录
      */
-    public class SignInBox extends VBox {
+    public class SignInBox extends StackPane {
 
+        private VBox vBox = new VBox();
         private Label titleLabel = SimpleControl.getLabel("登录", SimpleControl.LabelEnum.H1);
         private CFAvatar avatar = new CFAvatar(64, 10);
         private StackPane titlePane = new StackPane(titleLabel, avatar);
@@ -103,17 +106,33 @@ public class Login extends StackPane {
         private CFTextField password = new CFTextField(CFTextField.Type.PASSWORD, new FontIcon(AntDesignIconsOutlined.KEY));
         private SimpleButton signIn = new SimpleButton("登录");
         private Hyperlink toSignUp = SimpleControl.getHyperlink("没有账户？去注册", SimpleControl.Level.PRIMARY);
+        //二维码登录
+        private Label qrCodeLabel = new Label();
 
         public SignInBox() {
-            getChildren().addAll(titlePane, email, password, signIn, toSignUp);
+            //布局
+            getChildren().addAll(vBox, qrCodeLabel);
+            StackPane.setAlignment(qrCodeLabel, Pos.TOP_LEFT);
+            vBox.getChildren().addAll(titlePane, email, password, signIn, toSignUp);
             StackPane.setAlignment(titleLabel, Pos.BOTTOM_LEFT);
-            avatar.setImage(FxUtil.getImage("/img/logo.jpg"));
             StackPane.setAlignment(avatar, Pos.BOTTOM_RIGHT);
             bindWidthHeight(email, password, signIn);
             signIn.prefWidthProperty().bind(password.widthProperty());
-            //
+            //属性
+            qrCodeLabel.setGraphic(new FontIcon(AntDesignIconsOutlined.QRCODE));
+            avatar.setImage(FxUtil.getImage("/img/logo.jpg"));
             email.setPromptText("邮箱");
             password.setPromptText("密码");
+            //styleClass
+            vBox.getStyleClass().add("sign-in-box");
+            qrCodeLabel.getStyleClass().add("qr-code-label");
+            //
+            qrCodeLabel.widthProperty().addListener((observable, oldValue, newValue) -> {
+                double value = newValue.doubleValue();
+                Polyline polyline = new Polyline(0, 0, value, 0, 0, value, 0, 0);
+                polyline.setFill(Color.WHITE);
+                qrCodeLabel.setClip(polyline);
+            });
         }
 
         public void toSignUpClicked(Consumer<MouseEvent> consumer) {
@@ -125,8 +144,9 @@ public class Login extends StackPane {
     /**
      * 注册
      */
-    public class SignUpBox extends VBox {
+    public class SignUpBox extends StackPane {
 
+        private VBox vBox = new VBox();
         private Label titleLabel = SimpleControl.getLabel("注册", SimpleControl.LabelEnum.H1);
         private StackPane titlePane = new StackPane(titleLabel);
         private CFTextField user = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.USER));
@@ -136,14 +156,18 @@ public class Login extends StackPane {
         private Hyperlink toSignIn = SimpleControl.getHyperlink("已有账户，去登录", SimpleControl.Level.PRIMARY);
 
         public SignUpBox() {
-            getChildren().addAll(titlePane, user, email, password, signUp, toSignIn);
+            //布局
+            getChildren().add(vBox);
+            vBox.getChildren().addAll(titlePane, user, email, password, signUp, toSignIn);
             bindWidthHeight(user, email, password, signUp);
             StackPane.setAlignment(titleLabel, Pos.CENTER_LEFT);
             signUp.prefWidthProperty().bind(password.widthProperty());
-            //
+            //属性
             user.setPromptText("用户名");
             email.setPromptText("邮箱");
             password.setPromptText("密码");
+            //styleClass
+            vBox.getStyleClass().add("sign-up-box");
         }
 
         public void toSignInClicked(Consumer<MouseEvent> consumer) {

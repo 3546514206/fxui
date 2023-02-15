@@ -55,6 +55,10 @@ public class CFTextField extends HBox {
         return textPro.get();
     }
 
+    public StringProperty getTextProperty() {
+        return textPro;
+    }
+
     private void initialize() {
         setLayout();
         setEvent();
