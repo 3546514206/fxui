@@ -4,6 +4,7 @@ import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.common.SimpleButton;
 import cn.lichenfei.fxui.common.SimpleControl;
 import cn.lichenfei.fxui.controls.CFAvatar;
+import cn.lichenfei.fxui.controls.CFHeader;
 import cn.lichenfei.fxui.controls.CFTextField;
 import javafx.animation.*;
 import javafx.beans.property.DoubleProperty;
@@ -12,7 +13,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
-import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -37,7 +37,7 @@ public class Index extends StackPane {
     private SignInBox signInBox = new SignInBox();
     private SignUpBox signUpBox = new SignUpBox();
     //关闭按钮
-    private Button closeBut = new Button();
+    private CFHeader cfHeader = new CFHeader();
     //动画
     private TranslateTransition TT1 = new TranslateTransition(Duration.millis(500));
     private RotateTransition RT = new RotateTransition(Duration.millis(500));
@@ -55,7 +55,8 @@ public class Index extends StackPane {
         //背景
         setBackdropImage(FxUtil.getImage("/img/backdrop.png"));
         //布局
-        getChildren().addAll(subScene, closeBut);
+        getChildren().addAll(subScene, cfHeader);
+        cfHeader.setHeaderStyle(CFHeader.HeaderStyle.CLOSE);
         subScene.widthProperty().bind(widthProperty());
         subScene.heightProperty().bind(heightProperty());
         subSceneRoot.getChildren().addAll(signUpBox, signInBox);
@@ -67,19 +68,20 @@ public class Index extends StackPane {
         StackPane.setAlignment(signUpBox, Pos.CENTER_RIGHT);
         StackPane.setMargin(signInBox, new Insets(50));
         StackPane.setMargin(signUpBox, new Insets(50));
-        StackPane.setAlignment(closeBut, Pos.TOP_RIGHT);
-        closeBut.setGraphic(new FontIcon(AntDesignIconsOutlined.CLOSE));
-        closeBut.setOnMouseClicked(event -> closeBut.getParent().getScene().getWindow().hide());
+        StackPane.setAlignment(cfHeader, Pos.TOP_RIGHT);
+        // styleClass
+        subSceneRoot.getStylesheets().add(FxUtil.getResource("/css/project/index.css"));
+        setEvent();
+    }
+
+    // 设置相关事件
+    private void setEvent() {
         //动画
         signUpBox.setRotate(rotateAngle);
         signInBox.toSignUpClicked(event -> play(signInBox, signUpBox));
         signUpBox.toSignInClicked(event -> play(signUpBox, signInBox));
-        // styleClass
-        getStyleClass().add("index");
-        closeBut.getStyleClass().add("close-but");
-        subSceneRoot.getStylesheets().add(FxUtil.getResource("/css/project/index.css"));
-        getStylesheets().add(FxUtil.getResource("/css/project/index.css"));
-
+        // 关闭登录窗口
+        cfHeader.setCloseMouseClicked(event -> FxUtil.getWindow(cfHeader).hide());
     }
 
     // 启动动画
