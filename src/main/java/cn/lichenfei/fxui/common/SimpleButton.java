@@ -2,6 +2,7 @@ package cn.lichenfei.fxui.common;
 
 import javafx.scene.control.Button;
 import org.kordamp.ikonli.javafx.FontIcon;
+import cn.lichenfei.fxui.common.Level;
 
 public class SimpleButton extends Button {
 
@@ -11,7 +12,7 @@ public class SimpleButton extends Button {
     private static final String BUTTON_PLAIN_CLASS = "plain";
     private static final String BUTTON_ROUND_CLASS = "round";
 
-    public static SimpleButton get(String text, SimpleControl.Level level) {
+    public static SimpleButton get(String text, Level level) {
         return new SimpleButton(text, level);
     }
 
@@ -20,14 +21,14 @@ public class SimpleButton extends Button {
      */
     public SimpleButton(String text) {
         this.setText(text);
-        setStyleClass(BUTTON_STYLE_CLASS, SimpleControl.getStyleClass(SimpleControl.Level.PRIMARY.name()));
+        setStyleClass(BUTTON_STYLE_CLASS, SimpleControl.getStyleClass(Level.PRIMARY.name()));
     }
 
     /**
      * @param text
      * @param level
      */
-    public SimpleButton(String text, SimpleControl.Level level) {
+    public SimpleButton(String text, Level level) {
         this.setText(text);
         setStyleClass(BUTTON_STYLE_CLASS, SimpleControl.getStyleClass(level.name()));
     }

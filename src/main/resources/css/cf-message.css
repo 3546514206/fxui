@@ -1,0 +1,27 @@
+.cf-message{
+    -fx-padding: 0 20px;
+    -fx-pref-height: 45px;
+    -fx-spacing:10px;
+    -fx-background-color:rgb(255,255,255);
+    -fx-background-radius:3px;
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10.0, 0, 0, 2.0);*/
+    -fx-border-color:-cf-border-color;
+    -fx-border-radius:3px;
+    -fx-alignment:center;
+}
+.icon-label > .ikonli-font-icon{
+    -fx-icon-color: -cf-primary-color;
+    -fx-icon-size:20px;
+}
+.mess-label{
+    -fx-text-fill: -cf-text-color;
+    -fx-font-size: 14px;
+    -fx-max-width: 250px;
+}
+.close-label{
+    -fx-cursor:hand;
+}
+.close-label > .ikonli-font-icon{
+    -fx-icon-size: 12px;
+    -fx-icon-color: -cf-text-color;
+}

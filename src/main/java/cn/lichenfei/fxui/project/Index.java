@@ -1,10 +1,12 @@
 package cn.lichenfei.fxui.project;
 
 import cn.lichenfei.fxui.common.FxUtil;
+import cn.lichenfei.fxui.common.Level;
 import cn.lichenfei.fxui.common.SimpleButton;
 import cn.lichenfei.fxui.common.SimpleControl;
 import cn.lichenfei.fxui.controls.CFAvatar;
 import cn.lichenfei.fxui.controls.CFHeader;
+import cn.lichenfei.fxui.controls.CFMessage;
 import cn.lichenfei.fxui.controls.CFTextField;
 import javafx.animation.*;
 import javafx.beans.property.DoubleProperty;
@@ -82,6 +84,14 @@ public class Index extends StackPane {
         signUpBox.toSignInClicked(event -> play(signUpBox, signInBox));
         // 关闭登录窗口
         cfHeader.setCloseMouseClicked(event -> FxUtil.getWindow(cfHeader).hide());
+        // 注册逻辑
+        signUpBox.setSignUpClick(submitInfo -> {
+            CFMessage.show(this, "正在注册：" + submitInfo.getEmail());
+        });
+        // 登录逻辑
+        signInBox.setSignInClick(submitInfo -> {
+            CFMessage.show(this, "正在登录：" + submitInfo.getEmail());
+        });
     }
 
     // 启动动画
@@ -132,9 +142,9 @@ public class Index extends StackPane {
         private CFTextField email = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.MAIL));
         private CFTextField password = new CFTextField(CFTextField.Type.PASSWORD, new FontIcon(AntDesignIconsOutlined.KEY));
         private SimpleButton signIn = new SimpleButton("登录");
-        private Hyperlink forget = SimpleControl.getHyperlink("忘记密码", SimpleControl.Level.PRIMARY);
+        private Hyperlink forget = SimpleControl.getHyperlink("忘记密码", Level.PRIMARY);
         private StackPane bottomPane = new StackPane(forget);
-        private Hyperlink toSignUp = SimpleControl.getHyperlink("没有账户？去注册", SimpleControl.Level.PRIMARY);
+        private Hyperlink toSignUp = SimpleControl.getHyperlink("没有账户？去注册", Level.PRIMARY);
         //二维码登录
         private Label qrCodeLabel = new Label();
 
@@ -166,10 +176,9 @@ public class Index extends StackPane {
             vBox.getStyleClass().add("sign-in-box");
             qrCodeLabel.getStyleClass().add("qr-code-label");
             qrCodeClip();
-            setSignInClick();
         }
 
-        private void setSignInClick() {
+        private void setSignInClick(Consumer<SubmitInfo> consumer) {
             signIn.setOnMouseClicked(event -> {
                 event.consume();
                 String emailText = email.getText();
@@ -177,6 +186,7 @@ public class Index extends StackPane {
                 // 处理登录逻辑
                 StringJoiner sj = new StringJoiner(",").add(emailText).add(passwordText);
                 System.out.println(sj);
+                consumer.accept(new SubmitInfo(null, passwordText, emailText));
             });
         }
 
@@ -203,7 +213,7 @@ public class Index extends StackPane {
         private CFTextField email = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.MAIL));
         private CFTextField password = new CFTextField(CFTextField.Type.PASSWORD, new FontIcon(AntDesignIconsOutlined.KEY));
         private SimpleButton signUp = new SimpleButton("注册");
-        private Hyperlink toSignIn = SimpleControl.getHyperlink("已有账户，去登录", SimpleControl.Level.PRIMARY);
+        private Hyperlink toSignIn = SimpleControl.getHyperlink("已有账户，去登录", Level.PRIMARY);
 
         public SignUpBox() {
             initialize();
@@ -222,18 +232,15 @@ public class Index extends StackPane {
             password.setPromptText("密码");
             //styleClass
             vBox.getStyleClass().add("sign-up-box");
-            setSignUpClick();
         }
 
-        private void setSignUpClick() {
+        private void setSignUpClick(Consumer<SubmitInfo> consumer) {
             signUp.setOnMouseClicked(event -> {
                 event.consume();
                 String userText = user.getText();
                 String emailText = email.getText();
                 String passwordText = password.getText();
-                // 处理注册逻辑
-                StringJoiner sj = new StringJoiner(",").add(userText).add(emailText).add(passwordText);
-                System.out.println(sj);
+                consumer.accept(new SubmitInfo(userText, passwordText, emailText));
             });
         }
 
@@ -241,4 +248,32 @@ public class Index extends StackPane {
             this.toSignIn.setOnMouseClicked(event -> consumer.accept(event));
         }
     }
+
+    /**
+     * 登录注册，提交的数据
+     */
+    public class SubmitInfo {
+        private String username;
+        private String password;
+        private String email;
+
+        public SubmitInfo(String username, String password, String email) {
+            this.username = username;
+            this.password = password;
+            this.email = email;
+        }
+
+        public String getUsername() {
+            return username;
+        }
+
+        public String getPassword() {
+            return password;
+        }
+
+        public String getEmail() {
+            return email;
+        }
+    }
+
 }
