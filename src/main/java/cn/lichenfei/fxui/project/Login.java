@@ -1,4 +1,4 @@
-package cn.lichenfei.fxui.ui;
+package cn.lichenfei.fxui.project;
 
 import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.common.SimpleButton;
@@ -8,11 +8,10 @@ import cn.lichenfei.fxui.controls.CFTextField;
 import javafx.animation.*;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.util.Duration;
@@ -24,47 +23,70 @@ import java.util.function.Consumer;
 public class Login extends StackPane {
 
     private DoubleProperty DEFAULT_HEIGHT = new SimpleDoubleProperty(40);
+    private DoubleProperty DEFAULT_WIDTH = new SimpleDoubleProperty(250);
     // 登录，注册容器
     private SignInBox signInBox = new SignInBox();
     private SignUpBox signUpBox = new SignUpBox();
 
     //动画
-    private TranslateTransition TT = new TranslateTransition(Duration.millis(500));
-    private FadeTransition RT_OUT = new FadeTransition(Duration.millis(500));
-    private ParallelTransition PT = new ParallelTransition(TT, RT_OUT);
-    private FadeTransition RT_IN = new FadeTransition(Duration.millis(500));
-    private SequentialTransition SEQ_T = new SequentialTransition(PT, RT_IN);
+    private TranslateTransition TT1 = new TranslateTransition(Duration.millis(500));
+    private RotateTransition RT = new RotateTransition(Duration.millis(500));
+    private ParallelTransition PT = new ParallelTransition(TT1, RT);
+    private TranslateTransition TT2 = new TranslateTransition(Duration.millis(500));
+    private SequentialTransition SEQ_T = new SequentialTransition(PT, TT2);
+    private double translateX = -400;
+    private double rotateAngle = 5;
 
     public Login() {
-        getChildren().addAll(signInBox);
-        //动画监听
+        setBackdropImage(FxUtil.getImage("/img/backdrop.png"));
+        getChildren().addAll(signUpBox, signInBox);
+        //动画
+        signUpBox.setRotate(rotateAngle);
         signInBox.toSignUpClicked(event -> play(signInBox, signUpBox));
         signUpBox.toSignInClicked(event -> play(signUpBox, signInBox));
-        setPadding(new Insets(0, 40, 0, 40));
+        //
+        signUpBox.setMaxWidth(USE_PREF_SIZE);
+        signInBox.setMaxWidth(USE_PREF_SIZE);
+        StackPane.setAlignment(signInBox, Pos.CENTER_RIGHT);
+        StackPane.setAlignment(signUpBox, Pos.CENTER_RIGHT);
+        // styleClass
+        getStyleClass().add("login");
+        signUpBox.getStyleClass().add("sign-up-box");
+        signInBox.getStyleClass().add("sign-in-box");
     }
 
-    private void play(Node out, Node in) {
-        // 消失动画
-        RT_OUT.setNode(out);
-        RT_OUT.setFromValue(1);
-        RT_OUT.setToValue(0);
-        RT_OUT.setOnFinished(event -> {
-            getChildren().remove(out);
-            getChildren().add(in);
+    // 启动动画
+    private void play(Pane out, Pane in) {
+        TT1.setNode(out);
+        TT1.setFromX(0);
+        TT1.setToX(translateX);
+        RT.setNode(out);
+        RT.setFromAngle(0);
+        RT.setToAngle(rotateAngle);
+        out.rotateProperty()
+                // 监听旋转角度恢复要显示的内容
+                .addListener((observable, oldValue, newValue) -> in.setRotate(rotateAngle - newValue.doubleValue()));
+        TT2.setNode(out);
+        TT2.setFromX(translateX);
+        TT2.setToX(0);
+        PT.setOnFinished(event -> {
+            // 动画完成设置Z值（深度）
+            in.setTranslateZ(-1);
+            out.setTranslateZ(0);
         });
-        TT.setNode(out);
-        TT.setFromY(0);
-        TT.setToY(40);
-        // 显现动画
-        RT_IN.setFromValue(0);
-        RT_IN.setToValue(1);
-        RT_IN.setNode(in);
         SEQ_T.play();
+    }
+
+    private void setBackdropImage(Image image) {
+        BackgroundSize backgroundSize = new BackgroundSize(-1, -1, false, false, false, true);
+        BackgroundImage backgroundImage = new BackgroundImage(image, null, null, BackgroundPosition.DEFAULT, backgroundSize);
+        Background background = new Background(backgroundImage);
+        setBackground(background);
     }
 
     private void bindWidthHeight(Region... node) {
         for (int i = 0; i < node.length; i++) {
-            node[i].setMaxWidth(USE_COMPUTED_SIZE);
+            node[i].prefWidthProperty().bind(DEFAULT_WIDTH);
             node[i].prefHeightProperty().bind(DEFAULT_HEIGHT);
         }
     }
@@ -88,9 +110,6 @@ public class Login extends StackPane {
             avatar.setImage(FxUtil.getImage("/img/logo.jpg"));
             StackPane.setAlignment(avatar, Pos.BOTTOM_RIGHT);
             bindWidthHeight(email, password, signIn);
-            setAlignment(Pos.BOTTOM_CENTER);
-            setSpacing(20);
-            setPadding(new Insets(0, 0, 50, 0));
             signIn.prefWidthProperty().bind(password.widthProperty());
             //
             email.setPromptText("邮箱");
@@ -114,15 +133,12 @@ public class Login extends StackPane {
         private CFTextField email = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.MAIL));
         private CFTextField password = new CFTextField(CFTextField.Type.PASSWORD, new FontIcon(AntDesignIconsOutlined.KEY));
         private SimpleButton signUp = new SimpleButton("注册");
-        private Hyperlink toSignIn = SimpleControl.getHyperlink("已有账户？去登录", SimpleControl.Level.PRIMARY);
+        private Hyperlink toSignIn = SimpleControl.getHyperlink("已有账户，去登录", SimpleControl.Level.PRIMARY);
 
         public SignUpBox() {
             getChildren().addAll(titlePane, user, email, password, signUp, toSignIn);
             bindWidthHeight(user, email, password, signUp);
             StackPane.setAlignment(titleLabel, Pos.CENTER_LEFT);
-            setAlignment(Pos.BOTTOM_CENTER);
-            setSpacing(20);
-            setPadding(new Insets(0, 0, 50, 0));
             signUp.prefWidthProperty().bind(password.widthProperty());
             //
             user.setPromptText("用户名");
@@ -135,4 +151,8 @@ public class Login extends StackPane {
         }
     }
 
+    @Override
+    public String getUserAgentStylesheet() {
+        return FxUtil.getResource("/css/project/login.css");
+    }
 }

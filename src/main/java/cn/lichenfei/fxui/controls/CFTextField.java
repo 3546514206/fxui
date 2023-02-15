@@ -1,6 +1,8 @@
 package cn.lichenfei.fxui.controls;
 
 import cn.lichenfei.fxui.common.FxUtil;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
@@ -19,7 +21,8 @@ public class CFTextField extends HBox {
     private static final String STYLE_SHEET = FxUtil.getResource("/css/cf-text-field.css");
     private PseudoClass CF_FOCUSED = PseudoClass.getPseudoClass("cf-focused");// 自定义伪类
     private Type type = Type.TEXT;
-    //
+    private StringProperty textPro = new SimpleStringProperty("");
+    //组件
     private Label iconLabel = new Label();// 左侧图标
     private TextField textField = new TextField("");
     private PasswordField passwordField = new PasswordField();
@@ -46,6 +49,10 @@ public class CFTextField extends HBox {
     public void setPromptText(String promptText) {
         this.textField.setPromptText(promptText);
         this.passwordField.setPromptText(promptText);
+    }
+
+    public String getText() {
+        return textPro.get();
     }
 
     private void initialize() {
@@ -101,6 +108,10 @@ public class CFTextField extends HBox {
         });
         // 点击则选中输入框
         setOnMouseClicked(event -> setRequestFocus(childrenContains(this.textField) ? this.textField : this.passwordField));
+        // 监听值
+        ChangeListener<String> textChange = (observable, oldValue, newValue) -> this.textPro.set(newValue);
+        this.textField.textProperty().addListener(textChange);
+        this.passwordField.textProperty().addListener(textChange);
     }
 
     // 输入框选择，并且光标移动到最后

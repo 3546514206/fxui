@@ -1,0 +1,13 @@
+
+.login{
+    -fx-padding: 80px 50px 50px 50px;
+}
+.sign-up-box, .sign-in-box{
+    -fx-border-color: -cf-border-color;
+    -fx-border-radius: 5px;
+    -fx-background-color: rgb(255,255,255);
+    -fx-background-radius: 5px;
+    -fx-padding: 10px 20px 20px 20px;
+    -fx-spacing: 15px;
+    -fx-alignment: bottom-center;
+}

@@ -3,9 +3,11 @@ package cn.lichenfei.fxui;
 import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.controls.CFHeader;
 import cn.lichenfei.fxui.controls.CFStage;
-import cn.lichenfei.fxui.ui.Login;
+import cn.lichenfei.fxui.project.Login;
 import javafx.application.Application;
 
+import javafx.scene.SceneAntialiasing;
+import javafx.scene.SubScene;
 import javafx.stage.Stage;
 
 /**
@@ -16,7 +18,8 @@ public class FxApplication extends Application {
     @Override
     public void start(Stage stage) {
         //基础尺寸
-        stage = new CFStage(new Login(), 500, 400).setHeaderStyle(CFHeader.HeaderStyle.NONE);
+        SubScene subScene = new SubScene(new Login(), 800, 500, true, SceneAntialiasing.BALANCED);
+        stage = new CFStage(subScene, 800, 500).setHeaderStyle(CFHeader.HeaderStyle.NONE);
         stage.setTitle("chenfei-fx");// 标题
         stage.getIcons().add(FxUtil.getImage("/img/logo.jpg"));// icon
         stage.show();

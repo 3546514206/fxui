@@ -44,7 +44,7 @@ public class CFStage extends Stage {
         initialize();
     }
 
-    public CFStage(Node node, double height, double width) {
+    public CFStage(Node node, double width, double height) {
         setContent(node);
         this.height = height;
         this.width = width;
@@ -87,7 +87,7 @@ public class CFStage extends Stage {
         rectangle.arcWidthProperty().bind(arcPro);
         content.setClip(rectangle);
         //显示阴影效果
-        backdrop.setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.8), 10, 0, 1.5, 1.5));
+        backdrop.setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.5), 10, 0, 1.5, 1.5));
         this.root.setPrefHeight(height + insetsPro.get().getBottom() * 2);
         this.root.setPrefWidth(width + insetsPro.get().getBottom() * 2);
         this.root.paddingProperty().bind(insetsPro);
