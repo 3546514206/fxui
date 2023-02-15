@@ -24,6 +24,7 @@ import javafx.util.Duration;
 import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
 import org.kordamp.ikonli.javafx.FontIcon;
 
+import java.util.StringJoiner;
 import java.util.function.Consumer;
 
 public class Index extends StackPane {
@@ -47,6 +48,10 @@ public class Index extends StackPane {
     private double rotateAngle = 5;
 
     public Index() {
+        initialize();
+    }
+
+    private void initialize() {
         //背景
         setBackdropImage(FxUtil.getImage("/img/backdrop.png"));
         //布局
@@ -74,6 +79,7 @@ public class Index extends StackPane {
         closeBut.getStyleClass().add("close-but");
         subSceneRoot.getStylesheets().add(FxUtil.getResource("/css/project/index.css"));
         getStylesheets().add(FxUtil.getResource("/css/project/index.css"));
+
     }
 
     // 启动动画
@@ -131,6 +137,14 @@ public class Index extends StackPane {
         private Label qrCodeLabel = new Label();
 
         public SignInBox() {
+            initialize();
+        }
+
+        public void toSignUpClicked(Consumer<MouseEvent> consumer) {
+            this.toSignUp.setOnMouseClicked(event -> consumer.accept(event));
+        }
+
+        private void initialize() {
             //布局
             getChildren().addAll(vBox, qrCodeLabel);
             StackPane.setAlignment(qrCodeLabel, Pos.TOP_LEFT);
@@ -149,7 +163,23 @@ public class Index extends StackPane {
             //styleClass
             vBox.getStyleClass().add("sign-in-box");
             qrCodeLabel.getStyleClass().add("qr-code-label");
-            //裁剪二维码
+            qrCodeClip();
+            setSignInClick();
+        }
+
+        private void setSignInClick() {
+            signIn.setOnMouseClicked(event -> {
+                event.consume();
+                String emailText = email.getText();
+                String passwordText = password.getText();
+                // 处理登录逻辑
+                StringJoiner sj = new StringJoiner(",").add(emailText).add(passwordText);
+                System.out.println(sj);
+            });
+        }
+
+        //裁剪二维码
+        private void qrCodeClip() {
             qrCodeLabel.widthProperty().addListener((observable, oldValue, newValue) -> {
                 double value = newValue.doubleValue();
                 Polyline polyline = new Polyline(0, 0, value, 0, 0, value, 0, 0);
@@ -157,11 +187,6 @@ public class Index extends StackPane {
                 qrCodeLabel.setClip(polyline);
             });
         }
-
-        public void toSignUpClicked(Consumer<MouseEvent> consumer) {
-            this.toSignUp.setOnMouseClicked(event -> consumer.accept(event));
-        }
-
     }
 
     /**
@@ -179,6 +204,10 @@ public class Index extends StackPane {
         private Hyperlink toSignIn = SimpleControl.getHyperlink("已有账户，去登录", SimpleControl.Level.PRIMARY);
 
         public SignUpBox() {
+            initialize();
+        }
+
+        private void initialize() {
             //布局
             getChildren().add(vBox);
             vBox.getChildren().addAll(titlePane, user, email, password, signUp, toSignIn);
@@ -191,6 +220,19 @@ public class Index extends StackPane {
             password.setPromptText("密码");
             //styleClass
             vBox.getStyleClass().add("sign-up-box");
+            setSignUpClick();
+        }
+
+        private void setSignUpClick() {
+            signUp.setOnMouseClicked(event -> {
+                event.consume();
+                String userText = user.getText();
+                String emailText = email.getText();
+                String passwordText = password.getText();
+                // 处理注册逻辑
+                StringJoiner sj = new StringJoiner(",").add(userText).add(emailText).add(passwordText);
+                System.out.println(sj);
+            });
         }
 
         public void toSignInClicked(Consumer<MouseEvent> consumer) {
