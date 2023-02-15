@@ -15,7 +15,7 @@
 }
 .qr-code-label > .ikonli-font-icon{
     -fx-icon-size: 50px;
-    -fx-icon-color: -cf-text-color;
+    -fx-icon-color: rgba(0,0,0,0.3);
 }
 .qr-code-label:hover > .ikonli-font-icon{
     -fx-icon-color: -cf-primary-color;

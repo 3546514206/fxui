@@ -8,8 +8,6 @@ import cn.lichenfei.fxui.controls.CFTextField;
 import javafx.animation.*;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Pos;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
@@ -105,6 +103,8 @@ public class Login extends StackPane {
         private CFTextField email = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.MAIL));
         private CFTextField password = new CFTextField(CFTextField.Type.PASSWORD, new FontIcon(AntDesignIconsOutlined.KEY));
         private SimpleButton signIn = new SimpleButton("登录");
+        private Hyperlink forget = SimpleControl.getHyperlink("忘记密码", SimpleControl.Level.PRIMARY);
+        private StackPane bottomPane = new StackPane(forget);
         private Hyperlink toSignUp = SimpleControl.getHyperlink("没有账户？去注册", SimpleControl.Level.PRIMARY);
         //二维码登录
         private Label qrCodeLabel = new Label();
@@ -113,9 +113,10 @@ public class Login extends StackPane {
             //布局
             getChildren().addAll(vBox, qrCodeLabel);
             StackPane.setAlignment(qrCodeLabel, Pos.TOP_LEFT);
-            vBox.getChildren().addAll(titlePane, email, password, signIn, toSignUp);
+            vBox.getChildren().addAll(titlePane, email, password, signIn, bottomPane, toSignUp);
             StackPane.setAlignment(titleLabel, Pos.BOTTOM_LEFT);
             StackPane.setAlignment(avatar, Pos.BOTTOM_RIGHT);
+            StackPane.setAlignment(forget, Pos.CENTER_RIGHT);
             bindWidthHeight(email, password, signIn);
             signIn.prefWidthProperty().bind(password.widthProperty());
             //属性
@@ -126,7 +127,7 @@ public class Login extends StackPane {
             //styleClass
             vBox.getStyleClass().add("sign-in-box");
             qrCodeLabel.getStyleClass().add("qr-code-label");
-            //
+            //裁剪二维码
             qrCodeLabel.widthProperty().addListener((observable, oldValue, newValue) -> {
                 double value = newValue.doubleValue();
                 Polyline polyline = new Polyline(0, 0, value, 0, 0, value, 0, 0);
