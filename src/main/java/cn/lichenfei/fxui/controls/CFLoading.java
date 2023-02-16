@@ -54,8 +54,7 @@ public class CFLoading extends StackPane {
 
     // 布局
     private void setLayout() {
-        this.setMaxHeight(Double.NEGATIVE_INFINITY);
-        this.setMaxWidth(Double.NEGATIVE_INFINITY);
+        setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         switch (defaultSize) {
             case SMALL:
                 this.getChildren().addAll(this.arcPane);

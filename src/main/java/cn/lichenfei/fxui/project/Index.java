@@ -62,10 +62,8 @@ public class Index extends StackPane {
         subScene.widthProperty().bind(widthProperty());
         subScene.heightProperty().bind(heightProperty());
         subSceneRoot.getChildren().addAll(signUpBox, signInBox);
-        signUpBox.setMaxWidth(USE_PREF_SIZE);
-        signInBox.setMaxWidth(USE_PREF_SIZE);
-        signUpBox.setMaxHeight(USE_PREF_SIZE);
-        signInBox.setMaxHeight(USE_PREF_SIZE);
+        signInBox.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
+        signUpBox.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         StackPane.setAlignment(signInBox, Pos.CENTER_RIGHT);
         StackPane.setAlignment(signUpBox, Pos.CENTER_RIGHT);
         StackPane.setMargin(signInBox, new Insets(50));

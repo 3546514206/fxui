@@ -9,10 +9,11 @@ public class StartUp {
         // ButtonDemo.main(args);
         // LoadingDemo.main(args);
         // CarouselDemo.main(args); // 这个重写
-         TimelineDemo.main(args);
+        // TimelineDemo.main(args);
         // ClockDemo.main(args);
         // CFTextLoadingDemo.main(args);
         // CFTextFieldDemo.main(args);
+         Demo1.main(args);
     }
 
 }

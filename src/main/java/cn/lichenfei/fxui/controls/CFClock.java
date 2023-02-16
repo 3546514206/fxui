@@ -31,8 +31,7 @@ public class CFClock extends HBox {
     }
 
     private void setLayout() {
-        this.setMaxHeight(Double.NEGATIVE_INFINITY);
-        this.setMaxWidth(Double.NEGATIVE_INFINITY);
+        setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         this.setSpacing(10);
         this.setPadding(new Insets(10, 10, 10, 10));
         this.getChildren().addAll(clockItem1, clockItem2, clockItem3);
@@ -203,9 +202,8 @@ public class CFClock extends HBox {
 
         // 布局
         private void setLayout() {
-            this.setMaxHeight(Double.NEGATIVE_INFINITY);
-            this.setMaxWidth(Double.NEGATIVE_INFINITY);
-            this.getChildren().addAll(back, front);
+            setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
+            getChildren().addAll(back, front);
             back.getChildren().addAll(getLabel("00", false), getLabel("00", true));
             front.getChildren().addAll(getLabel("00", false), getLabel("00", true));
         }
@@ -215,7 +213,7 @@ public class CFClock extends HBox {
             Label label = new Label(text);
             label.setStyle("-fx-background-radius: 3px;" +
                     "-fx-background-color: primary-color;");
-            Font font = Font.font("Impact",60);
+            Font font = Font.font("Impact", 60);
             label.setFont(font);
             label.setAlignment(Pos.CENTER);
             label.setPrefWidth(80);

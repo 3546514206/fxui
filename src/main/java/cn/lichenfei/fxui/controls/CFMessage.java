@@ -48,8 +48,7 @@ public class CFMessage extends HBox {
     }
 
     private void initialize() {
-        setMaxWidth(USE_PREF_SIZE);
-        setMaxHeight(USE_PREF_SIZE);
+        setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         getChildren().addAll(iconLabel, messLabel, closeLabel);
         HBox.setHgrow(messLabel, Priority.ALWAYS);
         iconLabel.setGraphic(new FontIcon(AntDesignIconsFilled.MESSAGE));

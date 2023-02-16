@@ -66,8 +66,7 @@ public class CFTextField extends HBox {
 
     //布局相关
     private void setLayout() {
-        setMaxHeight(USE_PREF_SIZE);
-        setMaxWidth(USE_PREF_SIZE);
+        setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         getStyleClass().add(this.STYLE_CLASS);
         setAlignment(Pos.CENTER);
         setCursor(Cursor.TEXT);

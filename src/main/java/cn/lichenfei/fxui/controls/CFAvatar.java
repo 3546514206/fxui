@@ -28,8 +28,7 @@ public class CFAvatar extends StackPane {
     }
 
     private void initialize() {
-        setMaxWidth(USE_PREF_SIZE);
-        setMaxHeight(USE_PREF_SIZE);
+        setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         getChildren().add(imageView);
         //
         setPrefHeight(width);
