@@ -4,6 +4,7 @@ import cn.lichenfei.fxui.common.FxUtil;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.css.PseudoClass;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -53,6 +54,10 @@ public class CFTextField extends HBox {
 
     public String getText() {
         return textPro.get();
+    }
+
+    public void setText(String text) {
+        this.textPro.set(text);
     }
 
     public StringProperty getTextProperty() {
@@ -115,6 +120,10 @@ public class CFTextField extends HBox {
         ChangeListener<String> textChange = (observable, oldValue, newValue) -> this.textPro.set(newValue);
         this.textField.textProperty().addListener(textChange);
         this.passwordField.textProperty().addListener(textChange);
+        this.textPro.addListener((observable, oldValue, newValue) -> {
+            this.textField.setText(newValue);
+            this.passwordField.setText(newValue);
+        });
     }
 
     // 输入框选择，并且光标移动到最后

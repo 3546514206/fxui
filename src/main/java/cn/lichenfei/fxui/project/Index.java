@@ -4,10 +4,7 @@ import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.common.Level;
 import cn.lichenfei.fxui.common.SimpleButton;
 import cn.lichenfei.fxui.common.SimpleControl;
-import cn.lichenfei.fxui.controls.CFAvatar;
-import cn.lichenfei.fxui.controls.CFHeader;
-import cn.lichenfei.fxui.controls.CFMessage;
-import cn.lichenfei.fxui.controls.CFTextField;
+import cn.lichenfei.fxui.controls.*;
 import javafx.animation.*;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
@@ -29,6 +26,9 @@ import org.kordamp.ikonli.javafx.FontIcon;
 import java.util.StringJoiner;
 import java.util.function.Consumer;
 
+/**
+ * 登录注册界面
+ */
 public class Index extends StackPane {
     private DoubleProperty DEFAULT_HEIGHT = new SimpleDoubleProperty(40);
     private DoubleProperty DEFAULT_WIDTH = new SimpleDoubleProperty(250);
@@ -88,7 +88,19 @@ public class Index extends StackPane {
         });
         // 登录逻辑
         signInBox.setSignInClick(submitInfo -> {
-            CFMessage.show(this, "正在登录：" + submitInfo.getEmail());
+            if (!"admin@admin.com".equals(submitInfo.getEmail())) {
+                CFMessage.show(this, "邮箱请填写：admin@admin.com");
+                return;
+            }
+            if (!"123456".equals(submitInfo.getPassword())) {
+                CFMessage.show(this, "密码请填写：123456");
+                return;
+            }
+            //打开首页
+            CFStage cfStage = new CFStage(new Home(), 1100, 600);
+            cfStage.show();
+            //关闭登录页
+            FxUtil.getWindow(this).hide();
         });
     }
 
@@ -174,6 +186,9 @@ public class Index extends StackPane {
             vBox.getStyleClass().add("sign-in-box");
             qrCodeLabel.getStyleClass().add("qr-code-label");
             qrCodeClip();
+            //
+            email.setText("admin@admin.com");
+            password.setText("123456");
         }
 
         private void setSignInClick(Consumer<SubmitInfo> consumer) {
