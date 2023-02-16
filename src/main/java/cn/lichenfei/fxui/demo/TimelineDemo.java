@@ -1,6 +1,5 @@
 package cn.lichenfei.fxui.demo;
 
-import cn.lichenfei.fxui.common.FxUtil;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
@@ -57,16 +56,18 @@ public class TimelineDemo extends Application {
 
         /***************************************** 案例2 *****************************************/
         Timeline timeline2 = new Timeline();
-        Rectangle rectangle2 = new Rectangle();
-        rectangle2.setFill(Color.RED);
-        rectangle2.setWidth(100);
-        rectangle2.setHeight(100);
-        rectangle2.setLayoutX(400);
-        rectangle2.setLayoutY(400);
+        Label label = new Label("缩放");
+        label.setFont(Font.font(100));
+        StackPane scalePane = new StackPane(label);
+        scalePane.setBackground(new Background(new BackgroundFill(Color.BLUE, null, null)));
+        scalePane.setPrefWidth(200);
+        scalePane.setPrefWidth(200);
+        scalePane.setLayoutX(400);
+        scalePane.setLayoutY(200);
         // 缩放
         //Scale scale = new Scale(1, 1, 0, 0);// 左上角固定缩放
-        Scale scale = new Scale(1, 1, 100, 100);// 右下角固定缩放
-        rectangle2.getTransforms().add(scale);
+/*        Scale scale = new Scale(1, 1, 100, 100);// 右下角固定缩放
+        scalePane.getTransforms().add(scale);
         //
         KeyValue sx1 = new KeyValue(scale.xProperty(), 0);
         KeyValue sy1 = new KeyValue(scale.yProperty(), 0);
@@ -74,18 +75,19 @@ public class TimelineDemo extends Application {
         //
         KeyValue sx2 = new KeyValue(scale.xProperty(), 1);
         KeyValue sy2 = new KeyValue(scale.yProperty(), 1);
-        KeyFrame kfs2 = new KeyFrame(Duration.seconds(1), sx2, sy2);
+        KeyFrame kfs2 = new KeyFrame(Duration.seconds(1), sx2, sy2);*/
 
-/*
+
         Scale scale = new Scale(1, 1);// 左侧固定缩放
         scale.setPivotX(0);//
+        scalePane.getTransforms().add(scale);
         KeyValue sx1 = new KeyValue(scale.xProperty(), 0);
         KeyFrame kfs1 = new KeyFrame(Duration.seconds(0), sx1);
         //
         KeyValue sx2 = new KeyValue(scale.xProperty(), 1);
         KeyFrame kfs2 = new KeyFrame(Duration.seconds(1), sx2);
 
-*/
+
         //
         timeline2.getKeyFrames().addAll(kfs1, kfs2);
         timeline2.setCycleCount(Timeline.INDEFINITE);
@@ -95,20 +97,20 @@ public class TimelineDemo extends Application {
         /***************************************** 案例3 *****************************************/
 
         Timeline timeline3 = new Timeline();
-        Label label = new Label("6");
-        label.setTextFill(Color.WHITE);
-        label.setFont(new Font(50));
-        label.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
-        label.setLayoutX(400);
-        label.setLayoutY(200);
-        label.setPrefWidth(300);
-        label.setPrefHeight(300);
-        label.setAlignment(Pos.CENTER);
+        Label label1 = new Label("6");
+        label1.setTextFill(Color.WHITE);
+        label1.setFont(new Font(50));
+        label1.setBackground(new Background(new BackgroundFill(Color.BLACK, null, null)));
+        label1.setLayoutX(400);
+        label1.setLayoutY(200);
+        label1.setPrefWidth(300);
+        label1.setPrefHeight(300);
+        label1.setAlignment(Pos.CENTER);
         // 旋转
         //Rotate rotate = new Rotate(0, 0, 100);//左下角旋转
         Rotate rotate = new Rotate(0, Rotate.Y_AXIS);//3D Y 旋转
         rotate.setPivotX(300);
-        label.getTransforms().add(rotate);
+        label1.getTransforms().add(rotate);
         //
         KeyValue px1 = new KeyValue(rotate.angleProperty(), 0);
         KeyFrame kfpx1 = new KeyFrame(Duration.seconds(0), px1);
@@ -123,11 +125,10 @@ public class TimelineDemo extends Application {
 
         //
         Pane root = new Pane();
-        root.getChildren().addAll(rectangle1, rectangle2, label);
+        root.getChildren().addAll(rectangle1, scalePane, label1);
         Scene scene = new Scene(root);
         PerspectiveCamera perspectiveCamera = new PerspectiveCamera();
         scene.setCamera(perspectiveCamera);// 立体相机
-        scene.getStylesheets().add(FxUtil.getResource("/css/cf-button.css"));// 加载css
         primaryStage.setScene(scene);
         primaryStage.setWidth(1200);
         primaryStage.setHeight(700);
