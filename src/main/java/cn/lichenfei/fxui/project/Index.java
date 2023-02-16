@@ -83,21 +83,19 @@ public class Index extends StackPane {
         // 关闭登录窗口
         cfHeader.setCloseMouseClicked(event -> FxUtil.getWindow(cfHeader).hide());
         // 注册逻辑
-        signUpBox.setSignUpClick(submitInfo -> {
-            CFMessage.show(this, "正在注册：" + submitInfo.getEmail());
-        });
+        signUpBox.setSignUpClick(submitInfo -> FxUtil.showMessage(signInBox, "没有注册功能，只是一个UI演示而已。"));
         // 登录逻辑
         signInBox.setSignInClick(submitInfo -> {
             if (!"admin@admin.com".equals(submitInfo.getEmail())) {
-                CFMessage.show(this, "邮箱请填写：admin@admin.com");
+                FxUtil.showMessage(signInBox, "邮箱请填写：admin@admin.com");
                 return;
             }
             if (!"123456".equals(submitInfo.getPassword())) {
-                CFMessage.show(this, "密码请填写：123456");
+                FxUtil.showMessage(this, "密码请填写：123456");
                 return;
             }
             //打开首页
-            CFStage cfStage = new CFStage(new Home(), 1100, 600);
+            CFStage cfStage = new CFStage(new Home(), 1100, 700);
             cfStage.show();
             //关闭登录页
             FxUtil.getWindow(this).hide();

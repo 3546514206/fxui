@@ -72,6 +72,10 @@ public class CFStage extends Stage {
         return this;
     }
 
+    public StackPane getBackdrop() {
+        return backdrop;
+    }
+
     private void initialize() {
         initStyle(StageStyle.TRANSPARENT); // 修改窗口样式
         scene.setFill(null);

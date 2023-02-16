@@ -2,7 +2,6 @@ package cn.lichenfei.fxui.common;
 
 import javafx.scene.control.Button;
 import org.kordamp.ikonli.javafx.FontIcon;
-import cn.lichenfei.fxui.common.Level;
 
 public class SimpleButton extends Button {
 

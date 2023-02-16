@@ -1,9 +1,12 @@
 package cn.lichenfei.fxui.common;
 
+import cn.lichenfei.fxui.controls.CFMessage;
+import cn.lichenfei.fxui.controls.CFStage;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Window;
@@ -31,6 +34,18 @@ public class FxUtil {
     public static Window getWindow(Node node) {
         return node.getParent().getScene().getWindow();
     }
+
+    // 添加一个消息提示
+    public static void showMessage(Node node, String message) {
+        try {
+            CFStage cfStage = (CFStage) node.getParent().getScene().getWindow();
+            StackPane backdrop = cfStage.getBackdrop();
+            CFMessage.show(backdrop, message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * 设置裁剪圆角
