@@ -5,11 +5,22 @@
     -fx-border-color: -cf-border-color;
 }
 .user-box{
+    -fx-background-color: rgba(0,0,0,0.05);
     -fx-alignment: center;
-    -fx-padding: 10px;
+    -fx-padding: 8px 15px;
     -fx-spacing: 10px;
 }
 .user-info-box{
     -fx-alignment: center-left;
-    -fx-spacing: 5px;
+    -fx-spacing: 1px;
+}
+.more-label{
+    -fx-cursor: hand;
+}
+.more-label > .ikonli-font-icon{
+    -fx-icon-size: 25px;
+    -fx-icon-color: -cf-text-color;
+}
+.more-label:hover > .ikonli-font-icon{
+    -fx-icon-color: -cf-primary-color;
 }

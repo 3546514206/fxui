@@ -38,7 +38,7 @@ public class Home extends HBox {
         private VBox vBox = new VBox();
 
         //底部用户栏
-        private CFAvatar avatar = new CFAvatar(FxUtil.getImage("/img/logo.jpg"), 32, 32); // 用户头像
+        private CFAvatar avatar = new CFAvatar(FxUtil.getImage("/img/logo.jpg"), 36, 36); // 用户头像
         private Label userLabel = SimpleControl.getLabel("ChenFei");// 用户名
         private Label userType = SimpleControl.getLabel("admin", SimpleControl.LabelEnum.TEXT_SMALL); // 用户类型
         private VBox userInfoBox = new VBox(userLabel, userType);
@@ -58,6 +58,7 @@ public class Home extends HBox {
             getStyleClass().add("aside");
             this.userBox.getStyleClass().add("user-box");
             this.userInfoBox.getStyleClass().add("user-info-box");
+            this.moreLabel.getStyleClass().add("more-label");
         }
     }
 }
