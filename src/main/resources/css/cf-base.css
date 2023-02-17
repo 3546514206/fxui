@@ -34,8 +34,10 @@
 .h6 {
     -fx-font-size: 12px;
 }
-.text-default{
+.text-default, .text-small{
     -fx-text-fill: -cf-text-color;
+}
+.text-default{
     -fx-font-size: 14px;
 }
 .text-small{

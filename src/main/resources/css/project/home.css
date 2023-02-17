@@ -1,0 +1,15 @@
+
+.aside{
+    -fx-pref-width: 250px;
+    -fx-border-width: 0 1px 0 0;
+    -fx-border-color: -cf-border-color;
+}
+.user-box{
+    -fx-alignment: center;
+    -fx-padding: 10px;
+    -fx-spacing: 10px;
+}
+.user-info-box{
+    -fx-alignment: center-left;
+    -fx-spacing: 5px;
+}

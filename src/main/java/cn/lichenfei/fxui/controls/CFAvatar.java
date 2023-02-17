@@ -21,6 +21,18 @@ public class CFAvatar extends StackPane {
         initialize();
     }
 
+    public CFAvatar(Image image) {
+        this.imageView.setImage(image);
+        initialize();
+    }
+
+    public CFAvatar(Image image, double width, double arc) {
+        this.imageView.setImage(image);
+        this.width = width;
+        arcPro.set(arc);
+        initialize();
+    }
+
     public CFAvatar(double width, double arc) {
         this.width = width;
         arcPro.set(arc);
