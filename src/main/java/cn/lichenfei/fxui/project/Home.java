@@ -13,6 +13,8 @@ import org.kordamp.ikonli.antdesignicons.AntDesignIconsFilled;
 import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
 import org.kordamp.ikonli.javafx.FontIcon;
 
+import java.util.Optional;
+
 public class Home extends HBox {
 
     private static final String STYLE_SHEET = FxUtil.getResource("/css/project/home.css");
@@ -74,6 +76,12 @@ public class Home extends HBox {
             this.userBox.getStyleClass().add("user-box");
             this.userInfoBox.getStyleClass().add("user-info-box");
             this.moreLabel.getStyleClass().add("more-label");
+            //菜单选中事件监听
+            menu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+                Optional.ofNullable(newValue).ifPresent(menuItem -> {
+                    //main.getChildren().set(0, menuItem.getContent());
+                });
+            });
         }
 
 

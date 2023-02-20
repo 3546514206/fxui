@@ -1,8 +1,8 @@
 
 .cf-header{
-    -fx-padding: 5px;
+    -fx-padding: 10px 5px;
     -fx-spacing: 5px;
-    -fx-background-color: #EBEDF0;
+/*    -fx-background-color: #EBEDF0;*/
 /*    -fx-border-color: -cf-border-color;
     -fx-border-width: 0 0 1px 0;*/
 }
