@@ -1,11 +1,66 @@
 
 .aside{
     -fx-pref-width: 250px;
-    -fx-border-width: 0 1px 0 0;
-    -fx-border-color: -cf-border-color;
+    -fx-background-color: #EBEDF0;
 }
-.user-box{
+/*导航栏Item样式*/
+.nav-item{
+    -fx-spacing: 5px;
+    -fx-padding: 8px 15px;
+    -fx-cursor: hand;
+}
+.nav-item > .icon-label{
+    -fx-min-width:36px;
+    -fx-alignment: center;
+}
+.nav-item > .icon-label > .ikonli-font-icon{
+    -fx-icon-size: 20px;
+    -fx-icon-color: -cf-text-color;
+}
+.nav-item > .name-label{
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -cf-text-color,50%;
+}
+.nav-item:hover{
     -fx-background-color: rgba(0,0,0,0.05);
+    -fx-text-fill: -cf-text-color;
+}
+/*动态导航栏*/
+.menu{
+    -fx-background-insets: 0px;
+    -fx-background-color:transparent;
+    -fx-padding:5px 0 5px 0;
+    -fx--cf-border-color: -cf-border-color transparent -cf-border-color transparent;
+    -fx-border-width: 1px 0 1px 0;
+}
+.menu .scroll-bar{
+    -fx-opacity:0;
+}
+.menu:hover .scroll-bar{
+    -fx-opacity:1;
+}
+.menu .cell.indexed-cell.list-cell{
+    -fx-background-color:transparent;
+    -fx-padding:0px;
+}
+.menu .cell.indexed-cell.list-cell:empty:hover{
+    -fx-background-color:transparent;
+}
+.menu .cell.indexed-cell.list-cell:hover{}
+.menu .cell.indexed-cell.list-cell:selected{}
+.menu .cell.indexed-cell.list-cell:selected .nav-item{
+    -fx-background-color: rgba(0,0,0,0.1);
+}
+.menu .cell.indexed-cell.list-cell:selected .name-label{
+    -fx-text-fill: -cf-primary-color;
+}
+.menu .cell.indexed-cell.list-cell:selected .icon-label > .ikonli-font-icon{
+    -fx-icon-color: -cf-primary-color;
+}
+/* 用户信息 */
+.user-box{
+    -fx-background-color: rgba(240,240,240,0.5);
     -fx-alignment: center;
     -fx-padding: 8px 15px;
     -fx-spacing: 10px;
