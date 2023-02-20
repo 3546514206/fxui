@@ -3,7 +3,6 @@ package cn.lichenfei.fxui.project;
 import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.common.SimpleControl;
 import cn.lichenfei.fxui.controls.CFAvatar;
-import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;

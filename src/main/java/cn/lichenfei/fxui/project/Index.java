@@ -33,11 +33,11 @@ public class Index extends StackPane {
     private DoubleProperty DEFAULT_HEIGHT = new SimpleDoubleProperty(40);
     private DoubleProperty DEFAULT_WIDTH = new SimpleDoubleProperty(250);
     //
-    private StackPane subSceneRoot = new StackPane();
-    private SubScene subScene = new SubScene(subSceneRoot, 0, 0, true, SceneAntialiasing.BALANCED);
     // 登录，注册容器
     private SignInBox signInBox = new SignInBox();
     private SignUpBox signUpBox = new SignUpBox();
+    private StackPane subSceneRoot = new StackPane(signUpBox, signInBox);
+    private SubScene subScene = new SubScene(subSceneRoot, 0, 0, true, SceneAntialiasing.BALANCED);
     //关闭按钮
     private CFHeader cfHeader = new CFHeader();
     //动画
@@ -61,7 +61,6 @@ public class Index extends StackPane {
         cfHeader.setHeaderStyle(CFHeader.HeaderStyle.CLOSE);
         subScene.widthProperty().bind(widthProperty());
         subScene.heightProperty().bind(heightProperty());
-        subSceneRoot.getChildren().addAll(signUpBox, signInBox);
         signInBox.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         signUpBox.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         StackPane.setAlignment(signInBox, Pos.CENTER_RIGHT);
@@ -95,7 +94,7 @@ public class Index extends StackPane {
                 return;
             }
             //打开首页
-            CFStage cfStage = new CFStage(new Home(), 1100, 700);
+            CFStage cfStage = new CFStage(new Home(), 1100, 650);
             cfStage.show();
             //关闭登录页
             FxUtil.getWindow(this).hide();
@@ -143,7 +142,6 @@ public class Index extends StackPane {
      */
     public class SignInBox extends StackPane {
 
-        private VBox vBox = new VBox();
         private Label titleLabel = SimpleControl.getLabel("登录", SimpleControl.LabelEnum.H1);
         private CFAvatar avatar = new CFAvatar(64, 10);
         private StackPane titlePane = new StackPane(titleLabel, avatar);
@@ -153,6 +151,8 @@ public class Index extends StackPane {
         private Hyperlink forget = SimpleControl.getHyperlink("忘记密码", Level.PRIMARY);
         private StackPane bottomPane = new StackPane(forget);
         private Hyperlink toSignUp = SimpleControl.getHyperlink("没有账户？去注册", Level.PRIMARY);
+        //
+        private VBox vBox = new VBox(titlePane, email, password, signIn, bottomPane, toSignUp);
         //二维码登录
         private Label qrCodeLabel = new Label();
 
@@ -168,7 +168,6 @@ public class Index extends StackPane {
             //布局
             getChildren().addAll(vBox, qrCodeLabel);
             StackPane.setAlignment(qrCodeLabel, Pos.TOP_LEFT);
-            vBox.getChildren().addAll(titlePane, email, password, signIn, bottomPane, toSignUp);
             StackPane.setAlignment(titleLabel, Pos.BOTTOM_LEFT);
             StackPane.setAlignment(avatar, Pos.BOTTOM_RIGHT);
             StackPane.setAlignment(forget, Pos.CENTER_RIGHT);
@@ -176,7 +175,7 @@ public class Index extends StackPane {
             signIn.prefWidthProperty().bind(password.widthProperty());
             //属性
             qrCodeLabel.setGraphic(new FontIcon(AntDesignIconsOutlined.QRCODE));
-            qrCodeLabel.setTooltip(SimpleControl.getTooltip("扫描登录"));
+            qrCodeLabel.setTooltip(SimpleControl.getTooltip("扫码登录"));
             avatar.setImage(FxUtil.getImage("/img/logo.jpg"));
             email.setPromptText("邮箱");
             password.setPromptText("密码");
@@ -217,7 +216,6 @@ public class Index extends StackPane {
      */
     public class SignUpBox extends StackPane {
 
-        private VBox vBox = new VBox();
         private Label titleLabel = SimpleControl.getLabel("注册", SimpleControl.LabelEnum.H1);
         private StackPane titlePane = new StackPane(titleLabel);
         private CFTextField user = new CFTextField(CFTextField.Type.TEXT, new FontIcon(AntDesignIconsOutlined.USER));
@@ -225,6 +223,8 @@ public class Index extends StackPane {
         private CFTextField password = new CFTextField(CFTextField.Type.PASSWORD, new FontIcon(AntDesignIconsOutlined.KEY));
         private SimpleButton signUp = new SimpleButton("注册");
         private Hyperlink toSignIn = SimpleControl.getHyperlink("已有账户，去登录", Level.PRIMARY);
+        //
+        private VBox vBox = new VBox(titlePane, user, email, password, signUp, toSignIn);
 
         public SignUpBox() {
             initialize();
@@ -233,7 +233,6 @@ public class Index extends StackPane {
         private void initialize() {
             //布局
             getChildren().add(vBox);
-            vBox.getChildren().addAll(titlePane, user, email, password, signUp, toSignIn);
             bindWidthHeight(user, email, password, signUp);
             StackPane.setAlignment(titleLabel, Pos.CENTER_LEFT);
             signUp.prefWidthProperty().bind(password.widthProperty());
