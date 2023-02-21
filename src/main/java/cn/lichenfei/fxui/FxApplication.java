@@ -13,9 +13,11 @@ import javafx.stage.Stage;
  */
 public class FxApplication extends Application {
     @Override
-    public void start(Stage stage) {
+    public void start(Stage primaryStage) {
         //基础尺寸
-        stage = new CFStage(new Index(), 800, 500).setHeaderStyle(CFHeader.HeaderStyle.NONE);
+        CFStage stage = new CFStage(new Index(), 800, 500)
+                .setHeaderStyle(CFHeader.HeaderStyle.CLOSE)
+                .setBackdropImage(FxUtil.getImage("/img/backdrop.png"));
         stage.setTitle("chenfei-fxui");// 标题
         stage.getIcons().add(FxUtil.getImage("/img/logo.jpg"));// icon
         stage.show();

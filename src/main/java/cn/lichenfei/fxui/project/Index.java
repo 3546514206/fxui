@@ -32,14 +32,11 @@ import java.util.function.Consumer;
 public class Index extends StackPane {
     private DoubleProperty DEFAULT_HEIGHT = new SimpleDoubleProperty(40);
     private DoubleProperty DEFAULT_WIDTH = new SimpleDoubleProperty(250);
-    //
     // 登录，注册容器
     private SignInBox signInBox = new SignInBox();
     private SignUpBox signUpBox = new SignUpBox();
     private StackPane subSceneRoot = new StackPane(signUpBox, signInBox);
     private SubScene subScene = new SubScene(subSceneRoot, 0, 0, true, SceneAntialiasing.BALANCED);
-    //关闭按钮
-    private CFHeader cfHeader = new CFHeader();
     //动画
     private TranslateTransition TT1 = new TranslateTransition(Duration.millis(500));
     private RotateTransition RT = new RotateTransition(Duration.millis(500));
@@ -54,20 +51,18 @@ public class Index extends StackPane {
     }
 
     private void initialize() {
-        //背景
-        setBackdropImage(FxUtil.getImage("/img/backdrop.png"));
         //布局
-        getChildren().addAll(subScene, cfHeader);
-        cfHeader.setHeaderStyle(CFHeader.HeaderStyle.CLOSE);
+        getChildren().addAll(subScene);
         subScene.widthProperty().bind(widthProperty());
         subScene.heightProperty().bind(heightProperty());
+        subScene.setFill(Color.TRANSPARENT);
+        subSceneRoot.setBackground(null);
         signInBox.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         signUpBox.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         StackPane.setAlignment(signInBox, Pos.CENTER_RIGHT);
         StackPane.setAlignment(signUpBox, Pos.CENTER_RIGHT);
         StackPane.setMargin(signInBox, new Insets(50));
         StackPane.setMargin(signUpBox, new Insets(50));
-        StackPane.setAlignment(cfHeader, Pos.TOP_RIGHT);
         // styleClass
         subSceneRoot.getStylesheets().add(FxUtil.getResource("/css/project/index.css"));
         setEvent();
@@ -79,8 +74,6 @@ public class Index extends StackPane {
         signUpBox.setRotate(rotateAngle);
         signInBox.toSignUpClicked(event -> play(signInBox, signUpBox));
         signUpBox.toSignInClicked(event -> play(signUpBox, signInBox));
-        // 关闭登录窗口
-        cfHeader.setCloseMouseClicked(event -> FxUtil.getWindow(cfHeader).hide());
         // 注册逻辑
         signUpBox.setSignUpClick(submitInfo -> FxUtil.showMessage(signInBox, "没有注册功能，只是一个UI演示而已。"));
         // 登录逻辑

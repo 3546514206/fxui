@@ -8,6 +8,7 @@ import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
+import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -76,12 +77,25 @@ public class CFStage extends Stage {
         return backdrop;
     }
 
+    /**
+     * 设置背景图片:默认背景为白色
+     *
+     * @param image
+     */
+    public CFStage setBackdropImage(Image image) {
+        BackgroundSize backgroundSize = new BackgroundSize(-1, -1, false, false, false, true);
+        BackgroundImage backgroundImage = new BackgroundImage(image, null, null, BackgroundPosition.DEFAULT, backgroundSize);
+        Background background = new Background(backgroundImage);
+        this.content.setBackground(background);
+        return this;
+    }
+
     private void initialize() {
         initStyle(StageStyle.TRANSPARENT); // 修改窗口样式
         scene.setFill(null);
         scene.getStylesheets().add(ROOT_STYLE_SHEET);// 加载基础样式
         setScene(scene);
-        root.setBackground(new Background(new BackgroundFill(Color.TRANSPARENT, null, null)));
+        root.setBackground(null);
         content.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null))); // 窗口默认颜色
         //裁剪为圆角
         Rectangle rectangle = new Rectangle();
