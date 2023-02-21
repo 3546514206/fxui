@@ -65,7 +65,7 @@ public class Home extends HBox {
             initialize();
             // 模拟数据
             menu.getItems().addAll(
-                    new NavItem(new FontIcon(AntDesignIconsFilled.HOME), "首页000000000000000000000000000000"),
+                    new NavItem(new FontIcon(AntDesignIconsFilled.HOME), "首页"),
                     new NavItem(new FontIcon(AntDesignIconsFilled.PIE_CHART), "统计图")
             );
         }
@@ -91,6 +91,8 @@ public class Home extends HBox {
                     //main.getChildren().set(0, menuItem.getContent());
                 });
             });
+            //
+            notification.getCfBadge().setValue(3);
         }
 
 
@@ -114,6 +116,10 @@ public class Home extends HBox {
                 iconLabel.getStyleClass().add("icon-label");
                 nameLabel.getStyleClass().add("name-label");
                 prefWidthProperty().bind(menu.widthProperty());
+            }
+
+            public CFBadge getCfBadge() {
+                return cfBadge;
             }
         }
     }

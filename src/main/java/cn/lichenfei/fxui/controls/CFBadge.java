@@ -22,11 +22,12 @@ public class CFBadge extends Label {
     }
 
     private void initialize() {
-        textProperty().bind(valuePro.asString());
         getStyleClass().add("cf-badge");
         valuePro.addListener((observable, oldValue, newValue) -> {
-            setManaged(newValue.intValue() == -1 ? false : true);
-            setVisible(newValue.intValue() == -1 ? false : true);
+            int i = newValue.intValue();
+            setManaged(i == -1 ? false : true);
+            setVisible(i == -1 ? false : true);
+            setText(i > 9 ? "9+" : i + "");
         });
         valuePro.set(-1);// 默认不展示
     }
