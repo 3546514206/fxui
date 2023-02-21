@@ -15,7 +15,7 @@
     -fx-background-radius:10px;
     -fx-background-insets:0;
     -fx-background-color:rgba(0,0,0,0.25);
-    -fx-cursor:hand;
+    /*-fx-cursor:hand;*/
 }
 .cf-header > .close-but{
     -fx-background-color:-cf-danger-color;

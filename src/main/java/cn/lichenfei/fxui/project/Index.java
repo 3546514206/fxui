@@ -14,7 +14,6 @@ import javafx.scene.SceneAntialiasing;
 import javafx.scene.SubScene;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -87,8 +86,9 @@ public class Index extends StackPane {
                 return;
             }
             //打开首页
-            CFStage cfStage = new CFStage(new Home(), 1100, 650);
-            cfStage.show();
+            new CFStage(new Home(), 1100, 650)
+                    .setHeaderColor(Color.valueOf("#409EFF"))
+                    .show();
             //关闭登录页
             FxUtil.getWindow(this).hide();
         });
@@ -114,13 +114,6 @@ public class Index extends StackPane {
             hide.setTranslateZ(0);
         });
         SEQ_T.play();
-    }
-
-    private void setBackdropImage(Image image) {
-        BackgroundSize backgroundSize = new BackgroundSize(-1, -1, false, false, false, true);
-        BackgroundImage backgroundImage = new BackgroundImage(image, null, null, BackgroundPosition.DEFAULT, backgroundSize);
-        Background background = new Background(backgroundImage);
-        this.subSceneRoot.setBackground(background);
     }
 
     private void bindWidthHeight(Region... node) {

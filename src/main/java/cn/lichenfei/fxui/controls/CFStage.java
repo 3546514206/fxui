@@ -73,6 +73,11 @@ public class CFStage extends Stage {
         return this;
     }
 
+    public CFStage setHeaderColor(Color color) {
+        cfHeader.setBackground(new Background(new BackgroundFill(color, null, null)));
+        return this;
+    }
+
     public StackPane getBackdrop() {
         return backdrop;
     }
