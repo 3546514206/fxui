@@ -4,14 +4,37 @@
     -fx-border-width: 0 1px 0 0;
     -fx-border-color: -cf-border-color;
 }
+/*搜索框*/
+.search-box{
+    -fx-padding: 10px 15px;
+}
+.search-label{
+    -fx-min-height: 40px;
+    -fx-background-color: rgba(0,0,0,0.05);
+    -fx-background-radius: 3px;
+    -fx-border-color: -cf-border-color;
+    -fx-border-radius: 3px;
+    -fx-font-size: 14px;
+    -fx-pref-height: 30px;
+    -fx-font-weight: bold;
+    -fx-text-fill: -cf-text-color;
+    -fx-alignment: center;
+    -fx-cursor: text;
+}
+.search-label > .ikonli-font-icon{
+    -fx-icon-size: 20px;
+    -fx-icon-color: -cf-text-color;
+}
 /*导航栏Item样式*/
 .nav-item{
+    -fx-pref-height: 40px;
+    -fx-alignment: center-left;
     -fx-spacing: 5px;
-    -fx-padding: 8px 15px;
+    -fx-padding: 0 15px 0 15px;
     -fx-cursor: hand;
 }
 .nav-item > .icon-label{
-    -fx-min-width:36px;
+    -fx-min-width: 36px;
     -fx-alignment: center;
 }
 .nav-item > .icon-label > .ikonli-font-icon{
@@ -20,8 +43,9 @@
 }
 .nav-item > .name-label{
     -fx-font-size: 14px;
+    -fx-pref-height: 30px;
     -fx-font-weight: bold;
-    -fx-text-fill: -cf-text-color,50%;
+    -fx-text-fill: -cf-text-color;
 }
 .nav-item:hover{
     -fx-background-color: rgba(0,0,0,0.05);
@@ -32,7 +56,7 @@
     -fx-background-insets: 0px;
     -fx-background-color:transparent;
     -fx-padding:5px 0 5px 0;
-    -fx--cf-border-color: -cf-border-color transparent -cf-border-color transparent;
+    -fx-border-color: -cf-border-color transparent -cf-border-color transparent;
     -fx-border-width: 1px 0 1px 0;
 }
 .menu .scroll-bar{

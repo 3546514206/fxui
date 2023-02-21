@@ -3,6 +3,7 @@ package cn.lichenfei.fxui.project;
 import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.common.SimpleControl;
 import cn.lichenfei.fxui.controls.CFAvatar;
+import cn.lichenfei.fxui.controls.CFBadge;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.HBox;
@@ -37,6 +38,10 @@ public class Home extends HBox {
      */
     public class Aside extends StackPane {
 
+        //搜索框
+        private Label searchLabel = new Label("搜索");
+        private StackPane searchBox = new StackPane(searchLabel);
+
         // 动态导航栏
         private ListView<NavItem> menu = new ListView<>();
 
@@ -54,24 +59,28 @@ public class Home extends HBox {
         private Label moreLabel = new Label();
         private HBox userBox = new HBox(avatar, userInfoBox, moreLabel);
 
-        private VBox vBox = new VBox(menu, fixedNav, userBox);
+        private VBox vBox = new VBox(searchBox, menu, fixedNav, userBox);
 
         public Aside() {
             initialize();
             // 模拟数据
             menu.getItems().addAll(
-                    new NavItem(new FontIcon(AntDesignIconsFilled.HOME), "首页"),
+                    new NavItem(new FontIcon(AntDesignIconsFilled.HOME), "首页000000000000000000000000000000"),
                     new NavItem(new FontIcon(AntDesignIconsFilled.PIE_CHART), "统计图")
             );
         }
 
         private void initialize() {
             getChildren().addAll(this.vBox);
-            VBox.setVgrow(menu,Priority.ALWAYS);
+            VBox.setVgrow(menu, Priority.ALWAYS);
             HBox.setHgrow(userInfoBox, Priority.ALWAYS);
+            this.searchLabel.setGraphic(new FontIcon(AntDesignIconsOutlined.SEARCH));
+            this.searchLabel.setMaxSize(Double.MAX_VALUE, USE_PREF_SIZE);
             this.moreLabel.setGraphic(new FontIcon(AntDesignIconsOutlined.MORE));
             //styleClass
             getStyleClass().add("aside");
+            this.searchBox.getStyleClass().add("search-box");
+            this.searchLabel.getStyleClass().add("search-label");
             this.menu.getStyleClass().addAll("scroll-bar-style", "menu");
             this.userBox.getStyleClass().add("user-box");
             this.userInfoBox.getStyleClass().add("user-info-box");
@@ -88,6 +97,7 @@ public class Home extends HBox {
         public class NavItem extends HBox {
             private Label iconLabel = new Label();
             private Label nameLabel = new Label();
+            private CFBadge cfBadge = new CFBadge();
 
             public NavItem(FontIcon fontIcon, String name) {
                 this.iconLabel.setGraphic(fontIcon);
@@ -96,11 +106,14 @@ public class Home extends HBox {
             }
 
             private void initialize() {
-                getChildren().addAll(iconLabel, nameLabel);
+                getChildren().addAll(iconLabel, nameLabel, cfBadge);
+                nameLabel.setMaxSize(Double.MAX_VALUE, USE_PREF_SIZE);
+                HBox.setHgrow(nameLabel, Priority.ALWAYS);
                 //
                 getStyleClass().add("nav-item");
                 iconLabel.getStyleClass().add("icon-label");
                 nameLabel.getStyleClass().add("name-label");
+                prefWidthProperty().bind(menu.widthProperty());
             }
         }
     }
