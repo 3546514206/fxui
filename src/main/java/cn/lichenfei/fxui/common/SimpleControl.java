@@ -6,7 +6,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PopupControl;
 import javafx.scene.control.Tooltip;
 import javafx.util.Duration;
-import cn.lichenfei.fxui.common.Level;
 
 /**
  * 常用简单组件
