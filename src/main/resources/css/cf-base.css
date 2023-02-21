@@ -74,6 +74,18 @@
     -fx-text-fill:rgb(255,255,255);
 }
 
+.cf-separator:horizontal > .line {
+/*    -fx-background-color: null;
+    -fx-padding: 0.083333em 0.0em 0.0em 0.0em; *//* 1 0 0 0 */
+    -fx-border-color: -cf-border-color transparent transparent transparent;
+}
+
+.cf-separator:vertical > .line {
+/*    -fx-background-color: null;
+    -fx-padding: 0.0em 0.083333em 0.0em 0.0em; *//* 0 1 0 0 */
+    -fx-border-color:  transparent -cf-border-color transparent transparent;
+}
+
 /* 滚动条样式 */
 .scroll-bar-style{
     -fx-background-color: transparent;

@@ -1,19 +1,22 @@
 
 .aside{
-    -fx-pref-width: 250px;
+    -fx-pref-width: 220px;
     -fx-border-width: 0 1px 0 0;
     -fx-border-color: -cf-border-color;
+    -fx-spacing: 10px;
 }
 /*导航栏Item样式*/
 .nav-item{
+    -fx-background-insets: 1px 10px;
+    -fx-background-radius: 3px;
+    -fx-min-height: 40px;
     -fx-pref-height: 40px;
     -fx-alignment: center-left;
-    -fx-spacing: 5px;
+    -fx-spacing: 10px;
     -fx-padding: 0 15px 0 15px;
-    -fx-cursor: hand;
 }
 .nav-item > .icon-label{
-    -fx-min-width: 36px;
+    /*-fx-min-width: 36px;*/
     -fx-alignment: center;
 }
 .nav-item > .icon-label > .ikonli-font-icon{
@@ -26,9 +29,11 @@
     -fx-font-weight: bold;
     -fx-text-fill: -cf-text-color;
 }
-.nav-item:hover{
-    -fx-background-color: rgba(0,0,0,0.05);
-    -fx-text-fill: -cf-text-color;
+.nav-item:hover > .name-label{
+    -fx-text-fill: -cf-primary-color;
+}
+.nav-item:hover > .icon-label > .ikonli-font-icon{
+    -fx-icon-color: -cf-primary-color;
 }
 /*动态导航栏*/
 .menu{
@@ -51,8 +56,9 @@
 }
 .menu .cell.indexed-cell.list-cell:hover{}
 .menu .cell.indexed-cell.list-cell:selected{}
+.menu .cell.indexed-cell.list-cell:hover .nav-item,
 .menu .cell.indexed-cell.list-cell:selected .nav-item{
-    -fx-background-color: rgba(0,0,0,0.1);
+    -fx-background-color: derive(-cf-primary-color,90%);
 }
 .menu .cell.indexed-cell.list-cell:selected .name-label{
     -fx-text-fill: -cf-primary-color;
@@ -62,10 +68,13 @@
 }
 /* 用户信息 */
 .user-box{
-    /*-fx-background-color: rgba(0,0,0,0.1);*/
+    /*-fx-background-color: rgba(0,0,0,0.05);*/
     -fx-alignment: center;
     -fx-padding: 8px 15px;
     -fx-spacing: 10px;
+}
+.user-box:hover{
+    -fx-background-color: rgba(0,0,0,0.05);
 }
 .user-info-box{
     -fx-alignment: center-left;
@@ -77,7 +86,4 @@
 .more-label > .ikonli-font-icon{
     -fx-icon-size: 25px;
     -fx-icon-color: -cf-text-color;
-}
-.more-label:hover > .ikonli-font-icon{
-    -fx-icon-color: -cf-primary-color;
 }

@@ -78,6 +78,13 @@ public class CFStage extends Stage {
         return this;
     }
 
+    public CFStage setMinSize(double width, double height) {
+        setMinWidth(width);
+        setMinHeight(height);
+        this.root.setMinSize(width, height);
+        return this;
+    }
+
     public StackPane getBackdrop() {
         return backdrop;
     }

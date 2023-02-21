@@ -1,10 +1,7 @@
 package cn.lichenfei.fxui.common;
 
 import javafx.scene.Node;
-import javafx.scene.control.Hyperlink;
-import javafx.scene.control.Label;
-import javafx.scene.control.PopupControl;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.util.Duration;
 
 /**
@@ -60,6 +57,16 @@ public class SimpleControl {
         setStyleClass(tooltip, TOOLTIP_STYLE_CLASS, getStyleClass(tooltipEnum.name()));
         return tooltip;
     }
+
+    /********************************* Separator *********************************/
+    private static final String SEPARATOR_STYLE_CLASS = "cf-separator";
+
+    public static Separator getSeparator() {
+        Separator separator = new Separator();
+        setStyleClass(separator, SEPARATOR_STYLE_CLASS);
+        return separator;
+    }
+
 
     public enum TooltipEnum {
         DARK, LIGHT
