@@ -10,11 +10,13 @@
     -fx-alignment: bottom-center;
 }
 .qr-code-label{
+    -fx-background-radius: 5px;
+    -fx-background-color: derive(-cf-primary-color, 60%);
+}
+.qr-code-label:hover{
+    -fx-background-color: -cf-primary-color;
 }
 .qr-code-label > .ikonli-font-icon{
     -fx-icon-size: 50px;
-    -fx-icon-color: rgba(0,0,0,0.3);
-}
-.qr-code-label:hover > .ikonli-font-icon{
-    -fx-icon-color: -cf-primary-color;
+    -fx-icon-color: rgb(255,255,255);
 }

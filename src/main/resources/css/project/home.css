@@ -61,7 +61,7 @@
 }
 /* 用户信息 */
 .user-box{
-    -fx-background-color: rgba(240,240,240,0.5);
+    -fx-background-color: rgba(0,0,0,0.1);
     -fx-alignment: center;
     -fx-padding: 8px 15px;
     -fx-spacing: 10px;
