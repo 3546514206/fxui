@@ -6,6 +6,7 @@ import cn.lichenfei.fxui.controls.CFAvatar;
 import cn.lichenfei.fxui.controls.CFBadge;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Separator;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -38,20 +39,15 @@ public class Home extends HBox {
      */
     public class Aside extends StackPane {
 
-        //搜索框
-        private Label searchLabel = new Label("搜索");
-        private StackPane searchBox = new StackPane(searchLabel);
-
         // 动态导航栏
         private ListView<NavItem> menu = new ListView<>();
 
         // 固定导航栏
         private NavItem notification = new NavItem(new FontIcon(AntDesignIconsFilled.NOTIFICATION), "通知");
         private NavItem setting = new NavItem(new FontIcon(AntDesignIconsFilled.SETTING), "设置");
-        private NavItem help = new NavItem(new FontIcon(AntDesignIconsFilled.QUESTION_CIRCLE), "帮助");
-        private VBox fixedNav = new VBox(notification, setting, help);
+        private VBox fixedNav = new VBox(notification, setting);
 
-        // 底部用户栏
+        // 用户栏
         private CFAvatar avatar = new CFAvatar(FxUtil.getImage("/img/logo.jpg"), 36, 36); // 用户头像
         private Label userLabel = SimpleControl.getLabel("ChenFei");// 用户名
         private Label userType = SimpleControl.getLabel("admin", SimpleControl.LabelEnum.TEXT_SMALL); // 用户类型
@@ -59,7 +55,7 @@ public class Home extends HBox {
         private Label moreLabel = new Label();
         private HBox userBox = new HBox(avatar, userInfoBox, moreLabel);
 
-        private VBox vBox = new VBox(searchBox, menu, fixedNav, userBox);
+        private VBox vBox = new VBox(userBox, new Separator(), fixedNav, new Separator(), menu);
 
         public Aside() {
             initialize();
@@ -74,13 +70,9 @@ public class Home extends HBox {
             getChildren().addAll(this.vBox);
             VBox.setVgrow(menu, Priority.ALWAYS);
             HBox.setHgrow(userInfoBox, Priority.ALWAYS);
-            this.searchLabel.setGraphic(new FontIcon(AntDesignIconsOutlined.SEARCH));
-            this.searchLabel.setMaxSize(Double.MAX_VALUE, USE_PREF_SIZE);
             this.moreLabel.setGraphic(new FontIcon(AntDesignIconsOutlined.MORE));
             //styleClass
             getStyleClass().add("aside");
-            this.searchBox.getStyleClass().add("search-box");
-            this.searchLabel.getStyleClass().add("search-label");
             this.menu.getStyleClass().addAll("scroll-bar-style", "menu");
             this.userBox.getStyleClass().add("user-box");
             this.userInfoBox.getStyleClass().add("user-info-box");
