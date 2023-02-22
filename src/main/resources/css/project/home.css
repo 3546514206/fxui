@@ -1,6 +1,7 @@
 
 .aside{
-    -fx-pref-width: 220px;
+    -fx-min-width: 220px;
+    -fx-max-width: 220px;
     -fx-border-width: 0 1px 0 0;
     -fx-border-color: -cf-border-color;
     -fx-spacing: 10px;

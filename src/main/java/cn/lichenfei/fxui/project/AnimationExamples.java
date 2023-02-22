@@ -1,8 +1,11 @@
 package cn.lichenfei.fxui.project;
 
+import cn.lichenfei.fxui.common.FxUtil;
+import cn.lichenfei.fxui.controls.CFClock;
 import javafx.animation.*;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.PerspectiveCamera;
+import javafx.scene.SubScene;
 import javafx.scene.control.Label;
 
 import javafx.scene.control.ScrollPane;
@@ -21,13 +24,30 @@ public class AnimationExamples extends ScrollPane {
     public AnimationExamples() {
         getStyleClass().add("scroll-bar-style");
         setContent(itemBox);
-        setPadding(new Insets(50));
+        //setPadding(new Insets(0, 50, 0, 50));
         itemBox.prefWidthProperty().bind(widthProperty());
-        itemBox.setAlignment(Pos.CENTER);
+        itemBox.setAlignment(Pos.TOP_CENTER);
+        itemBox.setSpacing(50);
         //
         itemBox.getChildren().addAll(
+                new Example2(),
                 new Example1("ANIMATION", Color.valueOf("#909399"), Color.valueOf("#337ecc"))
         );
+    }
+}
+
+/**
+ * 时钟翻页效果
+ */
+class Example2 extends StackPane {
+
+    private StackPane root = new StackPane(new CFClock());
+    private SubScene subScene = new SubScene(root, 400, 200);
+
+    public Example2() {
+        getChildren().add(subScene);
+        root.getStylesheets().add(FxUtil.getResource("/css/cf-base.css"));
+        subScene.setCamera(new PerspectiveCamera());
     }
 }
 
