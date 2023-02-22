@@ -24,7 +24,6 @@ public class AnimationExamples extends ScrollPane {
     public AnimationExamples() {
         getStyleClass().add("scroll-bar-style");
         setContent(itemBox);
-        //setPadding(new Insets(0, 50, 0, 50));
         itemBox.prefWidthProperty().bind(widthProperty());
         itemBox.setAlignment(Pos.TOP_CENTER);
         itemBox.setSpacing(50);

@@ -36,7 +36,7 @@ public class CFClock extends HBox {
         this.setPadding(new Insets(10, 10, 10, 10));
         this.getChildren().addAll(clockItem1, clockItem2, clockItem3);
         this.setStyle("-fx-background-radius: 3px;" +
-                "-fx-background-color: derive(-cf-primary-color,50%);");
+                "-fx-background-color: derive(#303133,90%);");
     }
 
     // 动画
@@ -212,7 +212,7 @@ public class CFClock extends HBox {
             int height = 2;
             Label label = new Label(text);
             label.setStyle("-fx-background-radius: 3px;" +
-                    "-fx-background-color: -cf-primary-color;");
+                    "-fx-background-color: #303133;");
             Font font = Font.font("Impact", 60);
             label.setFont(font);
             label.setAlignment(Pos.CENTER);
