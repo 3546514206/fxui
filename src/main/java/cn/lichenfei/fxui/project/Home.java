@@ -39,8 +39,9 @@ public class Home extends HBox {
         ObservableList<NavItem> menuItems = aside.menu.getItems();
         // 模拟数据
         menuItems.addAll(
-                new NavItem(new FontIcon(AntDesignIconsFilled.HOME), "首页", new StackPane()),
-                new NavItem(new FontIcon(AntDesignIconsFilled.PIE_CHART), "统计图", new StackPane())
+                new NavItem(new FontIcon(AntDesignIconsFilled.CONTROL), "Effect-效果", new EffectExamples()),
+                new NavItem(new FontIcon(AntDesignIconsOutlined.PLAY_CIRCLE), "动画效果", new AnimationExamples())
+
         );
         // 默认选择第一个
         aside.menu.getSelectionModel().select(0);
