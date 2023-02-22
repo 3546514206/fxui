@@ -24,13 +24,13 @@ public class AnimationExamples extends ScrollPane {
     public AnimationExamples() {
         getStyleClass().add("scroll-bar-style");
         setContent(itemBox);
-        itemBox.prefWidthProperty().bind(widthProperty());
+        itemBox.prefWidthProperty().bind(widthProperty().subtract(2));
         itemBox.setAlignment(Pos.TOP_CENTER);
         itemBox.setSpacing(50);
         //
         itemBox.getChildren().addAll(
-                new Example2(),
-                new Example1("ANIMATION", Color.valueOf("#909399"), Color.valueOf("#337ecc"))
+                new AnimationExample2(),
+                new AnimationExample1("ANIMATION", Color.valueOf("#909399"), Color.valueOf("#337ecc"))
         );
     }
 }
@@ -38,12 +38,12 @@ public class AnimationExamples extends ScrollPane {
 /**
  * 时钟翻页效果
  */
-class Example2 extends StackPane {
+class AnimationExample2 extends StackPane {
 
     private StackPane root = new StackPane(new CFClock());
     private SubScene subScene = new SubScene(root, 400, 200);
 
-    public Example2() {
+    public AnimationExample2() {
         getChildren().add(subScene);
         root.getStylesheets().add(FxUtil.getResource("/css/cf-base.css"));
         subScene.setCamera(new PerspectiveCamera());
@@ -53,12 +53,12 @@ class Example2 extends StackPane {
 /**
  * 文本填充效果
  */
-class Example1 extends StackPane {
+class AnimationExample1 extends StackPane {
 
     private Rectangle TRANSITION_NODE = new Rectangle();
     private TranslateTransition TT = new TranslateTransition(Duration.seconds(2), TRANSITION_NODE);
 
-    public Example1(String text, Color backColor, Color frontColor) {
+    public AnimationExample1(String text, Color backColor, Color frontColor) {
         //布局
         Label label1 = getLabel(text, backColor);
         Label label2 = getLabel(text, frontColor);
