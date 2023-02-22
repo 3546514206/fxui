@@ -9,6 +9,7 @@ import javafx.scene.SubScene;
 import javafx.scene.control.Label;
 
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -28,7 +29,11 @@ public class AnimationExamples extends ScrollPane {
         itemBox.setAlignment(Pos.TOP_CENTER);
         itemBox.setSpacing(50);
         //
+        Pane empty = new Pane();
+        empty.setPrefHeight(50);
+        //
         itemBox.getChildren().addAll(
+                empty,
                 new AnimationExample2(),
                 new AnimationExample1("ANIMATION", Color.valueOf("#909399"), Color.valueOf("#337ecc"))
         );
