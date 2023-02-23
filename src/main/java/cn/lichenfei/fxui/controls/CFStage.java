@@ -1,6 +1,7 @@
 package cn.lichenfei.fxui.controls;
 
 import cn.lichenfei.fxui.common.FxUtil;
+import cn.lichenfei.fxui.common.MyStageDragResizer;
 import javafx.beans.property.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
@@ -14,7 +15,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import org.silentsoft.ui.util.StageDragResizer;
 
 public class CFStage extends Stage {
 
@@ -26,7 +26,7 @@ public class CFStage extends Stage {
     private double height = 650;
     private double width = 1100;
     private Rectangle2D stageBounds;
-    private StageDragResizer stageDragResizer;
+    private MyStageDragResizer myStageDragResizer;
 
     private BorderPane content = new BorderPane(); // 内容区域
     private StackPane backdrop = new StackPane(content); // 背景区域，为了展示阴影效果
@@ -64,7 +64,7 @@ public class CFStage extends Stage {
 
     public CFStage setHeaderStyle(CFHeader.HeaderStyle headerStyle) {
         if (!CFHeader.HeaderStyle.ALL.equals(headerStyle)) {
-            stageDragResizer.setMargin(0);
+            myStageDragResizer.setEnableDrag(false);
         }
         if (CFHeader.HeaderStyle.NONE.equals(headerStyle)) {
             content.setTop(null);
@@ -126,7 +126,7 @@ public class CFStage extends Stage {
         headerEvent();
         //窗口移动和缩放
         stageMove();
-        stageDragResizer = StageDragResizer.makeResizable(this, this.root, 10, 5);// 窗口拖动缩放
+        myStageDragResizer = new MyStageDragResizer(this, this.root, 10);// 窗口拖动缩放
     }
 
     /**
@@ -145,7 +145,7 @@ public class CFStage extends Stage {
                 setHeight(visualBounds.getHeight());
                 setX(visualBounds.getMinX());
                 setY(visualBounds.getMinY());
-                stageDragResizer.setMargin(0);
+                myStageDragResizer.setEnableDrag(false);
             } else {
                 insetsPro.set(new Insets(10));
                 arcPro.set(arc);
@@ -153,7 +153,7 @@ public class CFStage extends Stage {
                 setHeight(stageBounds.getHeight());
                 setX(stageBounds.getMinX());
                 setY(stageBounds.getMinY());
-                stageDragResizer.setMargin(10);
+                myStageDragResizer.setEnableDrag(true);
             }
             cfHeader.setMaximizeTooltip(newValue ? "向下还原" : "最大化");
         });
@@ -167,12 +167,12 @@ public class CFStage extends Stage {
     private double yOffset;
 
     private void stageMove() {
-        this.content.setOnMousePressed(event -> {
+        this.cfHeader.setOnMousePressed(event -> {
             event.consume();
             this.xOffset = this.getX() - event.getScreenX();
             this.yOffset = this.getY() - event.getScreenY();
         });
-        this.content.setOnMouseDragged(event -> {
+        this.cfHeader.setOnMouseDragged(event -> {
             event.consume();
             this.setX(event.getScreenX() + this.xOffset);
             this.setY(event.getScreenY() + this.yOffset);

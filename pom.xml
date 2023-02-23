@@ -14,7 +14,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <javafx.version>17.0.2</javafx.version>
+        <javafx.version>17.0.6</javafx.version>
         <kordamp.ikonli.version>12.3.1</kordamp.ikonli.version>
     </properties>
 
@@ -39,13 +39,22 @@
             <artifactId>ikonli-antdesignicons-pack</artifactId>
             <version>${kordamp.ikonli.version}</version>
         </dependency>
-        <!--仪表盘、统计图 ：https://github.com/HanSolo/tilesfx-->
-<!--        <dependency>
-            <groupId>eu.hansolo</groupId>
-            <artifactId>tilesfx</artifactId>
-            <version>17.1.15</version>
-        </dependency>-->
 
+        <dependency>
+            <groupId>org.silentsoft</groupId>
+            <artifactId>silentsoft-ui</artifactId>
+            <version>1.3.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.controlsfx</groupId>
+                    <artifactId>controlsfx</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
 
     </dependencies>
 
