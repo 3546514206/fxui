@@ -86,7 +86,7 @@ public class Index extends StackPane {
                 return;
             }
             //打开首页
-            new CFStage().setAside(new Aside()).show();
+            new CFStage().setAside(new Aside()).setMinSize(1000, 550).show();
             //关闭登录页
             FxUtil.getWindow(this).hide();
         });

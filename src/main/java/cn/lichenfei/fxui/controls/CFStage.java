@@ -104,12 +104,11 @@ public class CFStage extends Stage {
         BackgroundSize backgroundSize = new BackgroundSize(-1, -1, false, false, false, true);
         BackgroundImage backgroundImage = new BackgroundImage(image, null, null, BackgroundPosition.DEFAULT, backgroundSize);
         Background background = new Background(backgroundImage);
-        this.content.setBackground(background);
+        this.container.setBackground(background);
         return this;
     }
 
     private void initialize() {
-        setMinSize(1000, 550);
         initStyle(StageStyle.TRANSPARENT); // 修改窗口样式
         scene.setFill(null);
         scene.getStylesheets().add(ROOT_STYLE_SHEET);// 加载基础样式
