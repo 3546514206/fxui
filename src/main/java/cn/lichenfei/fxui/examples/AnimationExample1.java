@@ -1,59 +1,15 @@
-package cn.lichenfei.fxui.project;
+package cn.lichenfei.fxui.examples;
 
-import cn.lichenfei.fxui.common.FxUtil;
-import cn.lichenfei.fxui.controls.CFClock;
-import javafx.animation.*;
+import javafx.animation.Timeline;
+import javafx.animation.TranslateTransition;
 import javafx.geometry.Pos;
-import javafx.scene.PerspectiveCamera;
-import javafx.scene.SubScene;
 import javafx.scene.control.Label;
-
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.util.Duration;
-
-public class AnimationExamples extends ScrollPane {
-
-    private VBox itemBox = new VBox();
-
-    public AnimationExamples() {
-        getStyleClass().add("scroll-bar-style");
-        setContent(itemBox);
-        itemBox.prefWidthProperty().bind(widthProperty().subtract(2));
-        itemBox.setAlignment(Pos.TOP_CENTER);
-        itemBox.setSpacing(50);
-        //
-        Pane empty = new Pane();
-        empty.setPrefHeight(50);
-        //
-        itemBox.getChildren().addAll(
-                empty,
-                new AnimationExample2(),
-                new AnimationExample1("ANIMATION", Color.valueOf("#909399"), Color.valueOf("#337ecc"))
-        );
-    }
-}
-
-/**
- * 时钟翻页效果
- */
-class AnimationExample2 extends StackPane {
-
-    private StackPane root = new StackPane(new CFClock());
-    private SubScene subScene = new SubScene(root, 400, 200);
-
-    public AnimationExample2() {
-        getChildren().add(subScene);
-        root.getStylesheets().add(FxUtil.getResource("/css/cf-base.css"));
-        subScene.setCamera(new PerspectiveCamera());
-    }
-}
 
 /**
  * 文本填充效果

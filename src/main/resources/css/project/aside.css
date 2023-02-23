@@ -1,15 +1,15 @@
 
 .aside{
-    -fx-min-width: 220px;
-    -fx-max-width: 220px;
+    /*-fx-min-width: 220px;
+    -fx-max-width: 220px;*/
+    -fx-pref-width: 220px;
     -fx-border-width: 0 1px 0 0;
     -fx-border-color: -cf-border-color;
-    /*-fx-spacing: 10px;*/
+    -fx-spacing: 5px;
     -fx-alignment: top-center;
-    -fx-padding: 0px 0px;
+    -fx-padding: 10px;
 }
 .title-label{
-    -fx-padding: 20px 0 0 0;
     -fx-font-size: 20px;
     -fx-font-weight: bold;
     -fx-text-fill: linear-gradient(from 0.0% 0.0% to 100.0% 0.0%, #fa00fdff 0.0%, #02dcddff 100.0%);
@@ -17,27 +17,26 @@
 
 /*导航栏Item样式*/
 .nav-item{
-    -fx-background-insets: 1px 10px;
     -fx-background-radius: 3px;
     -fx-min-height: 40px;
     -fx-pref-height: 40px;
     -fx-alignment: center-left;
     -fx-spacing: 10px;
-    -fx-padding: 0 15px 0 15px;
+    -fx-padding: 0 10px;
+    -fx-cursor: hand;
 }
-.nav-item > .icon-label{
-    /*-fx-min-width: 36px;*/
+/*.nav-item > .icon-label{
     -fx-alignment: center;
-}
+}*/
 .nav-item > .icon-label > .ikonli-font-icon{
     -fx-icon-size: 20px;
-    -fx-icon-color: -cf-text-color;
+    -fx-icon-color: derive(-cf-text-color,30%);
 }
 .nav-item > .name-label{
     -fx-font-size: 14px;
     -fx-pref-height: 30px;
     -fx-font-weight: bold;
-    -fx-text-fill: -cf-text-color;
+    -fx-text-fill: derive(-cf-text-color,30%);
 }
 .nav-item:hover > .name-label{
     -fx-text-fill: -cf-primary-color;
@@ -66,9 +65,8 @@
 }
 .menu .cell.indexed-cell.list-cell:hover{}
 .menu .cell.indexed-cell.list-cell:selected{}
-.menu .cell.indexed-cell.list-cell:hover .nav-item,
 .menu .cell.indexed-cell.list-cell:selected .nav-item{
-    -fx-background-color: derive(-cf-primary-color,90%);
+    -fx-background-color: rgba(0,0,0,0.05);
 }
 .menu .cell.indexed-cell.list-cell:selected .name-label{
     -fx-text-fill: -cf-primary-color;
@@ -78,22 +76,20 @@
 }
 /* 用户信息 */
 .user-box{
-    -fx-background-color: rgba(0,0,0,0.05);
     -fx-alignment: center;
-    -fx-padding: 8px 15px;
     -fx-spacing: 10px;
-}
-.user-box:hover{
-    -fx-background-color: rgba(0,0,0,0.1);
+    -fx-cursor: hand;
 }
 .user-info-box{
     -fx-alignment: center-left;
-    -fx-spacing: 1px;
+    -fx-spacing: 2px;
 }
-.more-label{
-    -fx-cursor: hand;
+.user-label, .email-label{
+    -fx-font-size: 13px;
+    -fx-font-weight: bolder;
+    -fx-text-fill: -cf-text-color;
 }
-.more-label > .ikonli-font-icon{
-    -fx-icon-size: 25px;
-    -fx-icon-color: -cf-text-color;
+.email-label{
+    -fx-font-weight: lighter;
+    -fx-text-fill: derive(-cf-text-color,40%);
 }

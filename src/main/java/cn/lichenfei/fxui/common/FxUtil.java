@@ -31,8 +31,8 @@ public class FxUtil {
     }
 
     // 获取窗口
-    public static Window getWindow(Node node) {
-        return node.getParent().getScene().getWindow();
+    public static CFStage getCFStage(Node node) {
+        return (CFStage) node.getParent().getScene().getWindow();
     }
 
     // 添加一个消息提示
