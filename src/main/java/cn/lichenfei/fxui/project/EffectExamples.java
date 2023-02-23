@@ -1,13 +1,29 @@
 package cn.lichenfei.fxui.project;
 
+/*import javafx.embed.swing.SwingFXUtils;*/
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.effect.*;
+import javafx.scene.image.PixelFormat;
+import javafx.scene.image.PixelWriter;
+import javafx.scene.image.WritableImage;
+import javafx.scene.image.WritablePixelFormat;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.nio.ByteBuffer;
 
 public class EffectExamples extends ScrollPane {
 
@@ -26,7 +42,8 @@ public class EffectExamples extends ScrollPane {
         itemBox.getChildren().addAll(
                 empty,
                 new EffectExample1(),
-                new EffectExample2()
+                new EffectExample2()/*,
+                new EffectExample3()*/
         );
     }
 }
@@ -91,23 +108,23 @@ class EffectExample2 extends StackPane {
         setCursor(Cursor.HAND);
     }
 }
+/*
 
 class EffectExample3 extends StackPane {
 
-    private Label label = new Label("InnerShadow");
-
     public EffectExample3() {
-        label.setFont(Font.font(16));
-        getChildren().add(label);
-        setStyle("-fx-background-radius: 5px;" +
-                "-fx-background-color: rgb(255,255,255);" +
-                "-fx-border-radius: 5px;" +
-                "-fx-border-color: -cf-border-color;");
-        setPrefSize(150, 150);
+        setPrefSize(64, 64);
         setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
-        //阴影效果绑定
-        InnerShadow dropShadow = new InnerShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.6), 20, 0, 0, 0);
-        setEffect(dropShadow);
-        setCursor(Cursor.HAND);
+        setStyle("-fx-background-radius: 32px;" +
+                "-fx-background-color: linear-gradient(from 0.0% 0.0% to 100.0% 0.0%, #fa00fdff 0.0%, #02dcddff 100.0%);");
+        WritableImage writableImage = new WritableImage(64, 64);
+        snapshot(new SnapshotParameters(), writableImage);
+
+        BufferedImage bufferedImage = SwingFXUtils.fromFXImage(writableImage, null);
+        try {
+            ImageIO.write(bufferedImage, "png", new File("F:/123.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-}
+}*/

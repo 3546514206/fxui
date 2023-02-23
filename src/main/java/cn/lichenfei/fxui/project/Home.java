@@ -94,7 +94,7 @@ public class Home extends HBox {
             getChildren().addAll(this.vBox);
             VBox.setVgrow(menu, Priority.ALWAYS);
             HBox.setHgrow(userInfoBox, Priority.ALWAYS);
-            this.moreLabel.setGraphic(new FontIcon(AntDesignIconsOutlined.MORE));
+            this.moreLabel.setGraphic(new FontIcon(AntDesignIconsOutlined.ELLIPSIS));
             //styleClass
             getStyleClass().add("aside");
             this.menu.getStyleClass().addAll("scroll-bar-style", "menu");
