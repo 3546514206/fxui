@@ -115,7 +115,7 @@ public class CFStage extends Stage {
         scene.getStylesheets().add(ROOT_STYLE_SHEET);// 加载基础样式
         setScene(scene);
         root.setBackground(null);
-        container.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null))); // 窗口默认颜色
+        container.setBackground(new Background(new BackgroundFill(Color.rgb(255,255,255,0.9), null, null))); // 窗口默认颜色
         HBox.setHgrow(content, Priority.ALWAYS);
         //裁剪为圆角
         Rectangle rectangle = new Rectangle();
@@ -175,12 +175,12 @@ public class CFStage extends Stage {
     private double yOffset;
 
     private void stageMove() {
-        this.cfHeader.setOnMousePressed(event -> {
+        this.container.setOnMousePressed(event -> {
             event.consume();
             this.xOffset = this.getX() - event.getScreenX();
             this.yOffset = this.getY() - event.getScreenY();
         });
-        this.cfHeader.setOnMouseDragged(event -> {
+        this.container.setOnMouseDragged(event -> {
             event.consume();
             this.setX(event.getScreenX() + this.xOffset);
             this.setY(event.getScreenY() + this.yOffset);

@@ -21,7 +21,7 @@ import java.util.function.Consumer;
 
 public class Home extends HBox {
 
-    private static final String STYLE_SHEET = FxUtil.getResource("/css/project/home.css");
+    private static final String STYLE_SHEET = FxUtil.getResource("/css/project/aside.css");
 
     private Aside aside = new Aside();
     private StackPane main = new StackPane();

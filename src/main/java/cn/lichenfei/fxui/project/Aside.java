@@ -23,7 +23,7 @@ import java.util.function.Consumer;
  */
 public class Aside extends StackPane {
 
-    private static final String STYLE_SHEET = FxUtil.getResource("/css/project/home.css");
+    private static final String STYLE_SHEET = FxUtil.getResource("/css/project/aside.css");
 
     // 动态导航栏
     private ListView<NavItem> menu = new ListView<>();
@@ -35,13 +35,15 @@ public class Aside extends StackPane {
 
     // 用户栏
     private CFAvatar avatar = new CFAvatar(FxUtil.getImage("/img/logo.jpg"), 36, 10); // 用户头像
-    private Label userLabel = SimpleControl.getLabel("ChenFei");// 用户名
-    private Label userType = SimpleControl.getLabel("admin", SimpleControl.LabelEnum.TEXT_SMALL); // 用户类型
+    private Label userLabel = SimpleControl.getLabel("ChenFei", SimpleControl.LabelEnum.H5);// 用户名
+    private Label userType = SimpleControl.getLabel("admin"); // 用户类型
     private VBox userInfoBox = new VBox(userLabel, userType);
     private Label moreLabel = new Label();
     private HBox userBox = new HBox(avatar, userInfoBox, moreLabel);
 
-    private VBox vBox = new VBox(userBox, fixedNav, SimpleControl.getSeparator(), menu);
+    private Label titleLabel = new Label("CHENFEI-FXUI");
+
+    private VBox asideContainer = new VBox(titleLabel, menu, userBox);
 
     public Aside() {
         initialize();
@@ -59,12 +61,13 @@ public class Aside extends StackPane {
 
     private void initialize() {
         getStylesheets().add(STYLE_SHEET);//加载css
-        getChildren().addAll(this.vBox);
+        getChildren().addAll(asideContainer);
         VBox.setVgrow(menu, Priority.ALWAYS);
         HBox.setHgrow(userInfoBox, Priority.ALWAYS);
         this.moreLabel.setGraphic(new FontIcon(AntDesignIconsOutlined.ELLIPSIS));
         //styleClass
-        getStyleClass().add("aside");
+        asideContainer.getStyleClass().add("aside");
+        this.titleLabel.getStyleClass().add("title-label");
         this.menu.getStyleClass().addAll("scroll-bar-style", "menu");
         this.userBox.getStyleClass().add("user-box");
         this.userInfoBox.getStyleClass().add("user-info-box");

@@ -4,9 +4,17 @@
     -fx-max-width: 220px;
     -fx-border-width: 0 1px 0 0;
     -fx-border-color: -cf-border-color;
-    -fx-spacing: 10px;
-    /*-fx-background-color: -cf-primary-color;*/
+    /*-fx-spacing: 10px;*/
+    -fx-alignment: top-center;
+    -fx-padding: 0px 0px;
 }
+.title-label{
+    -fx-padding: 20px 0 0 0;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+    -fx-text-fill: linear-gradient(from 0.0% 0.0% to 100.0% 0.0%, #fa00fdff 0.0%, #02dcddff 100.0%);
+}
+
 /*导航栏Item样式*/
 .nav-item{
     -fx-background-insets: 1px 10px;
@@ -70,13 +78,13 @@
 }
 /* 用户信息 */
 .user-box{
-    /*-fx-background-color: rgba(0,0,0,0.05);*/
+    -fx-background-color: rgba(0,0,0,0.05);
     -fx-alignment: center;
     -fx-padding: 8px 15px;
     -fx-spacing: 10px;
 }
 .user-box:hover{
-    -fx-background-color: rgba(0,0,0,0.05);
+    -fx-background-color: rgba(0,0,0,0.1);
 }
 .user-info-box{
     -fx-alignment: center-left;
