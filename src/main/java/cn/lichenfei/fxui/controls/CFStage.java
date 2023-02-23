@@ -29,7 +29,8 @@ public class CFStage extends Stage {
     private MyStageDragResizer myStageDragResizer;
 
     private BorderPane content = new BorderPane(); // 内容区域
-    private StackPane backdrop = new StackPane(content); // 背景区域，为了展示阴影效果
+    private HBox container = new HBox(new StackPane(), content);
+    private StackPane backdrop = new StackPane(container); // 背景区域，为了展示阴影效果
     private StackPane root = new StackPane(backdrop); // 根节点
     private Scene scene = new Scene(root);
 
@@ -57,8 +58,13 @@ public class CFStage extends Stage {
         return this;
     }
 
-    public CFStage setContent(Node content) {
-        this.content.setCenter(content);
+    public CFStage setContent(Node main) {
+        this.content.setCenter(main);
+        return this;
+    }
+
+    public CFStage setAside(StackPane aside) {
+        this.container.getChildren().set(0, aside);
         return this;
     }
 
@@ -103,19 +109,21 @@ public class CFStage extends Stage {
     }
 
     private void initialize() {
+        setMinSize(1000, 550);
         initStyle(StageStyle.TRANSPARENT); // 修改窗口样式
         scene.setFill(null);
         scene.getStylesheets().add(ROOT_STYLE_SHEET);// 加载基础样式
         setScene(scene);
         root.setBackground(null);
-        content.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null))); // 窗口默认颜色
+        container.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null))); // 窗口默认颜色
+        HBox.setHgrow(content, Priority.ALWAYS);
         //裁剪为圆角
         Rectangle rectangle = new Rectangle();
-        rectangle.widthProperty().bind(content.widthProperty());
-        rectangle.heightProperty().bind(content.heightProperty());
+        rectangle.widthProperty().bind(container.widthProperty());
+        rectangle.heightProperty().bind(container.heightProperty());
         rectangle.arcHeightProperty().bind(arcPro);
         rectangle.arcWidthProperty().bind(arcPro);
-        content.setClip(rectangle);
+        container.setClip(rectangle);
         //显示阴影效果
         backdrop.setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.5), 10, 0, 1.5, 1.5));
         this.root.setPrefHeight(height + insetsPro.get().getBottom() * 2);

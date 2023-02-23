@@ -5,6 +5,7 @@
     -fx-border-width: 0 1px 0 0;
     -fx-border-color: -cf-border-color;
     -fx-spacing: 10px;
+    /*-fx-background-color: -cf-primary-color;*/
 }
 /*导航栏Item样式*/
 .nav-item{

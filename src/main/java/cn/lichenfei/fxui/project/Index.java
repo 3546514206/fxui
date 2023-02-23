@@ -86,10 +86,7 @@ public class Index extends StackPane {
                 return;
             }
             //打开首页
-            new CFStage(new Home(), 1100, 650)
-                    .setHeaderColor(Color.valueOf("#409EFF"))
-                    .setMinSize(1000, 550)
-                    .show();
+            new CFStage().setAside(new Aside()).show();
             //关闭登录页
             FxUtil.getWindow(this).hide();
         });
