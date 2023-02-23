@@ -21,7 +21,7 @@ public class FxApplication extends Application {
         hostServices = getHostServices();
 
         //基础尺寸
-        final CFStage stage = new CFStage(new Index(), 800, 500)
+        CFStage stage = new CFStage(new Index(), 800, 500)
                 .setHeaderStyle(CFHeader.HeaderStyle.CLOSE)
                 .setBackdropImage(FxUtil.getImage("/img/backdrop.png"));
         stage.setTitle("chenfei-fxui");// 标题
