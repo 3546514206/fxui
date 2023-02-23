@@ -7,7 +7,7 @@ import org.silentsoft.ui.util.DragResizer;
 
 public class MyStageDragResizer extends DragResizer {
 
-    private boolean enableDrag = true;
+    private boolean enable = true;
 
     private final Stage stage;
     private final int shadow;
@@ -47,20 +47,20 @@ public class MyStageDragResizer extends DragResizer {
         this.shadow = shadow;
     }
 
-    public void setEnableDrag(boolean enableDrag) {
-        this.enableDrag = enableDrag;
+    public void setEnable(boolean enable) {
+        this.enable = enable;
     }
 
     @Override
     protected void mouseMoved(MouseEvent event) {
-        if (enableDrag) {//开启拖拽
+        if (enable) {//开启拖拽
             super.mouseMoved(event);
         }
     }
 
     @Override
     protected void drag(MouseEvent mouseEvent, DragMode dragMode, double position, double size) {
-        if (enableDrag) {//开启拖拽
+        if (enable) {//开启拖拽
             super.drag(mouseEvent, dragMode, position, size);
             switch (dragMode) {
                 case WIDTH:

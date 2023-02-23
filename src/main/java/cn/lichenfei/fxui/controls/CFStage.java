@@ -70,7 +70,7 @@ public class CFStage extends Stage {
 
     public CFStage setHeaderStyle(CFHeader.HeaderStyle headerStyle) {
         if (!CFHeader.HeaderStyle.ALL.equals(headerStyle)) {
-            myStageDragResizer.setEnableDrag(false);
+            myStageDragResizer.setEnable(false);
         }
         if (CFHeader.HeaderStyle.NONE.equals(headerStyle)) {
             content.setTop(null);
@@ -152,7 +152,7 @@ public class CFStage extends Stage {
                 setHeight(visualBounds.getHeight());
                 setX(visualBounds.getMinX());
                 setY(visualBounds.getMinY());
-                myStageDragResizer.setEnableDrag(false);
+                myStageDragResizer.setEnable(false);
             } else {
                 insetsPro.set(new Insets(10));
                 arcPro.set(arc);
@@ -160,7 +160,7 @@ public class CFStage extends Stage {
                 setHeight(stageBounds.getHeight());
                 setX(stageBounds.getMinX());
                 setY(stageBounds.getMinY());
-                myStageDragResizer.setEnableDrag(true);
+                myStageDragResizer.setEnable(true);
             }
             cfHeader.setMaximizeTooltip(newValue ? "向下还原" : "最大化");
         });
