@@ -33,7 +33,7 @@ public class Aside extends StackPane {
     // 动态导航栏
     private ListView<NavItem> menu = new ListView<>();
     // 用户栏
-    private CFAvatar avatar = new CFAvatar(FxUtil.getImage("/img/logo.jpg"), 36, 10); // 用户头像
+    private CFAvatar avatar = new CFAvatar(FxUtil.getImage("/img/avatar.png"), 36, 36); // 用户头像
     private Label userLabel = new Label("ChenFei");
     private Label emailLabel = new Label("admin@admin.com");
     private VBox userInfoBox = new VBox(userLabel, emailLabel);

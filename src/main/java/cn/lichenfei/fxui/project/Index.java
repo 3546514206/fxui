@@ -160,7 +160,7 @@ public class Index extends StackPane {
             //属性
             qrCodeLabel.setGraphic(new FontIcon(AntDesignIconsOutlined.QRCODE));
             qrCodeLabel.setTooltip(SimpleControl.getTooltip("扫码登录"));
-            avatar.setImage(FxUtil.getImage("/img/logo.jpg"));
+            avatar.setImage(FxUtil.getImage("/img/avatar.png"));
             email.setPromptText("邮箱");
             password.setPromptText("密码");
             //styleClass

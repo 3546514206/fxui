@@ -66,7 +66,7 @@
 .menu .cell.indexed-cell.list-cell:hover{}
 .menu .cell.indexed-cell.list-cell:selected{}
 .menu .cell.indexed-cell.list-cell:selected .nav-item{
-    -fx-background-color: rgba(0,0,0,0.05);
+    -fx-background-color: rgba(0,0,0,0.1);
 }
 .menu .cell.indexed-cell.list-cell:selected .name-label{
     -fx-text-fill: -cf-primary-color;

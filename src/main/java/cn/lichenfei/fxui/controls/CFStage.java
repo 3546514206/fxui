@@ -110,6 +110,8 @@ public class CFStage extends Stage {
     }
 
     private void initialize() {
+        setTitle("CHENFEI-FXUI");// 标题
+        getIcons().add(FxUtil.getImage("/img/avatar.png"));// icon
         initStyle(StageStyle.TRANSPARENT); // 修改窗口样式
         scene.setFill(null);
         scene.getStylesheets().add(ROOT_STYLE_SHEET);// 加载基础样式

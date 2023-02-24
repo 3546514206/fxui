@@ -24,10 +24,7 @@ public class FxApplication extends Application {
         CFStage stage = new CFStage(new Index(), 800, 500)
                 .setHeaderStyle(CFHeader.HeaderStyle.CLOSE)
                 .setBackdropImage(FxUtil.getImage("/img/backdrop.png"));
-        stage.setTitle("chenfei-fxui");// 标题
-        stage.getIcons().add(FxUtil.getImage("/img/logo.jpg"));// icon
         stage.show();
-
     }
 
     public static void main(String[] args) {

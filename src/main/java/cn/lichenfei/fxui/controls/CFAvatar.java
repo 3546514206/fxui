@@ -1,13 +1,14 @@
 package cn.lichenfei.fxui.controls;
 
-import javafx.animation.ScaleTransition;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.SimpleDoubleProperty;
+import javafx.scene.effect.BlurType;
+import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
-import javafx.util.Duration;
 
 public class CFAvatar extends StackPane {
 
@@ -15,7 +16,6 @@ public class CFAvatar extends StackPane {
     //
     private DoubleProperty arcPro = new SimpleDoubleProperty(48); // 圆角
     private double width = 48; // 圆角
-    private ScaleTransition ST = new ScaleTransition(Duration.millis(300), imageView);
 
     public CFAvatar() {
         initialize();
@@ -42,26 +42,17 @@ public class CFAvatar extends StackPane {
     private void initialize() {
         setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         getChildren().add(imageView);
-        //
-        setPrefHeight(width);
-        setPrefWidth(width);
         imageView.setFitWidth(width);
         imageView.setFitHeight(width);
-        //
+        //裁剪为圆角
         Rectangle rectangle = new Rectangle();
         rectangle.widthProperty().bind(widthProperty());
         rectangle.heightProperty().bind(heightProperty());
         rectangle.arcHeightProperty().bind(arcPro);
         rectangle.arcWidthProperty().bind(arcPro);
-        setClip(rectangle);
-        //
-        hoverProperty().addListener((observableValue, aBoolean, t1) -> {
-            ST.stop();
-            ST.setToX(t1 ? 1.2 : 1);
-            ST.setToY(t1 ? 1.2 : 1);
-            ST.play();
-        });
-
+        imageView.setClip(rectangle);
+        //阴影
+        setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.3), 5, 0, 0, 0));
     }
 
     public void setImage(Image image) {
