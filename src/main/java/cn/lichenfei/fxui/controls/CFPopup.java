@@ -23,6 +23,7 @@ public class CFPopup extends Popup {
 
     private double centerX = 0;
     private double centerY = 0;
+    private DropShadow dropShadow = new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.3), 15, 0, 0, 0);
 
     private Label titleLabel = SimpleControl.getLabel("标题", SimpleControl.LabelEnum.H4);
     private Label closeLabel = new Label();
@@ -31,7 +32,7 @@ public class CFPopup extends Popup {
 
     //动画
     private Button TRANSITION_NODE = new Button();
-    private Duration duration = Duration.millis(300);
+    private Duration duration = Duration.millis(250);
     private FadeTransition FT = new FadeTransition(duration, TRANSITION_NODE);
 
     public CFPopup(Node main) {
@@ -40,11 +41,11 @@ public class CFPopup extends Popup {
     }
 
     private void initialize() {
+        getContent().add(borderPane);
         borderPane.setMinSize(300, 200);
         borderPane.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(3), null)));
         borderPane.setPadding(new Insets(10));
-        borderPane.setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.5), 10, 0, 1, 1));
-        getContent().add(borderPane);
+        borderPane.setEffect(dropShadow);
         //
         FontIcon fontIcon = new FontIcon(AntDesignIconsOutlined.CLOSE);
         fontIcon.setIconSize(16);
@@ -59,13 +60,20 @@ public class CFPopup extends Popup {
     }
 
     private void setEvent() {
-        //关闭
-        closeLabel.setOnMouseClicked(event -> {
-            TRANSITION_NODE.setOpacity(0);
-            this.hide();
-        });
         this.opacityProperty().bind(TRANSITION_NODE.opacityProperty());// 绑定透明度
         TRANSITION_NODE.setOpacity(0);
+        this.opacityProperty().addListener((observableValue, number, t1) -> {// 监听到透明度为0，执行hide();方法
+            double v = t1.doubleValue();
+            if (v <= 0 && isShowing()) {
+                hide();
+            }
+        });
+        //关闭
+        closeLabel.setOnMouseClicked(event -> {
+            FT.setFromValue(1);
+            FT.setToValue(0);
+            FT.play();
+        });
         //窗口显示之后
         setOnShown(windowEvent -> {
             setAnchorX(centerX - getWidth() / 2);
@@ -85,7 +93,9 @@ public class CFPopup extends Popup {
         Window window = FxUtil.getWindow(owner);
         centerX = window.getX() + (window.getWidth() / 2);
         centerY = window.getY() + (window.getHeight() / 2);
-        super.show(window);
+        if (!isShowing()) {
+            show(window);
+        }
     }
 
     /**************************************************** 窗口拖动 ****************************************************/
