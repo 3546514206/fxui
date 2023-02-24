@@ -4,9 +4,13 @@ import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.common.SimpleControl;
 import cn.lichenfei.fxui.controls.CFAvatar;
 import cn.lichenfei.fxui.controls.CFBadge;
+import cn.lichenfei.fxui.controls.CFPopup;
+import javafx.event.EventHandler;
+import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.StackPane;
@@ -68,11 +72,24 @@ public class Aside extends StackPane {
         this.userInfoBox.getStyleClass().add("user-info-box");
         this.userLabel.getStyleClass().add("user-label");
         this.emailLabel.getStyleClass().add("email-label");
-        menuSelectedListener();
+        setEvent();
     }
 
+    public void setEvent() {
+        menuSelectedListener();
+        //
+        this.userBox.setOnMouseClicked(new EventHandler<>() {
+            @Override
+            public void handle(MouseEvent event) {
+                Bounds bounds = userBox.screenToLocal(userBox.getBoundsInLocal());
+                new CFPopup().show(userBox, bounds.getMinX(), bounds.getMinY());
+            }
+        });
+    }
+
+
+    //菜单选中事件监听
     private void menuSelectedListener() {
-        //菜单选中事件监听
         menu.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             Optional.ofNullable(newValue).ifPresent(menuItem -> {
                 FxUtil.getCFStage(this).setContent(menuItem.content);//设置内容
