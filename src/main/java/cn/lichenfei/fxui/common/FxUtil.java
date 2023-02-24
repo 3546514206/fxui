@@ -2,6 +2,7 @@ package cn.lichenfei.fxui.common;
 
 import cn.lichenfei.fxui.controls.CFMessage;
 import cn.lichenfei.fxui.controls.CFStage;
+import javafx.geometry.Bounds;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
@@ -9,7 +10,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
-import javafx.stage.Window;
 
 /**
  * @author ChenFei
@@ -25,17 +25,41 @@ public class FxUtil {
         return new Image(getResource(resources));
     }
 
-    // 获取主屏幕的可视边界
-    public static CFBounds getVisualBounds() {
-        return CFBounds.get(Screen.getPrimary().getVisualBounds());
+    /**
+     * 获取主屏幕的可视边界
+     *
+     * @return
+     */
+    public static Rectangle2D getVisualBounds() {
+        return Screen.getPrimary().getVisualBounds();
     }
 
-    // 获取窗口
+    /**
+     * 获取组件在屏幕中的位置
+     *
+     * @param node
+     * @return
+     */
+    public static Bounds localToScreen(Node node) {
+        return node.localToScreen(node.getLayoutBounds());
+    }
+
+    /**
+     * 获取窗口
+     *
+     * @param node
+     * @return
+     */
     public static CFStage getCFStage(Node node) {
         return (CFStage) node.getParent().getScene().getWindow();
     }
 
-    // 添加一个消息提示
+    /**
+     * 添加一个消息提示
+     *
+     * @param node
+     * @param message
+     */
     public static void showMessage(Node node, String message) {
         try {
             CFStage cfStage = (CFStage) node.getParent().getScene().getWindow();

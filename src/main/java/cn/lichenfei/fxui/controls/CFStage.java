@@ -149,7 +149,7 @@ public class CFStage extends Stage {
                 cfBounds = CFBounds.get(new Rectangle2D(getX(), getY(), getWidth(), getHeight()));
                 arc = arcPro.get();
                 //
-                CFBounds visualBounds = FxUtil.getVisualBounds();
+                CFBounds visualBounds = CFBounds.get(FxUtil.getVisualBounds());
                 insetsPro.set(new Insets(0));
                 arcPro.set(0);
                 setWidth(visualBounds.getWidth());

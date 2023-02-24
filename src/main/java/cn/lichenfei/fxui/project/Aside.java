@@ -8,6 +8,7 @@ import cn.lichenfei.fxui.controls.CFPopup;
 import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
@@ -78,12 +79,10 @@ public class Aside extends StackPane {
     public void setEvent() {
         menuSelectedListener();
         //
-        this.userBox.setOnMouseClicked(new EventHandler<>() {
-            @Override
-            public void handle(MouseEvent event) {
-                Bounds bounds = userBox.screenToLocal(userBox.getBoundsInLocal());
-                new CFPopup().show(userBox, bounds.getMinX(), bounds.getMinY());
-            }
+        this.userBox.setOnMouseClicked(event -> {
+            //
+            new CFPopup().show(this.userBox, 0, 0);
+
         });
     }
 
