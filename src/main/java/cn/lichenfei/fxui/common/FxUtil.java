@@ -26,8 +26,8 @@ public class FxUtil {
     }
 
     // 获取主屏幕的可视边界
-    public static Rectangle2D getVisualBounds() {
-        return Screen.getPrimary().getVisualBounds();
+    public static CFBounds getVisualBounds() {
+        return CFBounds.get(Screen.getPrimary().getVisualBounds());
     }
 
     // 获取窗口

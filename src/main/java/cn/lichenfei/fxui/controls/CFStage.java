@@ -1,5 +1,6 @@
 package cn.lichenfei.fxui.controls;
 
+import cn.lichenfei.fxui.common.CFBounds;
 import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.common.MyStageDragResizer;
 import javafx.beans.property.*;
@@ -25,7 +26,7 @@ public class CFStage extends Stage {
     private double arc;
     private double height = 650;
     private double width = 1100;
-    private Rectangle2D stageBounds;
+    private CFBounds cfBounds;
     private MyStageDragResizer myStageDragResizer;
 
     private BorderPane content = new BorderPane(); // 内容区域
@@ -114,7 +115,7 @@ public class CFStage extends Stage {
         scene.getStylesheets().add(ROOT_STYLE_SHEET);// 加载基础样式
         setScene(scene);
         root.setBackground(null);
-        container.setBackground(new Background(new BackgroundFill(Color.rgb(255,255,255,0.9), null, null))); // 窗口默认颜色
+        container.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 1), null, null))); // 窗口默认颜色
         HBox.setHgrow(content, Priority.ALWAYS);
         //裁剪为圆角
         Rectangle rectangle = new Rectangle();
@@ -143,9 +144,10 @@ public class CFStage extends Stage {
         cfHeader.setMaximizeMouseClicked(event -> maximizePro.set(!maximizePro.get()));
         maximizePro.addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                stageBounds = new Rectangle2D(getX(), getY(), getWidth(), getHeight());
+                cfBounds = CFBounds.get(new Rectangle2D(getX(), getY(), getWidth(), getHeight()));
                 arc = arcPro.get();
-                Rectangle2D visualBounds = FxUtil.getVisualBounds();
+                //
+                CFBounds visualBounds = FxUtil.getVisualBounds();
                 insetsPro.set(new Insets(0));
                 arcPro.set(0);
                 setWidth(visualBounds.getWidth());
@@ -156,10 +158,10 @@ public class CFStage extends Stage {
             } else {
                 insetsPro.set(new Insets(10));
                 arcPro.set(arc);
-                setWidth(stageBounds.getWidth());
-                setHeight(stageBounds.getHeight());
-                setX(stageBounds.getMinX());
-                setY(stageBounds.getMinY());
+                setWidth(cfBounds.getWidth());
+                setHeight(cfBounds.getHeight());
+                setX(cfBounds.getMinX());
+                setY(cfBounds.getMinY());
                 myStageDragResizer.setEnable(true);
             }
             cfHeader.setMaximizeTooltip(newValue ? "向下还原" : "最大化");
@@ -181,8 +183,10 @@ public class CFStage extends Stage {
         });
         this.container.setOnMouseDragged(event -> {
             event.consume();
-            this.setX(event.getScreenX() + this.xOffset);
-            this.setY(event.getScreenY() + this.yOffset);
+            if (!maximizePro.get()) {
+                this.setX(event.getScreenX() + this.xOffset);
+                this.setY(event.getScreenY() + this.yOffset);
+            }
         });
     }
 }
