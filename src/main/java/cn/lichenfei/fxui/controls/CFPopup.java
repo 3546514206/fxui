@@ -1,9 +1,11 @@
 package cn.lichenfei.fxui.controls;
 
 import cn.lichenfei.fxui.common.FxUtil;
+import cn.lichenfei.fxui.common.SimpleControl;
 import javafx.animation.*;
-import javafx.geometry.Bounds;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -12,76 +14,95 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
+import javafx.stage.Window;
 import javafx.util.Duration;
 import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
 import org.kordamp.ikonli.javafx.FontIcon;
 
 public class CFPopup extends Popup {
 
-    private Label titleLabel = new Label("CF-POPUP");
+    private double centerX = 0;
+    private double centerY = 0;
+
+    private Label titleLabel = SimpleControl.getLabel("标题", SimpleControl.LabelEnum.H4);
     private Label closeLabel = new Label();
     private StackPane top = new StackPane(titleLabel, closeLabel);
     private BorderPane borderPane = new BorderPane(null, top, null, null, null);
 
     //动画
-    private Button button = new Button();
+    private Button TRANSITION_NODE = new Button();
     private Duration duration = Duration.millis(300);
-    private FadeTransition FT = new FadeTransition(duration);
-    private ScaleTransition ST = new ScaleTransition(duration);
-    private TranslateTransition TT = new TranslateTransition(duration);
-    private ParallelTransition PT = new ParallelTransition(button, FT, ST, TT);
+    private FadeTransition FT = new FadeTransition(duration, TRANSITION_NODE);
 
-    public CFPopup() {
-        borderPane.setPrefSize(500, 300);
+    public CFPopup(Node main) {
+        borderPane.setCenter(main);
+        initialize();
+    }
+
+    private void initialize() {
+        borderPane.setMinSize(300, 200);
         borderPane.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(3), null)));
-        borderPane.setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.6), 10, 0, 0, 0));
+        borderPane.setPadding(new Insets(10));
+        borderPane.setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.5), 10, 0, 1, 1));
         getContent().add(borderPane);
         //
-        closeLabel.setGraphic(new FontIcon(AntDesignIconsOutlined.CLOSE));
-        StackPane.setAlignment(titleLabel, Pos.CENTER);
+        FontIcon fontIcon = new FontIcon(AntDesignIconsOutlined.CLOSE);
+        fontIcon.setIconSize(16);
+        fontIcon.iconColorProperty().bind(titleLabel.textFillProperty());// 颜色和标题颜色一致
+        closeLabel.setGraphic(fontIcon);
+        closeLabel.setCursor(Cursor.HAND);
+        StackPane.setAlignment(titleLabel, Pos.CENTER_LEFT);
         StackPane.setAlignment(closeLabel, Pos.CENTER_RIGHT);
         //
+        setEvent();
+        popupMove();
+    }
+
+    private void setEvent() {
+        //关闭
         closeLabel.setOnMouseClicked(event -> {
+            TRANSITION_NODE.setOpacity(0);
             this.hide();
         });
-
-        this.opacityProperty().bind(button.opacityProperty());
-        //button.setOpacity(0);
-        button.translateXProperty().addListener((observableValue, number, t1) -> {
-            this.setAnchorX(t1.doubleValue());
-        });
-        button.translateYProperty().addListener((observableValue, number, t1) -> {
-            this.setAnchorY(t1.doubleValue());
-        });
-        borderPane.scaleXProperty().bind(button.scaleXProperty());
-        borderPane.scaleYProperty().bind(button.scaleYProperty());
+        this.opacityProperty().bind(TRANSITION_NODE.opacityProperty());// 绑定透明度
+        TRANSITION_NODE.setOpacity(0);
         //窗口显示之后
-        setOnShowing(windowEvent -> {
-            /*FT.setFromValue(0);
+        setOnShown(windowEvent -> {
+            setAnchorX(centerX - getWidth() / 2);
+            setAnchorY(centerY - getHeight() / 2);
+            FT.setFromValue(0);
             FT.setToValue(1);
-            ST.setFromX(0);
-            ST.setFromY(0);
-            ST.setToX(1);
-            ST.setToY(1);
-            //
-            TT.setToX(300);
-            TT.setFromX(getAnchorX());
-            TT.setToY(300);
-            TT.setFromY(getAnchorY());
-            //
-            PT.play();
-            PT.setCycleCount(Timeline.INDEFINITE);
-            PT.setOnFinished(actionEvent -> {
-                //阴影处理
-
-
-            });*/
+            FT.play();
         });
     }
 
-    @Override
-    public void show(Node ownerNode, double anchorX, double anchorY) {
-        Bounds bounds = FxUtil.localToScreen(ownerNode);
-        super.show(ownerNode, bounds.getCenterX(), bounds.getCenterY());
+    /**
+     * 显示Popup
+     *
+     * @param owner
+     */
+    public void show(Node owner) {
+        Window window = FxUtil.getWindow(owner);
+        centerX = window.getX() + (window.getWidth() / 2);
+        centerY = window.getY() + (window.getHeight() / 2);
+        super.show(window);
+    }
+
+    /**************************************************** 窗口拖动 ****************************************************/
+
+    private double xOffset;
+    private double yOffset;
+
+    private void popupMove() {
+        this.borderPane.setOnMousePressed(event -> {
+            event.consume();
+            this.xOffset = this.getX() - event.getScreenX();
+            this.yOffset = this.getY() - event.getScreenY();
+        });
+        this.borderPane.setOnMouseDragged(event -> {
+            event.consume();
+            this.setX(event.getScreenX() + this.xOffset);
+            this.setY(event.getScreenY() + this.yOffset);
+        });
     }
 }

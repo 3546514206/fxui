@@ -10,6 +10,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
+import javafx.stage.Window;
 
 /**
  * @author ChenFei
@@ -52,6 +53,16 @@ public class FxUtil {
      */
     public static CFStage getCFStage(Node node) {
         return (CFStage) node.getParent().getScene().getWindow();
+    }
+
+    /**
+     * 获取窗口
+     *
+     * @param node
+     * @return
+     */
+    public static Window getWindow(Node node) {
+        return node.getParent().getScene().getWindow();
     }
 
     /**
