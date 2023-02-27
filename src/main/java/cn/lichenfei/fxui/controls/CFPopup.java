@@ -23,7 +23,7 @@ public class CFPopup extends Popup {
 
     private double centerX = 0;
     private double centerY = 0;
-    private DropShadow dropShadow = new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.3), 15, 0, 0, 0);
+    private DropShadow dropShadow = new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.3), 10, 0, 0, 0);
 
     private Label titleLabel = SimpleControl.getLabel("标题", SimpleControl.LabelEnum.H4);
     private Label closeLabel = new Label();
@@ -42,9 +42,9 @@ public class CFPopup extends Popup {
 
     private void initialize() {
         getContent().add(borderPane);
-        borderPane.setMinSize(300, 200);
+        borderPane.setMinSize(400, 200);
         borderPane.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(3), null)));
-        borderPane.setPadding(new Insets(10));
+        borderPane.setPadding(new Insets(20));
         borderPane.setEffect(dropShadow);
         //
         FontIcon fontIcon = new FontIcon(AntDesignIconsOutlined.CLOSE);
@@ -60,6 +60,8 @@ public class CFPopup extends Popup {
     }
 
     private void setEvent() {
+        setAutoHide(true);
+
         this.opacityProperty().bind(TRANSITION_NODE.opacityProperty());// 绑定透明度
         TRANSITION_NODE.setOpacity(0);
         this.opacityProperty().addListener((observableValue, number, t1) -> {// 监听到透明度为0，执行hide();方法
