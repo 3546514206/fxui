@@ -1,4 +1,4 @@
-package cn.lichenfei.fxui.project;
+package cn.lichenfei.fxui.ui;
 
 import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.common.Level;

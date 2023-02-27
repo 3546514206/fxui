@@ -1,4 +1,4 @@
-package cn.lichenfei.fxui.project;
+package cn.lichenfei.fxui.ui;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.PixelFormat;

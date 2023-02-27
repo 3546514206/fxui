@@ -3,7 +3,7 @@ package cn.lichenfei.fxui;
 import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.controls.CFHeader;
 import cn.lichenfei.fxui.controls.CFStage;
-import cn.lichenfei.fxui.project.Index;
+import cn.lichenfei.fxui.ui.Index;
 import javafx.application.Application;
 import javafx.application.HostServices;
 import javafx.stage.Stage;
