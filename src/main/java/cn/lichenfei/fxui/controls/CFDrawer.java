@@ -89,8 +89,8 @@ public class CFDrawer extends StackPane {
     }
 
     // 动画属性
-    private TranslateTransition TT = new TranslateTransition(Duration.millis(250), this.main);
-    private FadeTransition FT = new FadeTransition(Duration.millis(250), this.modal);
+    private TranslateTransition TT = new TranslateTransition(Duration.millis(300), this.main);
+    private FadeTransition FT = new FadeTransition(Duration.millis(300), this.modal);
     private ParallelTransition PT = new ParallelTransition(TT, FT);
 
 
@@ -133,17 +133,13 @@ public class CFDrawer extends StackPane {
         switch (position) {
             case TOP:
             case BOTTOM:
-                TT.setFromY(0);
+                clearTranslate();
                 TT.setToY(translateSize);
-                TT.setToX(0);
-                TT.setFromX(0);
                 break;
             case RIGHT:
             case LEFT:
-                TT.setFromX(0);
+                clearTranslate();
                 TT.setToX(translateSize);
-                TT.setToY(0);
-                TT.setFromY(0);
                 break;
             default:
                 break;
@@ -160,10 +156,8 @@ public class CFDrawer extends StackPane {
                 StackPane.setAlignment(main, Position.BOTTOM.equals(position) ? Pos.BOTTOM_CENTER : Pos.TOP_CENTER);
                 main.setTranslateY(translateSize);
                 main.setTranslateX(0);
+                clearTranslate();
                 TT.setFromY(translateSize);
-                TT.setToY(0);
-                TT.setToX(0);
-                TT.setFromX(0);
                 break;
             case RIGHT:
             case LEFT:
@@ -172,19 +166,22 @@ public class CFDrawer extends StackPane {
                 StackPane.setAlignment(main, Position.RIGHT.equals(position) ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
                 main.setTranslateX(translateSize);
                 main.setTranslateY(0);
+                clearTranslate();
                 TT.setFromX(translateSize);
-                TT.setToX(0);
-                TT.setToY(0);
-                TT.setFromY(0);
                 break;
             default:
                 break;
         }
     }
 
-    @Override
-    public String getUserAgentStylesheet() {
-        return STYLE_SHEET;
+    /**
+     * 清空移动动画属性
+     */
+    private void clearTranslate() {
+        TT.setFromX(0);
+        TT.setToX(0);
+        TT.setToY(0);
+        TT.setFromY(0);
     }
 
     /**
@@ -198,6 +195,11 @@ public class CFDrawer extends StackPane {
             translateSize = -size;
         }
         return translateSize;
+    }
+
+    @Override
+    public String getUserAgentStylesheet() {
+        return STYLE_SHEET;
     }
 
     /**
