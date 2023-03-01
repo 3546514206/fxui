@@ -3,8 +3,10 @@ package cn.lichenfei.fxui.controls;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
+import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
@@ -27,15 +29,31 @@ public class CFDrawer extends StackPane {
     private StackPane main = new StackPane(); // 主要内容区域
 
     /**
-     * 默认从右侧出现
+     * 提供一个StackPane作为父组件，会将抽屉添加到父组件，在调用show()方法进行展示
      *
-     * @param size
+     * @param size：Position位置不同 size表示的参数不通：TOP（size=height）, RIGHT（size=width）, BOTTOM（size=height）, LEFT（size=width）
      * @param parent
      */
     public CFDrawer(double size, StackPane parent) {
         this.size = size;
         this.parent = parent;
         initialize();
+    }
+
+    /**
+     * 设置抽屉中的内容
+     *
+     * @param node
+     * @return
+     */
+    public CFDrawer setContent(Node node) {
+        ObservableList<Node> children = main.getChildren();
+        if (children.isEmpty()) {
+            children.add(node);
+        } else {
+            children.set(0, node);
+        }
+        return this;
     }
 
     private void initialize() {
@@ -48,7 +66,7 @@ public class CFDrawer extends StackPane {
         main.setPadding(new Insets(20));
         main.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
         //遮罩层
-        modal.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 0, 0.5), null, null)));
+        modal.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 0, 0.3), null, null)));
         modal.setOpacity(0);
         //点击遮罩层关闭
         modal.setOnMouseClicked(event -> hide());
@@ -60,20 +78,22 @@ public class CFDrawer extends StackPane {
     private ParallelTransition PT = new ParallelTransition(TT, FT);
 
 
+    /**
+     * 从右侧展示抽屉
+     */
     public void show() {
         show(Position.RIGHT);
     }
 
     /**
-     * 展示
+     * 指定方向展示抽屉
+     *
+     * @param position
      */
     public void show(Position position) {
         this.position = position;
-        double fromSize = getTranslateSize();
-        setLayout(fromSize);// 设置布局
-        parent.getChildren().add(this);
-        TT.setFromX(fromSize);
-        TT.setToX(0);
+        setShowInfo();
+        parent.getChildren().add(this);// 添加抽屉
         FT.setFromValue(0);
         FT.setToValue(1);
         PT.play();
@@ -82,31 +102,52 @@ public class CFDrawer extends StackPane {
     }
 
     /**
-     * 隐藏
+     * 隐藏抽屉
      */
     public void hide() {
-        double toSize = getTranslateSize();
-        TT.setFromX(0);
-        TT.setToX(toSize);
+        setHideInfo();
         FT.setFromValue(1);
         FT.setToValue(0);
         PT.play();
-        PT.setOnFinished((event) -> parent.getChildren().remove(this));
+        PT.setOnFinished((event) -> parent.getChildren().remove(this));// 移除抽屉
     }
 
-    /**
-     * 根据移动量设置布局
-     *
-     * @param translateSize
-     */
-    private void setLayout(double translateSize) {
+    private void setHideInfo() {
+        double translateSize = getTranslateSize();
         switch (position) {
             case TOP:
             case BOTTOM:
-                /*main.setPrefHeight(size);
+                TT.setFromY(0);
+                TT.setToY(translateSize);
+                TT.setToX(0);
+                TT.setFromX(0);
+                break;
+            case RIGHT:
+            case LEFT:
+                TT.setFromX(0);
+                TT.setToX(translateSize);
+                TT.setToY(0);
+                TT.setFromY(0);
+                break;
+            default:
+                break;
+        }
+    }
+
+    private void setShowInfo() {
+        double translateSize = getTranslateSize();
+        switch (position) {
+            case TOP:
+            case BOTTOM:
+                main.setPrefHeight(size);
                 main.setMaxSize(USE_COMPUTED_SIZE, USE_PREF_SIZE);
                 StackPane.setAlignment(main, Position.BOTTOM.equals(position) ? Pos.BOTTOM_CENTER : Pos.TOP_CENTER);
-                main.setTranslateY(translateSize);*/
+                main.setTranslateY(translateSize);
+                main.setTranslateX(0);
+                TT.setFromY(translateSize);
+                TT.setToY(0);
+                TT.setToX(0);
+                TT.setFromX(0);
                 break;
             case RIGHT:
             case LEFT:
@@ -114,6 +155,11 @@ public class CFDrawer extends StackPane {
                 main.setMaxSize(USE_PREF_SIZE, USE_COMPUTED_SIZE);
                 StackPane.setAlignment(main, Position.RIGHT.equals(position) ? Pos.CENTER_RIGHT : Pos.CENTER_LEFT);
                 main.setTranslateX(translateSize);
+                main.setTranslateY(0);
+                TT.setFromX(translateSize);
+                TT.setToX(0);
+                TT.setToY(0);
+                TT.setFromY(0);
                 break;
             default:
                 break;

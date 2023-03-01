@@ -15,7 +15,7 @@ public class CFDrawerExample extends StackPane {
 
     HBox hBox = new HBox(top, right, bottom, left);
 
-    private CFDrawer cfDrawer = new CFDrawer(200, this);
+    private CFDrawer cfDrawer = new CFDrawer(400, this);
 
     public CFDrawerExample() {
         getChildren().add(hBox);
