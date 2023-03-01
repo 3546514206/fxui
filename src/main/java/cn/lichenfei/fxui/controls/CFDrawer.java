@@ -1,18 +1,21 @@
 package cn.lichenfei.fxui.controls;
 
+import cn.lichenfei.fxui.common.FxUtil;
+import cn.lichenfei.fxui.common.SimpleControl;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.StackPane;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.util.Duration;
+import org.kordamp.ikonli.antdesignicons.AntDesignIconsOutlined;
+import org.kordamp.ikonli.javafx.FontIcon;
 
 /**
  * 抽屉
@@ -20,13 +23,19 @@ import javafx.util.Duration;
 public class CFDrawer extends StackPane {
 
     //基本属性
+    private static final String STYLE_SHEET = FxUtil.getResource("/css/cf-drawer.css");
     private double size;
     private StackPane parent;
     private Position position = Position.RIGHT;
 
     //UI布局
     private StackPane modal = new StackPane(); // 遮罩层
-    private StackPane main = new StackPane(); // 主要内容区域
+    //
+    private Label titleLabel = SimpleControl.getLabel("标题", SimpleControl.LabelEnum.H4);
+    private Button close = new Button();
+    private StackPane header = new StackPane(titleLabel, close); // 头部
+    private StackPane content = new StackPane(); // 内容区域
+    private VBox main = new VBox(header, content);// 主要区域
 
     /**
      * 提供一个StackPane作为父组件，会将抽屉添加到父组件，在调用show()方法进行展示
@@ -47,7 +56,7 @@ public class CFDrawer extends StackPane {
      * @return
      */
     public CFDrawer setContent(Node node) {
-        ObservableList<Node> children = main.getChildren();
+        ObservableList<Node> children = content.getChildren();
         if (children.isEmpty()) {
             children.add(node);
         } else {
@@ -62,14 +71,21 @@ public class CFDrawer extends StackPane {
         rectangle.heightProperty().bind(heightProperty());
         rectangle.widthProperty().bind(widthProperty());
         setClip(rectangle);// 裁剪使抽屉移动时不会超出父组件
-        // 内容区域
-        main.setPadding(new Insets(20));
-        main.setBackground(new Background(new BackgroundFill(Color.WHITE, null, null)));
+        // 主要区域
+        header.setMaxSize(USE_COMPUTED_SIZE, USE_PREF_SIZE);
+        StackPane.setAlignment(titleLabel, Pos.CENTER_LEFT);
+        StackPane.setAlignment(close, Pos.CENTER_RIGHT);
+        close.setGraphic(new FontIcon(AntDesignIconsOutlined.CLOSE));
+        VBox.setVgrow(content, Priority.ALWAYS);
         //遮罩层
         modal.setBackground(new Background(new BackgroundFill(Color.rgb(0, 0, 0, 0.3), null, null)));
         modal.setOpacity(0);
         //点击遮罩层关闭
         modal.setOnMouseClicked(event -> hide());
+        close.setOnMouseClicked(event -> hide());
+        //styleClass
+        main.getStyleClass().add("main");
+        close.getStyleClass().add("close");
     }
 
     // 动画属性
@@ -164,6 +180,11 @@ public class CFDrawer extends StackPane {
             default:
                 break;
         }
+    }
+
+    @Override
+    public String getUserAgentStylesheet() {
+        return STYLE_SHEET;
     }
 
     /**
