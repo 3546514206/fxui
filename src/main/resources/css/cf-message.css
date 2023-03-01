@@ -14,10 +14,20 @@
     -fx-icon-size:20px;
 }
 .mess-label{
-    -fx-text-fill: -cf-text-color;
+    -fx-text-fill: -cf-primary-color;
     -fx-font-size: 14px;
-    -fx-max-width: 250px;
+    -fx-max-width: 300px;
 }
+.cf-message.success > .icon-label > .ikonli-font-icon{-fx-icon-color: -cf-success-color;}
+.cf-message.info > .icon-label > .ikonli-font-icon{-fx-icon-color: -cf-info-color;}
+.cf-message.warn > .icon-label > .ikonli-font-icon{-fx-icon-color: -cf-warn-color;}
+.cf-message.danger > .icon-label > .ikonli-font-icon{-fx-icon-color: -cf-danger-color;}
+
+.cf-message.success > .mess-label{-fx-text-fill: -cf-success-color;}
+.cf-message.info > .mess-label{-fx-text-fill: -cf-info-color;}
+.cf-message.warn > .mess-label{-fx-text-fill: -cf-warn-color;}
+.cf-message.danger > .mess-label{-fx-text-fill: -cf-danger-color;}
+
 .close-label{
     -fx-cursor:hand;
 }

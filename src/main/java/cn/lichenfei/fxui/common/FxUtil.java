@@ -72,10 +72,21 @@ public class FxUtil {
      * @param message
      */
     public static void showMessage(Node node, String message) {
+        showMessage(node, message, Level.PRIMARY);
+    }
+
+    /**
+     * 添加一个消息提示
+     *
+     * @param node
+     * @param message
+     * @param level
+     */
+    public static void showMessage(Node node, String message, Level level) {
         try {
             CFStage cfStage = (CFStage) node.getParent().getScene().getWindow();
             StackPane backdrop = cfStage.getBackdrop();
-            CFMessage.show(backdrop, message);
+            CFMessage.show(backdrop, message, level);
         } catch (Exception e) {
             e.printStackTrace();
         }
