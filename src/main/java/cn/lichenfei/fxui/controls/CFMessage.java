@@ -80,12 +80,20 @@ public class CFMessage extends HBox {
                 ST.play();
             }
         });
+        ST.setOnFinished(event -> {
+            destroy();
+        });
         // 终止动画
         closeLabel.setOnMouseClicked(event -> {
             event.consume();
             ST.stop();
-            ((StackPane) this.getParent()).getChildren().remove(this);
+            destroy();
         });
+    }
+
+    // 移出本身
+    private void destroy(){
+        ((StackPane) this.getParent()).getChildren().remove(this);
     }
 
     @Override
