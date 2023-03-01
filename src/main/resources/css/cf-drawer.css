@@ -1,6 +1,7 @@
 .main{
     -fx-padding: 20px;
     -fx-background-color: rgb(255,255,255);
+    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 20.0, 0, 0, 0);
 }
 .main .close{
     -fx-background-insets: 0;

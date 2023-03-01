@@ -31,7 +31,7 @@ public class CFDrawer extends StackPane {
     //UI布局
     private StackPane modal = new StackPane(); // 遮罩层
     //
-    private Label titleLabel = SimpleControl.getLabel("标题", SimpleControl.LabelEnum.H4);
+    private Label titleLabel = SimpleControl.getLabel("CFDrawer", SimpleControl.LabelEnum.H4);
     private Button close = new Button();
     private StackPane header = new StackPane(titleLabel, close); // 头部
     private StackPane content = new StackPane(); // 内容区域
