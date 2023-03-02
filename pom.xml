@@ -24,13 +24,6 @@
             <artifactId>javafx-controls</artifactId>
             <version>${javafx.version}</version>
         </dependency>
-
-<!--        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-swing</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>-->
-
         <!-- 图标库 -->
         <dependency>
             <groupId>org.kordamp.ikonli</groupId>
@@ -93,7 +86,7 @@
             <plugin>
                 <groupId>io.github.fvarrui</groupId>
                 <artifactId>javapackager</artifactId>
-                <version>1.6.6</version>
+                <version>1.7.0</version>
                 <configuration>
                     <bundleJre>true</bundleJre>
                     <mainClass>cn.lichenfei.fxui.StartUp</mainClass>
@@ -108,7 +101,14 @@
                         </goals>
                         <configuration>
                             <platform>windows</platform>
+                            <!--生成压缩包-->
                             <createZipball>true</createZipball>
+                            <!--vm参数-->
+                            <vmArgs>-XX:+UseZGC</vmArgs>
+                            <winConfig>
+                                <!--https://github.com/fvarrui/JavaPackager/blob/master/docs/windows-specific-properties.md-->
+                                <icoFile>${project.basedir}/src/main/resources/img/logo.ico</icoFile>
+                            </winConfig>
                         </configuration>
                     </execution>
                 </executions>
