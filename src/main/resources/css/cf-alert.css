@@ -1,0 +1,36 @@
+.cf-alert{
+    /*-fx-padding: 0 20px;*/
+    /*-fx-pref-height: 45px;*/
+    -fx-spacing:10px;
+    -fx-background-color:rgb(255,255,255);
+    -fx-background-radius:3px;
+    /*-fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.3), 10.0, 0, 0, 2.0);*/
+    -fx-border-color:-cf-border-color;
+    -fx-border-radius:3px;
+    -fx-alignment:center-left;
+}
+.icon-label > .ikonli-font-icon{
+    -fx-icon-color: -cf-primary-color;
+    -fx-icon-size:18px;
+}
+.mess-label{
+    -fx-text-fill: -cf-primary-color;
+    -fx-font-size: 14px;
+}
+.cf-alert.success > .icon-label > .ikonli-font-icon{-fx-icon-color: -cf-success-color;}
+.cf-alert.info > .icon-label > .ikonli-font-icon{-fx-icon-color: -cf-info-color;}
+.cf-alert.warn > .icon-label > .ikonli-font-icon{-fx-icon-color: -cf-warn-color;}
+.cf-alert.danger > .icon-label > .ikonli-font-icon{-fx-icon-color: -cf-danger-color;}
+
+.cf-alert.success > .mess-label{-fx-text-fill: -cf-success-color;}
+.cf-alert.info > .mess-label{-fx-text-fill: -cf-info-color;}
+.cf-alert.warn > .mess-label{-fx-text-fill: -cf-warn-color;}
+.cf-alert.danger > .mess-label{-fx-text-fill: -cf-danger-color;}
+
+.close-label{
+    -fx-cursor:hand;
+}
+.close-label > .ikonli-font-icon{
+    -fx-icon-size: 12px;
+    -fx-icon-color: -cf-text-color;
+}

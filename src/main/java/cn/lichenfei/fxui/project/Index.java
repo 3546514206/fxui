@@ -74,15 +74,15 @@ public class Index extends StackPane {
         signInBox.toSignUpClicked(event -> play(signInBox, signUpBox));
         signUpBox.toSignInClicked(event -> play(signUpBox, signInBox));
         // 注册逻辑
-        signUpBox.setSignUpClick(submitInfo -> FxUtil.showMessage(signInBox, "没有注册功能，只是一个UI演示而已。"));
+        signUpBox.setSignUpClick(submitInfo -> CFMessage.init("没有注册功能，只是一个UI演示而已。").show(this));
         // 登录逻辑
         signInBox.setSignInClick(submitInfo -> {
             if (!"admin@admin.com".equals(submitInfo.getEmail())) {
-                FxUtil.showMessage(signInBox, "邮箱请填写：admin@admin.com");
+                CFMessage.init("邮箱请填写：admin@admin.com").setLevel(Level.DANGER).show(this);
                 return;
             }
             if (!"123456".equals(submitInfo.getPassword())) {
-                FxUtil.showMessage(this, "密码请填写：123456");
+                CFMessage.init("密码请填写：123456").setLevel(Level.DANGER).show(this);
                 return;
             }
             //打开首页

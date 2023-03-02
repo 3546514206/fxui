@@ -1,13 +1,11 @@
 package cn.lichenfei.fxui.common;
 
-import cn.lichenfei.fxui.controls.CFMessage;
 import cn.lichenfei.fxui.controls.CFStage;
 import javafx.geometry.Bounds;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
 import javafx.stage.Window;
@@ -63,33 +61,6 @@ public class FxUtil {
      */
     public static Window getWindow(Node node) {
         return node.getParent().getScene().getWindow();
-    }
-
-    /**
-     * 添加一个消息提示
-     *
-     * @param node
-     * @param message
-     */
-    public static void showMessage(Node node, String message) {
-        showMessage(node, message, Level.PRIMARY);
-    }
-
-    /**
-     * 添加一个消息提示
-     *
-     * @param node
-     * @param message
-     * @param level
-     */
-    public static void showMessage(Node node, String message, Level level) {
-        try {
-            CFStage cfStage = (CFStage) node.getParent().getScene().getWindow();
-            StackPane backdrop = cfStage.getBackdrop();
-            CFMessage.show(backdrop, message, level);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 
