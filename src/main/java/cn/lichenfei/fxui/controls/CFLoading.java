@@ -1,5 +1,6 @@
 package cn.lichenfei.fxui.controls;
 
+import cn.lichenfei.fxui.common.FxUtil;
 import javafx.animation.*;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -9,30 +10,26 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Arc;
-import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class CFLoading extends StackPane {
 
+    private static final String STYLE_SHEET = FxUtil.getResource("/css/cf-loading.css");
     // 大小
-    private Size defaultSize;
-
+    private Size size;
     // 动画相关
     private Button TRANSITION_NODE = new Button();
-    private TranslateTransition TT = new TranslateTransition();
     private RotateTransition RT = new RotateTransition();
-    private ParallelTransition PT = new ParallelTransition(TT, RT);
 
     // 加载圈
-    private Arc arc1;
-    private Arc arc2;
-
+    private Arc backArc;
+    private Arc frontArc;
     // 布局
     private Pane arcPane = new Pane();
     private Label message = new Label("Loading...");
 
     public CFLoading(CFLoading.Size size) {
-        this.defaultSize = size;
+        this.size = size;
         setLayout();
         setAnimation();
     }
@@ -43,19 +40,19 @@ public class CFLoading extends StackPane {
     }
 
     public CFLoading setColor(Color color) {
-        arc2.setStroke(color);
+        frontArc.setStroke(color);
         return this;
     }
 
     public CFLoading setBackColor(Color color) {
-        arc1.setStroke(color);
+        backArc.setStroke(color);
         return this;
     }
 
     // 布局
     private void setLayout() {
         setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
-        switch (defaultSize) {
+        switch (size) {
             case SMALL:
                 this.getChildren().addAll(this.arcPane);
                 break;
@@ -64,7 +61,7 @@ public class CFLoading extends StackPane {
                 vBox.setSpacing(10);
                 vBox.setAlignment(Pos.CENTER);
                 vBox.getChildren().addAll(this.arcPane, this.message);
-                this.arcPane.setMaxWidth(Double.NEGATIVE_INFINITY);
+                this.arcPane.setMaxWidth(USE_PREF_SIZE);
                 this.getChildren().addAll(vBox);
                 break;
             case LARGE:
@@ -73,21 +70,21 @@ public class CFLoading extends StackPane {
             default:
                 break;
         }
-        this.arc1 = getArc(360, Color.valueOf("#dedfe0"));
-        this.arc2 = getArc(50, Color.valueOf("#409EFF"));
-        this.arcPane.getChildren().addAll(arc1, arc2);
-        this.arcPane.setPrefWidth(defaultSize.getSize());
-        this.arcPane.setPrefHeight(defaultSize.getSize());
-        this.message.setFont(new Font(14));
-        this.message.setTextFill(Color.valueOf("#409EFF"));
+        this.backArc = getArc(360);
+        this.frontArc = getArc(90);
+        this.arcPane.getChildren().addAll(backArc, frontArc);
+        this.arcPane.setPrefSize(size.getSize(), size.getSize());
+        //styleClass
+        this.backArc.getStyleClass().add("back-arc");
+        this.frontArc.getStyleClass().add("front-arc");
+        this.message.getStyleClass().add("message");
     }
 
-    private Arc getArc(double arcLength, Color color) {
-        double size = this.defaultSize.getSize() / 2;
+    private Arc getArc(double arcLength) {
+        double size = this.size.getSize() / 2;
         Arc arc = new Arc(size, size, size, size, 0, arcLength);
         arc.setFill(null);
-        arc.setStrokeWidth(this.defaultSize.getStrokeWidth());
-        arc.setStroke(color);
+        arc.setStrokeWidth(this.size.getStrokeWidth());
         return arc;
     }
 
@@ -96,17 +93,7 @@ public class CFLoading extends StackPane {
      */
     private void setAnimation() {
         //动画监听
-        arc2.lengthProperty().bind(TRANSITION_NODE.translateXProperty());
-        arc2.startAngleProperty().bind(TRANSITION_NODE.rotateProperty());
-
-        //移动动画
-        TT.setNode(TRANSITION_NODE);
-        TT.setFromX(270);
-        TT.setToX(0);
-        TT.setDuration(Duration.millis(1000));
-        TT.setInterpolator(Interpolator.LINEAR);
-        TT.setAutoReverse(true);
-        TT.setCycleCount(Timeline.INDEFINITE);
+        frontArc.startAngleProperty().bind(TRANSITION_NODE.rotateProperty());
         //旋转动画
         RT.setNode(TRANSITION_NODE);
         RT.setFromAngle(360);
@@ -114,8 +101,12 @@ public class CFLoading extends StackPane {
         RT.setDuration(Duration.millis(700));
         RT.setInterpolator(Interpolator.LINEAR);
         RT.setCycleCount(Timeline.INDEFINITE);
-        //
-        PT.play();
+        RT.play();
+    }
+
+    @Override
+    public String getUserAgentStylesheet() {
+        return STYLE_SHEET;
     }
 
     // 加载容器大小

@@ -7,6 +7,7 @@ import cn.lichenfei.fxui.controls.CFBadge;
 import cn.lichenfei.fxui.controls.CFPopup;
 import cn.lichenfei.fxui.examples.CFAlertExample;
 import cn.lichenfei.fxui.examples.CFDrawerExample;
+import cn.lichenfei.fxui.examples.CFLoadingExample;
 import cn.lichenfei.fxui.examples.CFMessageExample;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -53,7 +54,8 @@ public class Aside extends StackPane {
         menu.getItems().addAll(
                 new NavItem(new FontIcon(AntDesignIconsOutlined.MESSAGE), "提示", new CFAlertExample()),
                 new NavItem(new FontIcon(AntDesignIconsFilled.CONTROL), "抽屉", new CFDrawerExample()),
-                new NavItem(new FontIcon(AntDesignIconsOutlined.MESSAGE), "消息提示", new CFMessageExample())
+                new NavItem(new FontIcon(AntDesignIconsOutlined.MESSAGE), "消息提示", new CFMessageExample()),
+                new NavItem(new FontIcon(AntDesignIconsOutlined.LOADING_3_QUARTERS), "加载", new CFLoadingExample())
         );
         // 默认选择第一个
         boundsInParentProperty().addListener((observableValue, bounds, t1) -> menu.getSelectionModel().select(0));
