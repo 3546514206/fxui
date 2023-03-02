@@ -35,6 +35,7 @@ public class CFPopup extends Popup {
             setAnchorX(centerX - getWidth() / 2);
             setAnchorY(centerY - getHeight() / 2);
         });
+        popupMove();
     }
 
     /**
@@ -50,4 +51,23 @@ public class CFPopup extends Popup {
             show(window);
         }
     }
+
+    /**************************************************** popup拖动 ****************************************************/
+
+    private double xOffset;
+    private double yOffset;
+
+    private void popupMove() {
+        this.borderPane.setOnMousePressed(event -> {
+            event.consume();
+            this.xOffset = this.getX() - event.getScreenX();
+            this.yOffset = this.getY() - event.getScreenY();
+        });
+        this.borderPane.setOnMouseDragged(event -> {
+            event.consume();
+            this.setX(event.getScreenX() + this.xOffset);
+            this.setY(event.getScreenY() + this.yOffset);
+        });
+    }
+
 }
