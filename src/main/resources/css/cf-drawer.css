@@ -13,3 +13,7 @@
     -fx-icon-size: 16px;
     -fx-icon-color: -cf-text-color;
 }
+.main .close:hover > .ikonli-font-icon{
+    -fx-icon-size: 16px;
+    -fx-icon-color: -cf-primary-color;
+}
