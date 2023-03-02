@@ -21,7 +21,7 @@ public class CFAlert extends HBox {
     private static final String STYLE_SHEET = FxUtil.getResource("/css/cf-alert.css");
     //
     private Label iconLabel = new Label();
-    private Label messLabel = new Label("消息提示！");
+    protected Label messLabel = new Label("消息提示！");
     protected Label closeLabel = new Label();
     // 级别
     protected ObjectProperty<Level> levelProperty = new SimpleObjectProperty<>(Level.PRIMARY);

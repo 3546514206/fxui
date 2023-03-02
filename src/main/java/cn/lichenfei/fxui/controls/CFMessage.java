@@ -20,16 +20,15 @@ public class CFMessage extends CFAlert {
 
     private CFMessage(String message) {
         super(message, Level.PRIMARY);
-        setMaxSize(maxWidth, USE_PREF_SIZE);
     }
 
     private CFMessage(String message, Level level) {
         super(message, level);
-        setMaxSize(maxWidth, USE_PREF_SIZE);
     }
 
     public static CFMessage init(String message) {
         CFMessage cfMessage = new CFMessage(message);
+        cfMessage.setMaxSize();
         cfMessage.setOpacity(0);// 初始化不显示
         cfMessage.setAnimationInfo();
         return cfMessage;
@@ -65,6 +64,11 @@ public class CFMessage extends CFAlert {
     @Override
     protected void setPadding() {
         setPadding(new Insets(15, 15, 15, 15));
+    }
+
+    private void setMaxSize() {
+        this.setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
+        this.messLabel.setMaxSize(maxWidth, USE_PREF_SIZE);
     }
 
     private void play() {
