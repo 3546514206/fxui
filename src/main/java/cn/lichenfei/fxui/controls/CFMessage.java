@@ -63,7 +63,7 @@ public class CFMessage extends CFAlert {
 
     @Override
     protected void setPadding() {
-        setPadding(new Insets(15, 15, 15, 15));
+        setPadding(new Insets(10, 15, 10, 15));
     }
 
     private void setMaxSize() {

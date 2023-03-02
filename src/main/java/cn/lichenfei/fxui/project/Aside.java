@@ -78,10 +78,10 @@ public class Aside extends StackPane {
     public void setEvent() {
         menuSelectedListener();
         //
-        CFPopup label = new CFPopup(new Label("Label"));
+        CFPopup cfPopup = new CFPopup(new StackPane());
         this.userBox.setOnMouseClicked(event -> {
             //
-            label.show(this.userBox);
+            cfPopup.show(this.userBox);
         });
     }
 
