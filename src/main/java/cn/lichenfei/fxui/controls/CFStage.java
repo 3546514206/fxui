@@ -120,12 +120,7 @@ public class CFStage extends Stage {
         container.setBackground(new Background(new BackgroundFill(Color.rgb(255, 255, 255, 1), null, null))); // 窗口默认颜色
         HBox.setHgrow(content, Priority.ALWAYS);
         //裁剪为圆角
-        Rectangle rectangle = new Rectangle();
-        rectangle.widthProperty().bind(container.widthProperty());
-        rectangle.heightProperty().bind(container.heightProperty());
-        rectangle.arcHeightProperty().bind(arcPro);
-        rectangle.arcWidthProperty().bind(arcPro);
-        container.setClip(rectangle);
+        FxUtil.setRectangleClip(container,arcPro);
         //显示阴影效果
         backdrop.setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.5), 10, 0, 1.5, 1.5));
         this.root.setPrefHeight(height + insetsPro.get().getBottom() * 2);

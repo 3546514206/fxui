@@ -15,7 +15,7 @@ public class CFAvatar extends StackPane {
     private ImageView imageView = new ImageView();
     //
     private DoubleProperty arcPro = new SimpleDoubleProperty(48); // 圆角
-    private double width = 48; // 圆角
+    private double size = 48; // 圆角
 
     public CFAvatar() {
         initialize();
@@ -26,15 +26,15 @@ public class CFAvatar extends StackPane {
         initialize();
     }
 
-    public CFAvatar(Image image, double width, double arc) {
+    public CFAvatar(Image image, double size, double arc) {
         this.imageView.setImage(image);
-        this.width = width;
+        this.size = size;
         arcPro.set(arc);
         initialize();
     }
 
-    public CFAvatar(double width, double arc) {
-        this.width = width;
+    public CFAvatar(double size, double arc) {
+        this.size = size;
         arcPro.set(arc);
         initialize();
     }
@@ -42,8 +42,8 @@ public class CFAvatar extends StackPane {
     private void initialize() {
         setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         getChildren().add(imageView);
-        imageView.setFitWidth(width);
-        imageView.setFitHeight(width);
+        imageView.setFitWidth(size);
+        imageView.setFitHeight(size);
         //裁剪为圆角
         Rectangle rectangle = new Rectangle();
         rectangle.widthProperty().bind(widthProperty());

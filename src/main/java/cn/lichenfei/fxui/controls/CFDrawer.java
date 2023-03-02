@@ -5,6 +5,7 @@ import cn.lichenfei.fxui.common.SimpleControl;
 import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.collections.ObservableList;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
@@ -70,7 +71,9 @@ public class CFDrawer extends StackPane {
         Rectangle rectangle = new Rectangle();
         rectangle.heightProperty().bind(heightProperty());
         rectangle.widthProperty().bind(widthProperty());
-        setClip(rectangle);// 裁剪使抽屉移动时不会超出父组件
+        setClip(rectangle);
+        FxUtil.setRectangleClip(this, new SimpleDoubleProperty(0));
+        // 裁剪使抽屉移动时不会超出父组件
         // 主要区域
         header.setMaxSize(USE_COMPUTED_SIZE, USE_PREF_SIZE);
         StackPane.setAlignment(titleLabel, Pos.CENTER_LEFT);

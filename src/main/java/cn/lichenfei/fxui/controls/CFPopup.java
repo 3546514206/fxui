@@ -14,7 +14,7 @@ public class CFPopup extends Popup {
 
     private double centerX = 0;
     private double centerY = 0;
-    private DropShadow dropShadow = new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.4), 20, 0, 0, 0);
+    private DropShadow dropShadow = new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.4), 10, 0, 0, 0);
     //
     private BorderPane borderPane = new BorderPane();
 
@@ -29,12 +29,6 @@ public class CFPopup extends Popup {
         borderPane.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(3), null)));
         borderPane.setPadding(new Insets(20));
         borderPane.setEffect(dropShadow);
-        //
-        setEvent();
-        popupMove();
-    }
-
-    private void setEvent() {
         setAutoHide(true);
         //窗口显示之后
         setOnShown(windowEvent -> {
@@ -55,23 +49,5 @@ public class CFPopup extends Popup {
         if (!isShowing()) {
             show(window);
         }
-    }
-
-    /**************************************************** 窗口拖动 ****************************************************/
-
-    private double xOffset;
-    private double yOffset;
-
-    private void popupMove() {
-        this.borderPane.setOnMousePressed(event -> {
-            event.consume();
-            this.xOffset = this.getX() - event.getScreenX();
-            this.yOffset = this.getY() - event.getScreenY();
-        });
-        this.borderPane.setOnMouseDragged(event -> {
-            event.consume();
-            this.setX(event.getScreenX() + this.xOffset);
-            this.setY(event.getScreenY() + this.yOffset);
-        });
     }
 }

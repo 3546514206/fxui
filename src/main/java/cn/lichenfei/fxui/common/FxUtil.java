@@ -1,6 +1,7 @@
 package cn.lichenfei.fxui.common;
 
 import cn.lichenfei.fxui.controls.CFStage;
+import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Bounds;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
@@ -63,19 +64,18 @@ public class FxUtil {
         return node.getParent().getScene().getWindow();
     }
 
-
     /**
-     * 设置裁剪圆角
+     * 矩形裁剪并设置绑定裁剪的圆角
      *
      * @param pane
-     * @param arc
+     * @param bindArc
      */
-    public static void setClip(Pane pane, double arc) {
+    public static void setRectangleClip(Pane pane, DoubleProperty bindArc) {
         Rectangle rectangle = new Rectangle();
         rectangle.widthProperty().bind(pane.widthProperty());
         rectangle.heightProperty().bind(pane.heightProperty());
-        rectangle.setArcWidth(arc);
-        rectangle.setArcHeight(arc);
+        rectangle.arcWidthProperty().bind(bindArc);
+        rectangle.arcHeightProperty().bind(bindArc);
         pane.setClip(rectangle);
     }
 
