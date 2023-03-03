@@ -29,7 +29,7 @@ public class CFPopup extends Popup {
         borderPane.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(3), null)));
         borderPane.setPadding(new Insets(20));
         borderPane.setEffect(dropShadow);
-        //setAutoHide(true);
+        setAutoHide(true);
         //窗口显示之后
         setOnShown(windowEvent -> {
             setAnchorX(centerX - getWidth() / 2);
@@ -48,7 +48,7 @@ public class CFPopup extends Popup {
         centerX = window.getX() + (window.getWidth() / 2);
         centerY = window.getY() + (window.getHeight() / 2);
         if (!isShowing()) {
-            show(window);
+            super.show(window);
         }
     }
 
