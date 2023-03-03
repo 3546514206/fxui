@@ -77,16 +77,15 @@ public class Aside extends StackPane {
         setEvent();
     }
 
+    //用户弹出框
+    private CFPopup userPopup = new CFPopup(new UserDetail());
+
     public void setEvent() {
         menuSelectedListener();
-        //
-        CFPopup cfPopup = new CFPopup(new StackPane());
         this.userBox.setOnMouseClicked(event -> {
-            //
-            cfPopup.show(this.userBox);
+            userPopup.show(this.userBox);
         });
     }
-
 
     //菜单选中事件监听
     private void menuSelectedListener() {

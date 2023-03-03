@@ -23,21 +23,6 @@ public class CFPopup extends Popup {
         initialize();
     }
 
-    private void initialize() {
-        getContent().add(borderPane);
-        borderPane.setMinSize(400, 200);
-        borderPane.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(3), null)));
-        borderPane.setPadding(new Insets(20));
-        borderPane.setEffect(dropShadow);
-        setAutoHide(true);
-        //窗口显示之后
-        setOnShown(windowEvent -> {
-            setAnchorX(centerX - getWidth() / 2);
-            setAnchorY(centerY - getHeight() / 2);
-        });
-        popupMove();
-    }
-
     /**
      * 显示Popup
      *
@@ -50,6 +35,19 @@ public class CFPopup extends Popup {
         if (!isShowing()) {
             super.show(window);
         }
+    }
+
+    private void initialize() {
+        getContent().add(borderPane);
+        borderPane.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(3), null)));
+        borderPane.setPadding(new Insets(20));
+        borderPane.setEffect(dropShadow);
+        //窗口显示之后
+        setOnShown(windowEvent -> {
+            setAnchorX(centerX - getWidth() / 2);
+            setAnchorY(centerY - getHeight() / 2);
+        });
+        popupMove();
     }
 
     /**************************************************** popup拖动 ****************************************************/
