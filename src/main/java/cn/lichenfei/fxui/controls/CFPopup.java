@@ -1,6 +1,12 @@
 package cn.lichenfei.fxui.controls;
 
 import cn.lichenfei.fxui.common.FxUtil;
+import com.sun.javafx.stage.FocusUngrabEvent;
+import com.sun.javafx.stage.WindowEventDispatcher;
+import javafx.event.Event;
+import javafx.event.EventDispatchChain;
+import javafx.event.EventDispatcher;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.effect.BlurType;
@@ -9,6 +15,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
 import javafx.stage.Window;
+import javafx.stage.WindowEvent;
 
 public class CFPopup extends Popup {
 
@@ -48,6 +55,37 @@ public class CFPopup extends Popup {
             setAnchorY(centerY - getHeight() / 2);
         });
         popupMove();
+        setAutoHide(true);
+        addEventHandler(FocusUngrabEvent.FOCUS_UNGRAB, new EventHandler<Event>() {
+            @Override
+            public void handle(Event windowEvent) {
+                //windowEvent.consume();
+            }
+        });
+        addEventFilter(Event.ANY, new EventHandler<Event>() {
+            @Override
+            public void handle(Event event) {
+                System.out.println(event);
+                if (FocusUngrabEvent.FOCUS_UNGRAB.equals(event)){
+                    //event.consume();
+                }
+            }
+        });
+        //https://qa.1r1g.com/sf/ask/3571083351/
+        setEventDispatcher(new EventDispatcher() {
+            @Override
+            public Event dispatchEvent(Event event, EventDispatchChain eventDispatchChain) {
+                //event.consume();
+                //event
+                return null;
+            }
+        });
+        removeEventHandler(FocusUngrabEvent.FOCUS_UNGRAB, new EventHandler<FocusUngrabEvent>() {
+            @Override
+            public void handle(FocusUngrabEvent focusUngrabEvent) {
+                focusUngrabEvent.consume();
+            }
+        });
     }
 
     /**************************************************** popup拖动 ****************************************************/
