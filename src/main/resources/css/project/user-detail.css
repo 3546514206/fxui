@@ -1,11 +1,14 @@
 .user-detail{
     -fx-padding: 30px;
     -fx-spacing: 15px;
+    -fx-max-width: 300px;
     -fx-alignment: center;
 }
 .introduction-label{
     -fx-font-size: 13px;
     -fx-text-fill: derive(-cf-text-color,50%);
+    -fx-text-alignment: center;
+    -fx-wrap-text: true;
 }
 .button-box{
     -fx-padding: 10px;

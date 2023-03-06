@@ -25,7 +25,7 @@ public class UserDetail extends VBox {
     private CFAvatar cfAvatar = new CFAvatar(FxUtil.getImage("/img/avatar.png"), 100, 100);
     private Label nameLabel = SimpleControl.getLabel("lichenfei_fei", SimpleControl.LabelEnum.H4);
     private Hyperlink emailLink = SimpleControl.getHyperlink("lichenfei_fei@163.com", Level.PRIMARY);
-    private Label introductionLabel = new Label("1、3、5写bug，2、4、6改bug。");
+    private Label introductionLabel = new Label("1、3、5写bug，2、4、6改bug，我是bug制造者。");
     //
     private Button gitee = new Button();
     private Button javafx = new Button();
@@ -35,6 +35,14 @@ public class UserDetail extends VBox {
     private CFPopup cfPopup;
 
     public UserDetail() {
+        initLayout();
+        initEvent();
+    }
+
+    /**
+     * 初始化布局
+     */
+    public void initLayout() {
         getChildren().addAll(cfAvatar, nameLabel, emailLink, introductionLabel, buttonBox);
         gitee.setGraphic(FxUtil.getIconImage("/img/gitee.png", 30));
         javafx.setGraphic(FxUtil.getIconImage("/img/javafx.png", 30));
@@ -46,8 +54,12 @@ public class UserDetail extends VBox {
         getStyleClass().add("user-detail");
         introductionLabel.getStyleClass().add("introduction-label");
         buttonBox.getStyleClass().add("button-box");
-        //
-        HostServices hostServices = FxApplication.hostServices;
+    }
+
+    /**
+     * 初始化相关事件
+     */
+    public void initEvent() {
         emailLink.setOnMouseClicked(event -> {
             try {
                 //Desktop.getDesktop().mail();// 打开邮箱发送邮件
@@ -56,6 +68,7 @@ public class UserDetail extends VBox {
                 e.printStackTrace();
             }
         });
+        HostServices hostServices = FxApplication.hostServices;
         gitee.setOnMouseClicked(event -> hostServices.showDocument("https://gitee.com/lichenfei_fei/chenfei-fxui"));
         javafx.setOnMouseClicked(event -> hostServices.showDocument("https://openjfx.cn/index.html"));
         reward.setOnMouseClicked(event -> {
