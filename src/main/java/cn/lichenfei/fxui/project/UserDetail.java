@@ -4,6 +4,7 @@ import cn.lichenfei.fxui.FxApplication;
 import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.common.SimpleControl;
 import cn.lichenfei.fxui.controls.CFAvatar;
+import cn.lichenfei.fxui.controls.CFPopup;
 import javafx.application.HostServices;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -22,7 +23,9 @@ public class UserDetail extends VBox {
     private Button gitee = new Button();
     private Button javafx = new Button();
     private Button reward = new Button();
-    private HBox buttonBox = new HBox(gitee, javafx);
+    private HBox buttonBox = new HBox(gitee, javafx, reward);
+    //
+    private CFPopup cfPopup;
 
     public UserDetail() {
         getChildren().addAll(cfAvatar, nameLabel, emailLabel, introductionLabel, buttonBox);
@@ -31,7 +34,7 @@ public class UserDetail extends VBox {
         reward.setGraphic(FxUtil.getIconImage("/img/reward.png", 30));
         gitee.setTooltip(SimpleControl.getTooltip("项目仓库地址"));
         javafx.setTooltip(SimpleControl.getTooltip("JavaFX中文官方网站"));
-        reward.setTooltip(SimpleControl.getTooltip("支持一下作者"));
+        reward.setTooltip(SimpleControl.getTooltip("鼓励一下作者"));
         //
         getStyleClass().add("user-detail");
         nameLabel.getStyleClass().add("name-label");
@@ -42,6 +45,10 @@ public class UserDetail extends VBox {
         HostServices hostServices = FxApplication.hostServices;
         gitee.setOnMouseClicked(event -> hostServices.showDocument("https://gitee.com/lichenfei_fei/chenfei-fxui"));
         javafx.setOnMouseClicked(event -> hostServices.showDocument("https://openjfx.cn/index.html"));
+        reward.setOnMouseClicked(event -> {
+            cfPopup = new CFPopup(new RewardBox());
+            cfPopup.show(this);
+        });
     }
 
     @Override
