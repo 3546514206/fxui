@@ -1,21 +1,22 @@
 package cn.lichenfei.fxui.controls;
 
 import cn.lichenfei.fxui.common.FxUtil;
-import com.sun.javafx.stage.FocusUngrabEvent;
-import com.sun.javafx.stage.WindowEventDispatcher;
-import javafx.event.Event;
-import javafx.event.EventDispatchChain;
-import javafx.event.EventDispatcher;
-import javafx.event.EventHandler;
+import javafx.animation.FadeTransition;
+import javafx.animation.ParallelTransition;
+import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.control.Button;
 import javafx.scene.effect.BlurType;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Popup;
 import javafx.stage.Window;
-import javafx.stage.WindowEvent;
+import javafx.util.Duration;
+
+import java.util.function.Consumer;
 
 public class CFPopup extends Popup {
 
@@ -53,39 +54,44 @@ public class CFPopup extends Popup {
         setOnShown(windowEvent -> {
             setAnchorX(centerX - getWidth() / 2);
             setAnchorY(centerY - getHeight() / 2);
+            setAnimationInfoAndPlay(true, actionEvent -> {
+
+            });
         });
         popupMove();
-        setAutoHide(true);
-        addEventHandler(FocusUngrabEvent.FOCUS_UNGRAB, new EventHandler<Event>() {
-            @Override
-            public void handle(Event windowEvent) {
-                //windowEvent.consume();
-            }
-        });
-        addEventFilter(Event.ANY, new EventHandler<Event>() {
-            @Override
-            public void handle(Event event) {
-                System.out.println(event);
-                if (FocusUngrabEvent.FOCUS_UNGRAB.equals(event)){
-                    //event.consume();
-                }
-            }
-        });
-        //https://qa.1r1g.com/sf/ask/3571083351/
-        setEventDispatcher(new EventDispatcher() {
-            @Override
-            public Event dispatchEvent(Event event, EventDispatchChain eventDispatchChain) {
-                //event.consume();
-                //event
-                return null;
-            }
-        });
-        removeEventHandler(FocusUngrabEvent.FOCUS_UNGRAB, new EventHandler<FocusUngrabEvent>() {
-            @Override
-            public void handle(FocusUngrabEvent focusUngrabEvent) {
-                focusUngrabEvent.consume();
-            }
-        });
+        setAutoHide(true); // 失去焦点退出：FocusUngrabEvent
+        setHideOnEscape(true); // 按Esc关闭
+        //动画属性绑定
+        setOpacity(0);// 透明度
+        opacityProperty().bind(TRANSITION_NODE.opacityProperty());
+        TRANSITION_NODE.translateYProperty().addListener((observableValue, number, t1) -> setAnchorY(t1.doubleValue()));
+    }
+
+    /**
+     * 重写hide方法，动画执行后调用hide。
+     */
+    @Override
+    public void hide() {
+        setAnimationInfoAndPlay(false, actionEvent -> super.hide());
+    }
+
+    //动画
+    private Button TRANSITION_NODE = new Button();
+    private TranslateTransition TT = new TranslateTransition(Duration.millis(300));
+    private FadeTransition FT = new FadeTransition(Duration.millis(300));
+    private ParallelTransition PT = new ParallelTransition(TRANSITION_NODE, TT, FT);
+
+    /**
+     * 设置动画属性，并且开启动画。
+     */
+    private void setAnimationInfoAndPlay(boolean show, Consumer<ActionEvent> consumer) {
+        double anchorY = getAnchorY();
+        TT.setFromY(show ? anchorY - 100 : anchorY);
+        TT.setToY(show ? anchorY : anchorY - 100);
+        FT.setFromValue(show ? 0 : 1);
+        FT.setToValue(show ? 1 : 0);
+        PT.play();
+        PT.setOnFinished(actionEvent -> consumer.accept(actionEvent));
     }
 
     /**************************************************** popup拖动 ****************************************************/
