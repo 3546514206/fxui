@@ -5,7 +5,6 @@ import javafx.animation.FadeTransition;
 import javafx.animation.ParallelTransition;
 import javafx.animation.TranslateTransition;
 import javafx.event.ActionEvent;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.effect.BlurType;
@@ -24,10 +23,10 @@ public class CFPopup extends Popup {
     private double centerY = 0;
     private DropShadow dropShadow = new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.4), 10, 0, 0, 0);
     //
-    private BorderPane borderPane = new BorderPane();
+    private StackPane content;
 
     public CFPopup(Node main) {
-        borderPane.setCenter(main);
+        content = new StackPane(main);
         initialize();
     }
 
@@ -46,10 +45,9 @@ public class CFPopup extends Popup {
     }
 
     private void initialize() {
-        getContent().add(borderPane);
-        borderPane.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(3), null)));
-        borderPane.setPadding(new Insets(20));
-        borderPane.setEffect(dropShadow);
+        getContent().add(content);
+        content.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(3), null)));
+        content.setEffect(dropShadow);
         //窗口显示之后
         setOnShown(windowEvent -> {
             setAnchorX(centerX - getWidth() / 2);
@@ -72,7 +70,13 @@ public class CFPopup extends Popup {
      */
     @Override
     public void hide() {
-        setAnimationInfoAndPlay(false, actionEvent -> super.hide());
+        if (!getOwnerWindow().isShowing()) { // 所属窗口不存在了直接关闭
+            super.hide();
+            return;
+        }
+        if (isShowing()) {
+            setAnimationInfoAndPlay(false, actionEvent -> super.hide());
+        }
     }
 
     //动画
@@ -100,12 +104,12 @@ public class CFPopup extends Popup {
     private double yOffset;
 
     private void popupMove() {
-        this.borderPane.setOnMousePressed(event -> {
+        this.content.setOnMousePressed(event -> {
             event.consume();
             this.xOffset = this.getX() - event.getScreenX();
             this.yOffset = this.getY() - event.getScreenY();
         });
-        this.borderPane.setOnMouseDragged(event -> {
+        this.content.setOnMouseDragged(event -> {
             event.consume();
             this.setX(event.getScreenX() + this.xOffset);
             this.setY(event.getScreenY() + this.yOffset);

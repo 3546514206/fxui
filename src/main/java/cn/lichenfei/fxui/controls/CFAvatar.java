@@ -52,7 +52,7 @@ public class CFAvatar extends StackPane {
         rectangle.arcWidthProperty().bind(arcPro);
         imageView.setClip(rectangle);
         //阴影
-        setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.3), 5, 0, 0, 0));
+        setEffect(new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.5), 5, 0, 0, 0));
     }
 
     public void setImage(Image image) {

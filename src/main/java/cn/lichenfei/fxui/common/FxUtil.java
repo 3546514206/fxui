@@ -6,6 +6,7 @@ import javafx.geometry.Bounds;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Screen;
@@ -23,6 +24,13 @@ public class FxUtil {
 
     public static Image getImage(String resources) {
         return new Image(getResource(resources));
+    }
+
+    public static ImageView getIconImage(String resources, double size) {
+        ImageView imageView = new ImageView(getResource(resources));
+        imageView.setFitHeight(size);
+        imageView.setFitWidth(size);
+        return imageView;
     }
 
     /**

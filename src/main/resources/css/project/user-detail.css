@@ -1,0 +1,30 @@
+.user-detail{
+    -fx-padding: 30px;
+    -fx-spacing: 15px;
+    -fx-alignment: center;
+}
+.name-label, .email-label{
+    -fx-text-fill: -cf-text-color;
+}
+.email-label{
+    -fx-font-size: 14px;
+}
+.name-label{
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+.introduction-label{
+    -fx-font-size: 13px;
+    -fx-text-fill: derive(-cf-text-color,50%);
+}
+.button-box{
+    -fx-padding: 10px;
+    -fx-spacing: 20px;
+    -fx-alignment: center;
+}
+.button-box > .button{
+    -fx-background-insets: 0;
+    -fx-background-color: transparent;
+    -fx-padding: 0;
+    -fx-cursor:hand;
+}
