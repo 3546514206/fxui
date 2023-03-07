@@ -1,12 +1,15 @@
 package cn.lichenfei.fxui.project;
 
 import cn.lichenfei.fxui.common.FxUtil;
+import cn.lichenfei.fxui.common.SimpleControl;
 import javafx.animation.Interpolator;
 import javafx.animation.RotateTransition;
 import javafx.animation.Timeline;
 import javafx.beans.property.SimpleDoubleProperty;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.CycleMethod;
@@ -18,13 +21,22 @@ import javafx.util.Duration;
 
 public class RewardBox extends HBox {
 
+    private MyEffect wxMyEffect = new MyEffect(FxUtil.getIconImage("/img/reward-wx.jpg", 200), 210, 210);
+    private Label wxLabel = SimpleControl.getLabel("微信", SimpleControl.LabelEnum.H4);
+    private VBox wxBox = new VBox(wxMyEffect, wxLabel);
+    //
+    private MyEffect zfbMyEffect = new MyEffect(FxUtil.getIconImage("/img/reward-zfb.jpg", 200), 210, 210);
+    private Label zfbLabel = SimpleControl.getLabel("支付宝", SimpleControl.LabelEnum.H4);
+    private VBox zfbBox = new VBox(zfbMyEffect, zfbLabel);
+
     public RewardBox() {
-        getChildren().addAll(
-                new MyEffect(FxUtil.getIconImage("/img/reward-wx.jpg", 200), 210, 210),
-                new MyEffect(FxUtil.getIconImage("/img/reward-zfb.jpg", 200), 210, 210)
-        );
+        getChildren().addAll(wxBox, zfbBox);
         setPadding(new Insets(50));
         setSpacing(50);
+        wxBox.setSpacing(20);
+        wxBox.setAlignment(Pos.CENTER);
+        zfbBox.setSpacing(20);
+        zfbBox.setAlignment(Pos.CENTER);
     }
 
     /**
@@ -45,7 +57,7 @@ public class RewardBox extends HBox {
         private StackPane back = new StackPane(pane, content);
 
         //动画
-        RotateTransition RT = new RotateTransition(Duration.millis(4000), pane);
+        RotateTransition RT = new RotateTransition(Duration.millis(3000), pane);
 
         public MyEffect(Node main, double width, double height) {
             this.width = width;
