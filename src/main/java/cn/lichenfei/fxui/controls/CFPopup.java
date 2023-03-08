@@ -61,7 +61,7 @@ public class CFPopup extends Popup {
         setHideOnEscape(true); // 按Esc关闭
         //动画属性绑定
         opacityProperty().bind(TRANSITION_NODE.opacityProperty());
-        TRANSITION_NODE.translateYProperty().addListener((observableValue, number, t1) -> setAnchorY(t1.doubleValue()));
+        TRANSITION_NODE.translateYProperty().addListener((observableValue, number, t1) -> setY(t1.doubleValue()));
         TRANSITION_NODE.setOpacity(0);// 透明度
     }
 
@@ -79,8 +79,8 @@ public class CFPopup extends Popup {
      */
     protected void setShow(Bounds ownerNodeBounds) {
         // 设置初始位置
-        setAnchorX(centerX - getWidth() / 2);
-        setAnchorY(centerY - getHeight() / 2);
+        setX(centerX - getWidth() / 2);
+        setY(centerY - getHeight() / 2);
         double anchorY = getAnchorY();
         // 设置动画属性
         TT = new TranslateTransition(duration);

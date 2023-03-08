@@ -81,6 +81,7 @@ public class Aside extends StackPane {
     public void setEvent() {
         menuSelectedListener();
         this.userBox.setOnMouseClicked(event -> {
+            event.consume();
             userPopup.show(this.userBox);
         });
     }
