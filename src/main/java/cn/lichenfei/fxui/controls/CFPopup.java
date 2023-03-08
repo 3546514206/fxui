@@ -57,7 +57,7 @@ public class CFPopup extends Popup {
             });
         });
         popupMove();
-        setAutoHide(true); // 失去焦点退出：FocusUngrabEvent
+        setAutoHide(true); // 自动隐藏：FocusUngrabEvent
         setHideOnEscape(true); // 按Esc关闭
         //动画属性绑定
         setOpacity(0);// 透明度

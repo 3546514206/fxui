@@ -1,7 +1,6 @@
 package cn.lichenfei.fxui.controls;
 
 import cn.lichenfei.fxui.common.FxUtil;
-import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.css.PseudoClass;
@@ -21,7 +20,6 @@ public class CFTextField extends HBox {
     private static final String STYLE_SHEET = FxUtil.getResource("/css/cf-text-field.css");
     private PseudoClass CF_FOCUSED = PseudoClass.getPseudoClass("cf-focused");// 自定义伪类
     private Type type = Type.TEXT;
-    private StringProperty textPro = new SimpleStringProperty("");
     //组件
     private Label iconLabel = new Label();// 左侧图标
     private TextField textField = new TextField("");
@@ -52,24 +50,24 @@ public class CFTextField extends HBox {
     }
 
     public String getText() {
-        return textPro.get();
+        return textField.textProperty().get();
     }
 
     public void setText(String text) {
-        this.textPro.set(text);
+        textField.textProperty().set(text);
     }
 
     public StringProperty getTextProperty() {
-        return textPro;
+        return textField.textProperty();
     }
 
     private void initialize() {
-        setLayout();
-        setEvent();
+        initLayout();
+        initEvent();
     }
 
     //布局相关
-    private void setLayout() {
+    private void initLayout() {
         setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
         getStyleClass().add(this.STYLE_CLASS);
         setAlignment(Pos.CENTER);
@@ -89,7 +87,7 @@ public class CFTextField extends HBox {
     }
 
     // 事件相关
-    private void setEvent() {
+    private void initEvent() {
         // 当选中文本输入框，给当前组件添加伪类
         ChangeListener<Boolean> tChangeListener = (observable, oldValue, newValue) -> this.pseudoClassStateChanged(this.CF_FOCUSED, newValue);
         this.textField.focusedProperty().addListener(tChangeListener);
@@ -106,26 +104,19 @@ public class CFTextField extends HBox {
                 FontIcon fontIcon = (FontIcon) this.rightIcon.getGraphic();
                 int i = childrenContains(this.iconLabel) ? 1 : 0;
                 boolean isEyeInvisible = fontIcon.getIconCode().equals(AntDesignIconsFilled.EYE_INVISIBLE);
-                TextField setField = isEyeInvisible ? this.textField : this.passwordField;
-                setField.setText(isEyeInvisible ? this.passwordField.getText() : this.textField.getText());
-                getChildren().set(i, setField);
-                setRequestFocus(setField);
+                TextField showField = isEyeInvisible ? this.textField : this.passwordField; // 获取需要展示的组件
+                getChildren().set(i, showField);
+                setRequestFocus(showField);
                 this.rightIcon.setGraphic(new FontIcon(isEyeInvisible ? AntDesignIconsFilled.EYE : AntDesignIconsFilled.EYE_INVISIBLE));
             }
         });
         // 点击则选中输入框
         setOnMouseClicked(event -> setRequestFocus(childrenContains(this.textField) ? this.textField : this.passwordField));
-        // 监听值
-        ChangeListener<String> textChange = (observable, oldValue, newValue) -> this.textPro.set(newValue);
-        this.textField.textProperty().addListener(textChange);
-        this.passwordField.textProperty().addListener(textChange);
-        this.textPro.addListener((observable, oldValue, newValue) -> {
-            this.textField.setText(newValue);
-            this.passwordField.setText(newValue);
-        });
+        //数据双向绑定
+        this.passwordField.textProperty().bindBidirectional(this.textField.textProperty());
     }
 
-    // 输入框选择，并且光标移动到最后
+    // 输入框获取焦点，并且光标移动到最后
     private void setRequestFocus(TextField textField) {
         textField.requestFocus();
         textField.positionCaret(textField.getText().length());
