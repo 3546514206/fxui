@@ -18,8 +18,6 @@ import javafx.util.Duration;
 
 public class CFPopup extends Popup {
 
-    private double centerX = 0;
-    private double centerY = 0;
     private DropShadow dropShadow = new DropShadow(BlurType.THREE_PASS_BOX, Color.rgb(0, 0, 0, 0.3), 10, 0, 0, 0);
     //
     protected StackPane container;
@@ -40,8 +38,6 @@ public class CFPopup extends Popup {
     public void show(Node ownerNode) {
         this.ownerNode = ownerNode;
         Window window = FxUtil.getWindow(ownerNode);
-        centerX = window.getX() + (window.getWidth() / 2);
-        centerY = window.getY() + (window.getHeight() / 2);
         if (!isShowing()) {
             super.show(window);
         }
@@ -54,7 +50,8 @@ public class CFPopup extends Popup {
         //窗口显示之后
         setOnShown(windowEvent -> {
             Bounds ownerNodeBounds = this.ownerNode.localToScreen(this.ownerNode.getLayoutBounds());
-            setShow(ownerNodeBounds);
+            setLocation(ownerNodeBounds);
+            setShow();
         });
         popupMove();
         setAutoHide(true); // 自动隐藏：FocusUngrabEvent
@@ -74,13 +71,8 @@ public class CFPopup extends Popup {
 
     /**
      * 窗口展示后调用的方法
-     *
-     * @param ownerNodeBounds
      */
-    protected void setShow(Bounds ownerNodeBounds) {
-        // 设置初始位置
-        setX(centerX - getWidth() / 2);
-        setY(centerY - getHeight() / 2);
+    protected void setShow() {
         double anchorY = getAnchorY();
         // 设置动画属性
         TT = new TranslateTransition(duration);
@@ -106,6 +98,18 @@ public class CFPopup extends Popup {
         FT.setToValue(0);
         PT.play();
         PT.setOnFinished(actionEvent -> close());// 真正的隐藏
+    }
+
+    /**
+     * 设置气泡卡片显示的位置
+     */
+    protected void setLocation(Bounds ownerNodeBounds) {
+        Window window = getOwnerWindow();
+        double centerX = window.getX() + (window.getWidth() / 2);
+        double centerY = window.getY() + (window.getHeight() / 2);
+        // 设置初始位置
+        setX(centerX - getWidth() / 2);
+        setY(centerY - getHeight() / 2);
     }
 
     /**

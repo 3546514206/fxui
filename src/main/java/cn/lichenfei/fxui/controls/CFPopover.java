@@ -23,8 +23,7 @@ public class CFPopover extends CFPopup {
     }
 
     @Override
-    protected void setShow(Bounds ownerNodeBounds) {
-        setLocation(ownerNodeBounds);
+    protected void setShow() {
         // 设置动画属性
         FT = new FadeTransition(duration, TRANSITION_NODE);
         FT.setFromValue(0);
@@ -45,14 +44,7 @@ public class CFPopover extends CFPopup {
     }
 
     @Override
-    protected void popupMove() {
-        // 不支持拖动
-    }
-
-    /**
-     * 设置气泡卡片显示的位置
-     */
-    private void setLocation(Bounds ownerNodeBounds) {
+    protected void setLocation(Bounds ownerNodeBounds) {
         //因为存在DropShadow，所以要计算偏移量
         double w = (getHeight() - container.getWidth()) / 2;
         double h = (getWidth() - container.getWidth()) / 2;
@@ -83,6 +75,11 @@ public class CFPopover extends CFPopup {
                 setY(ownerNodeBounds.getMinY() - h - offset - container.getHeight());
             }
         }
+    }
+
+    @Override
+    protected void popupMove() {
+        // 不支持拖动
     }
 
     public enum Position {
