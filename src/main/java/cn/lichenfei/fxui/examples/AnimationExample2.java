@@ -9,7 +9,7 @@ import javafx.scene.layout.StackPane;
 /**
  * 时钟翻页效果
  */
-class AnimationExample2 extends StackPane {
+public class AnimationExample2 extends StackPane {
 
     private StackPane root = new StackPane(new CFClock());
     private SubScene subScene = new SubScene(root, 400, 200);

@@ -14,6 +14,12 @@
   ![img_2.png](document/img/img_2.png)
 - 用户详情页
   ![img_3.png](document/img/img_3.png)
+- 案例一
+  ![d32d3eb1-3f9c-4fdb-8fd3-a382e2ae2098.gif](document/img/2.gif)
+- 案例二
+  ![e9ca8071-5364-4e02-b478-7cd8fc079caa.gif](document/img/3.gif)
+- 案例三
+  ![86c28034-aa20-4f61-a42d-86fd459edf86.gif](document/img/1.gif)  
 
 ### 备注
 

@@ -12,7 +12,7 @@ import javafx.scene.text.Font;
  * @author ChenFei
  * @date 2023/2/23
  */
-class EffectExample1 extends StackPane {
+public class EffectExample1 extends StackPane {
 
     private Label label = new Label("DropShadow");
 

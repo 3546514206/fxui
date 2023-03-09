@@ -14,7 +14,7 @@ import javafx.util.Duration;
 /**
  * 文本填充效果
  */
-class AnimationExample1 extends StackPane {
+public class AnimationExample1 extends StackPane {
 
     private Rectangle TRANSITION_NODE = new Rectangle();
     private TranslateTransition TT = new TranslateTransition(Duration.seconds(2), TRANSITION_NODE);
