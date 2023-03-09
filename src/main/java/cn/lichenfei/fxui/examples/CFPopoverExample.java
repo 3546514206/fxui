@@ -1,8 +1,10 @@
 package cn.lichenfei.fxui.examples;
 
+import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.common.Level;
 import cn.lichenfei.fxui.common.SimpleButton;
 import cn.lichenfei.fxui.controls.CFPopover;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 
@@ -16,7 +18,7 @@ public class CFPopoverExample extends StackPane {
     //
     HBox hBox = new HBox(nextButton, simpleButton);
     //
-    StackPane content = new StackPane();
+    StackPane content = new StackPane(new ImageView(FxUtil.getImage("/img/logo.png")));
     CFPopover cfPopover = new CFPopover(content);
 
     public CFPopoverExample() {

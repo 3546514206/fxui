@@ -2,8 +2,12 @@ package cn.lichenfei.fxui.controls;
 
 import javafx.animation.FadeTransition;
 import javafx.geometry.Bounds;
+import javafx.geometry.Pos;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
+import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 import javafx.stage.Screen;
 
 import java.util.HashMap;
@@ -17,11 +21,12 @@ public class CFPopover extends CFPopup {
     // 位置
     private Position position = Position.BOTTOM_LEFT;
     // 偏移量：距离所属节点的长度
-    private double offset = 10;
+    private double offset = 5;
 
     public CFPopover(Node main) {
         super(main);
         setAutoFix(false);
+        initArrow();
     }
 
     public void setPosition(Position position) {
@@ -55,61 +60,27 @@ public class CFPopover extends CFPopup {
         /**
          * 因为存在DropShadow，所以要计算偏移量（请勿修改父类的DropShadow：offsetX、offsetY属性，可能会导致位置计算出现偏差，如需修改请自行实现）
          */
-        double w = (getHeight() - container.getWidth()) / 2;
-        double h = (getWidth() - container.getWidth()) / 2;
+        Bounds bounds = container.localToScene(container.getLayoutBounds());
         // 根据不同的Pos设置要显示位置
-        switch (position) {
-            case BOTTOM_LEFT -> {
-                setX(ownerNodeBounds.getMinX() - w);
-                setY(ownerNodeBounds.getMaxY() - h + offset);
-            }
-            case BOTTOM_CENTER -> {
-                setX(ownerNodeBounds.getMinX() - w - container.getWidth() / 2 + ownerNodeBounds.getWidth() / 2);
-                setY(ownerNodeBounds.getMaxY() - h + offset);
-            }
-            case BOTTOM_RIGHT -> {
-                setX(ownerNodeBounds.getMinX() - w - container.getWidth() + ownerNodeBounds.getWidth());
-                setY(ownerNodeBounds.getMaxY() - h + offset);
-            }
-            case TOP_LEFT -> {
-                setX(ownerNodeBounds.getMinX() - w);
-                setY(ownerNodeBounds.getMinY() - h - offset - container.getHeight());
-            }
-            case TOP_CENTER -> {
-                setX(ownerNodeBounds.getMinX() - w - container.getWidth() / 2 + ownerNodeBounds.getWidth() / 2);
-                setY(ownerNodeBounds.getMinY() - h - offset - container.getHeight());
-            }
-            case TOP_RIGHT -> {
-                setX(ownerNodeBounds.getMinX() - w - container.getWidth() + ownerNodeBounds.getWidth());
-                setY(ownerNodeBounds.getMinY() - h - offset - container.getHeight());
-            }
-            case RIGHT_TOP -> {
-                setX(ownerNodeBounds.getMaxX() - w + offset);
-                setY(ownerNodeBounds.getMinY() - h);
-            }
-            case RIGHT_CENTER -> {
-                setX(ownerNodeBounds.getMaxX() - w + offset);
-                setY(ownerNodeBounds.getMinY() - h - container.getHeight() / 2 + ownerNodeBounds.getHeight() / 2);
-            }
-            case RIGHT_BOTTOM -> {
-                setX(ownerNodeBounds.getMaxX() - w + offset);
-                setY(ownerNodeBounds.getMinY() - h - container.getHeight() + ownerNodeBounds.getHeight());
-            }
-            case LEFT_TOP -> {
-                setX(ownerNodeBounds.getMinX() - w - offset - container.getWidth());
-                setY(ownerNodeBounds.getMinY() - h);
-            }
-            case LEFT_CENTER -> {
-                setX(ownerNodeBounds.getMinX() - w - offset - container.getWidth());
-                setY(ownerNodeBounds.getMinY() - h - container.getHeight() / 2 + ownerNodeBounds.getHeight() / 2);
-            }
-            case LEFT_BOTTOM -> {
-                setX(ownerNodeBounds.getMinX() - w - offset - container.getWidth());
-                setY(ownerNodeBounds.getMinY() - h - container.getHeight() + ownerNodeBounds.getHeight());
-            }
+        switch (this.position) {
+            case BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT -> setY(ownerNodeBounds.getMaxY() - bounds.getMinX() + offset);
+            case TOP_LEFT, TOP_CENTER, TOP_RIGHT -> setY(ownerNodeBounds.getMinY() - bounds.getMaxY() - offset - arrowSize);
+            case RIGHT_TOP, RIGHT_CENTER, RIGHT_BOTTOM -> setX(ownerNodeBounds.getMaxX() - bounds.getMinY() + offset);
+            case LEFT_TOP, LEFT_CENTER, LEFT_BOTTOM -> setX(ownerNodeBounds.getMinX() - bounds.getMaxX() - offset - arrowSize);
             default -> {
             }
         }
+        switch (this.position) {
+            case BOTTOM_LEFT, TOP_LEFT -> setX(ownerNodeBounds.getMinX() - bounds.getMinX());
+            case BOTTOM_CENTER, TOP_CENTER -> setX(ownerNodeBounds.getMinX() - bounds.getMinX() - container.getWidth() / 2 + ownerNodeBounds.getWidth() / 2);
+            case BOTTOM_RIGHT, TOP_RIGHT -> setX(ownerNodeBounds.getMaxX() - bounds.getMaxX());
+            case RIGHT_TOP, LEFT_TOP -> setY(ownerNodeBounds.getMinY() - bounds.getMinY());
+            case RIGHT_CENTER, LEFT_CENTER -> setY(ownerNodeBounds.getMinY() - bounds.getMinY() - container.getHeight() / 2 + ownerNodeBounds.getHeight() / 2);
+            case RIGHT_BOTTOM, LEFT_BOTTOM -> setY(ownerNodeBounds.getMaxY() - bounds.getMaxY());
+            default -> {
+            }
+        }
+        setArrowLocation(ownerNodeBounds);// 设置箭头位置
     }
 
     /****************************************************************/
@@ -150,6 +121,81 @@ public class CFPopover extends CFPopup {
         }
         if (reset) {
             this.position = opposite.get(this.position);
+        }
+    }
+
+    /**************************************************************************/
+
+    private double arrowSize = 6;
+    private Polygon arrow = new Polygon();
+
+    private void initArrow() {
+        arrow.setFill(Color.WHITE);
+        container.getChildren().add(arrow);
+    }
+
+    /**
+     * 设置箭头
+     *
+     * @param ownerNodeBounds
+     */
+    private void setArrowLocation(Bounds ownerNodeBounds) {
+        arrow.getPoints().clear();
+        switch (this.position) {
+            case BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT -> {
+                arrow.getPoints().addAll(0D, arrowSize, arrowSize, 0D, arrowSize * 2, arrowSize);
+                StackPane.setAlignment(arrow, Pos.TOP_LEFT);
+                arrow.setTranslateY(-arrowSize);
+                if (container.getWidth() < ownerNodeBounds.getWidth() || this.position.equals(Position.BOTTOM_CENTER)) {
+                    arrow.setTranslateX(container.getWidth() / 2 - arrowSize);
+                    return;
+                }
+                switch (this.position) {
+                    case BOTTOM_LEFT -> arrow.setTranslateX(ownerNodeBounds.getWidth() / 2 - arrowSize);
+                    case BOTTOM_RIGHT -> arrow.setTranslateX(container.getWidth() - ownerNodeBounds.getWidth() / 2 - arrowSize);
+                }
+            }
+            case TOP_LEFT, TOP_CENTER, TOP_RIGHT -> {
+                arrow.getPoints().addAll(0D, 0D, arrowSize * 2, 0D, arrowSize, arrowSize);
+                StackPane.setAlignment(arrow, Pos.BOTTOM_LEFT);
+                arrow.setTranslateY(+arrowSize);
+                if (container.getWidth() < ownerNodeBounds.getWidth() || this.position.equals(Position.TOP_CENTER)) {
+                    arrow.setTranslateX(container.getWidth() / 2 - arrowSize);
+                    return;
+                }
+                switch (this.position) {
+                    case TOP_LEFT -> arrow.setTranslateX(ownerNodeBounds.getWidth() / 2 - arrowSize);
+                    case TOP_RIGHT -> arrow.setTranslateX(container.getWidth() - ownerNodeBounds.getWidth() / 2 - arrowSize);
+                }
+            }
+            case RIGHT_TOP, RIGHT_CENTER, RIGHT_BOTTOM -> {
+                arrow.getPoints().addAll(arrowSize, 0D, 0D, arrowSize, arrowSize, arrowSize * 2);
+                StackPane.setAlignment(arrow, Pos.TOP_LEFT);
+                arrow.setTranslateX(-arrowSize);
+                if (container.getHeight() < ownerNodeBounds.getHeight() || this.position.equals(Position.RIGHT_CENTER)) {
+                    arrow.setTranslateY(container.getHeight() / 2 - arrowSize);
+                    return;
+                }
+                switch (this.position) {
+                    case RIGHT_TOP -> arrow.setTranslateY(ownerNodeBounds.getHeight() / 2 - arrowSize);
+                    case RIGHT_BOTTOM -> arrow.setTranslateY(container.getHeight() - ownerNodeBounds.getHeight() / 2 - arrowSize);
+                }
+            }
+            case LEFT_TOP, LEFT_CENTER, LEFT_BOTTOM -> {
+                arrow.getPoints().addAll(0D, 0D, arrowSize, arrowSize, 0D, arrowSize * 2);
+                StackPane.setAlignment(arrow, Pos.TOP_RIGHT);
+                arrow.setTranslateX(arrowSize);
+                if (container.getHeight() < ownerNodeBounds.getHeight() || this.position.equals(Position.LEFT_CENTER)) {
+                    arrow.setTranslateY(container.getHeight() / 2 - arrowSize);
+                    return;
+                }
+                switch (this.position) {
+                    case LEFT_TOP -> arrow.setTranslateY(ownerNodeBounds.getHeight() / 2 - arrowSize);
+                    case LEFT_BOTTOM -> arrow.setTranslateY(container.getHeight() - ownerNodeBounds.getHeight() / 2 - arrowSize);
+                }
+            }
+            default -> {
+            }
         }
     }
 
