@@ -5,6 +5,7 @@ import cn.lichenfei.fxui.common.FxUtil;
 import cn.lichenfei.fxui.common.Level;
 import cn.lichenfei.fxui.common.SimpleControl;
 import cn.lichenfei.fxui.controls.CFAvatar;
+import cn.lichenfei.fxui.controls.CFPopup;
 import javafx.application.HostServices;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -30,6 +31,9 @@ public class UserDetail extends VBox {
     private Button javafx = new Button();
     private Button reward = new Button();
     private HBox buttonBox = new HBox(gitee, javafx, reward);
+
+    //
+    private CFPopup rewardPopup = new CFPopup(new RewardBox());
 
     public UserDetail() {
         initLayout();
@@ -68,6 +72,9 @@ public class UserDetail extends VBox {
         HostServices hostServices = FxApplication.hostServices;
         gitee.setOnMouseClicked(event -> hostServices.showDocument("https://gitee.com/lichenfei_fei/chenfei-fxui"));
         javafx.setOnMouseClicked(event -> hostServices.showDocument("https://openjfx.cn/index.html"));
+        reward.setOnMouseClicked(event -> {
+            rewardPopup.show(this);
+        });
     }
 
     @Override

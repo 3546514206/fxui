@@ -173,12 +173,12 @@ public class CFStage extends Stage {
     private double yOffset;
 
     private void stageMove() {
-        this.container.setOnMousePressed(event -> {
+        this.cfHeader.setOnMousePressed(event -> {
             event.consume();
             this.xOffset = this.getX() - event.getScreenX();
             this.yOffset = this.getY() - event.getScreenY();
         });
-        this.container.setOnMouseDragged(event -> {
+        this.cfHeader.setOnMouseDragged(event -> {
             event.consume();
             if (!maximizePro.get()) {
                 this.setX(event.getScreenX() + this.xOffset);
