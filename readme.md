@@ -8,8 +8,7 @@
 ### 项目截图
 
 - 登录注册
-  ![img.png](document/img/img.png)
-  ![img_1.png](document/img/img_1.png)
+  ![4.gif](document/img/4.gif)
 - 首页
   ![img_2.png](document/img/img_2.png)
 - 用户详情页
