@@ -57,6 +57,7 @@ public class CFPopover extends CFPopup {
     @Override
     protected void setLocation(Bounds ownerNodeBounds) {
         resetPosition(ownerNodeBounds);
+        setArrowLocation(ownerNodeBounds);// 设置箭头位置
         /**
          * 因为存在DropShadow，所以要计算偏移量（请勿修改父类的DropShadow：offsetX、offsetY属性，可能会导致位置计算出现偏差，如需修改请自行实现）
          */
@@ -80,7 +81,6 @@ public class CFPopover extends CFPopup {
             default -> {
             }
         }
-        setArrowLocation(ownerNodeBounds);// 设置箭头位置
     }
 
     /****************************************************************/
@@ -141,61 +141,54 @@ public class CFPopover extends CFPopup {
      */
     private void setArrowLocation(Bounds ownerNodeBounds) {
         arrow.getPoints().clear();
+        // 默认位置
         switch (this.position) {
             case BOTTOM_LEFT, BOTTOM_CENTER, BOTTOM_RIGHT -> {
                 arrow.getPoints().addAll(0D, arrowSize, arrowSize, 0D, arrowSize * 2, arrowSize);
                 StackPane.setAlignment(arrow, Pos.TOP_LEFT);
                 arrow.setTranslateY(-arrowSize);
-                if (container.getWidth() < ownerNodeBounds.getWidth() || this.position.equals(Position.BOTTOM_CENTER)) {
+                if (container.getWidth() < ownerNodeBounds.getWidth()) {
                     arrow.setTranslateX(container.getWidth() / 2 - arrowSize);
                     return;
-                }
-                switch (this.position) {
-                    case BOTTOM_LEFT -> arrow.setTranslateX(ownerNodeBounds.getWidth() / 2 - arrowSize);
-                    case BOTTOM_RIGHT -> arrow.setTranslateX(container.getWidth() - ownerNodeBounds.getWidth() / 2 - arrowSize);
                 }
             }
             case TOP_LEFT, TOP_CENTER, TOP_RIGHT -> {
                 arrow.getPoints().addAll(0D, 0D, arrowSize * 2, 0D, arrowSize, arrowSize);
                 StackPane.setAlignment(arrow, Pos.BOTTOM_LEFT);
                 arrow.setTranslateY(+arrowSize);
-                if (container.getWidth() < ownerNodeBounds.getWidth() || this.position.equals(Position.TOP_CENTER)) {
+                if (container.getWidth() < ownerNodeBounds.getWidth()) {
                     arrow.setTranslateX(container.getWidth() / 2 - arrowSize);
                     return;
-                }
-                switch (this.position) {
-                    case TOP_LEFT -> arrow.setTranslateX(ownerNodeBounds.getWidth() / 2 - arrowSize);
-                    case TOP_RIGHT -> arrow.setTranslateX(container.getWidth() - ownerNodeBounds.getWidth() / 2 - arrowSize);
                 }
             }
             case RIGHT_TOP, RIGHT_CENTER, RIGHT_BOTTOM -> {
                 arrow.getPoints().addAll(arrowSize, 0D, 0D, arrowSize, arrowSize, arrowSize * 2);
                 StackPane.setAlignment(arrow, Pos.TOP_LEFT);
                 arrow.setTranslateX(-arrowSize);
-                if (container.getHeight() < ownerNodeBounds.getHeight() || this.position.equals(Position.RIGHT_CENTER)) {
+                if (container.getHeight() < ownerNodeBounds.getHeight()) {
                     arrow.setTranslateY(container.getHeight() / 2 - arrowSize);
                     return;
-                }
-                switch (this.position) {
-                    case RIGHT_TOP -> arrow.setTranslateY(ownerNodeBounds.getHeight() / 2 - arrowSize);
-                    case RIGHT_BOTTOM -> arrow.setTranslateY(container.getHeight() - ownerNodeBounds.getHeight() / 2 - arrowSize);
                 }
             }
             case LEFT_TOP, LEFT_CENTER, LEFT_BOTTOM -> {
                 arrow.getPoints().addAll(0D, 0D, arrowSize, arrowSize, 0D, arrowSize * 2);
                 StackPane.setAlignment(arrow, Pos.TOP_RIGHT);
                 arrow.setTranslateX(arrowSize);
-                if (container.getHeight() < ownerNodeBounds.getHeight() || this.position.equals(Position.LEFT_CENTER)) {
+                if (container.getHeight() < ownerNodeBounds.getHeight()) {
                     arrow.setTranslateY(container.getHeight() / 2 - arrowSize);
                     return;
-                }
-                switch (this.position) {
-                    case LEFT_TOP -> arrow.setTranslateY(ownerNodeBounds.getHeight() / 2 - arrowSize);
-                    case LEFT_BOTTOM -> arrow.setTranslateY(container.getHeight() - ownerNodeBounds.getHeight() / 2 - arrowSize);
                 }
             }
             default -> {
             }
+        }
+        switch (this.position) {
+            case BOTTOM_CENTER, TOP_CENTER -> arrow.setTranslateX(container.getWidth() / 2 - arrowSize);
+            case LEFT_CENTER, RIGHT_CENTER -> arrow.setTranslateY(container.getHeight() / 2 - arrowSize);
+            case BOTTOM_LEFT, TOP_LEFT -> arrow.setTranslateX(ownerNodeBounds.getWidth() / 2 - arrowSize);
+            case BOTTOM_RIGHT, TOP_RIGHT -> arrow.setTranslateX(container.getWidth() - ownerNodeBounds.getWidth() / 2 - arrowSize);
+            case RIGHT_TOP, LEFT_TOP -> arrow.setTranslateY(ownerNodeBounds.getHeight() / 2 - arrowSize);
+            case RIGHT_BOTTOM, LEFT_BOTTOM -> arrow.setTranslateY(container.getHeight() - ownerNodeBounds.getHeight() / 2 - arrowSize);
         }
     }
 
