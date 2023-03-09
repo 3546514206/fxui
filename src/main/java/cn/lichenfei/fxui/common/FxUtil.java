@@ -3,13 +3,11 @@ package cn.lichenfei.fxui.common;
 import cn.lichenfei.fxui.controls.CFStage;
 import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Bounds;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
-import javafx.stage.Screen;
 import javafx.stage.Window;
 
 /**
@@ -31,15 +29,6 @@ public class FxUtil {
         imageView.setFitHeight(size);
         imageView.setFitWidth(size);
         return imageView;
-    }
-
-    /**
-     * 获取主屏幕的可视边界
-     *
-     * @return
-     */
-    public static Rectangle2D getVisualBounds() {
-        return Screen.getPrimary().getVisualBounds();
     }
 
     /**

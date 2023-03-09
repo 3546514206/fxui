@@ -13,6 +13,7 @@ import javafx.scene.effect.DropShadow;
 import javafx.scene.image.Image;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
@@ -142,8 +143,8 @@ public class CFStage extends Stage {
             if (newValue) {
                 cfBounds = CFBounds.get(new Rectangle2D(getX(), getY(), getWidth(), getHeight()));
                 arc = arcPro.get();
-                //
-                CFBounds visualBounds = CFBounds.get(FxUtil.getVisualBounds());
+                //获取主屏幕的可视边界
+                CFBounds visualBounds = CFBounds.get(Screen.getPrimary().getVisualBounds());
                 insetsPro.set(new Insets(0));
                 arcPro.set(0);
                 setWidth(visualBounds.getWidth());

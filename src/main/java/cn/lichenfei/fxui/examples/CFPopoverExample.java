@@ -29,7 +29,9 @@ public class CFPopoverExample extends StackPane {
         AtomicInteger i = new AtomicInteger();
         CFPopover.Position[] positionArr = {
                 CFPopover.Position.BOTTOM_LEFT, CFPopover.Position.BOTTOM_CENTER, CFPopover.Position.BOTTOM_RIGHT,
-                CFPopover.Position.TOP_LEFT, CFPopover.Position.TOP_CENTER, CFPopover.Position.TOP_RIGHT
+                CFPopover.Position.TOP_LEFT, CFPopover.Position.TOP_CENTER, CFPopover.Position.TOP_RIGHT,
+                CFPopover.Position.RIGHT_TOP, CFPopover.Position.RIGHT_CENTER, CFPopover.Position.RIGHT_BOTTOM,
+                CFPopover.Position.LEFT_TOP, CFPopover.Position.LEFT_CENTER, CFPopover.Position.LEFT_BOTTOM
         };
         //
         cfPopover.setPosition(CFPopover.Position.BOTTOM_RIGHT);
