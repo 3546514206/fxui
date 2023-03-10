@@ -50,9 +50,8 @@ public class UserDetail extends VBox {
         javafx.setGraphic(FxUtil.getIconImage("/img/javafx.png", 30));
         reward.setGraphic(FxUtil.getIconImage("/img/reward.png", 30));
         CFTooltip.create("项目仓库地址", gitee);
-        //gitee.setTooltip(SimpleControl.getTooltip("项目仓库地址"));
-        javafx.setTooltip(SimpleControl.getTooltip("JavaFX中文官方网站"));
-        reward.setTooltip(SimpleControl.getTooltip("鼓励一下作者"));
+        CFTooltip.create("JavaFX中文官方网站", javafx);
+        CFTooltip.create("鼓励一下作者", reward);
         //
         getStyleClass().add("user-detail");
         introductionLabel.getStyleClass().add("introduction-label");
