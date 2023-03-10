@@ -36,7 +36,9 @@ public class CFPopover extends CFPopup {
     @Override
     protected void setShow() {
         // 设置动画属性
-        FT = new FadeTransition(duration, TRANSITION_NODE);
+        if (FT == null) {
+            FT = new FadeTransition(duration, TRANSITION_NODE);
+        }
         FT.setFromValue(0);
         FT.setToValue(1);
         FT.play();
@@ -47,7 +49,6 @@ public class CFPopover extends CFPopup {
     @Override
     protected void setHide() {
         // 设置动画属性
-        FT = new FadeTransition(duration, TRANSITION_NODE);
         FT.setFromValue(1);
         FT.setToValue(0);
         FT.play();

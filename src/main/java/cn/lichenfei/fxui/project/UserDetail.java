@@ -6,6 +6,7 @@ import cn.lichenfei.fxui.common.Level;
 import cn.lichenfei.fxui.common.SimpleControl;
 import cn.lichenfei.fxui.controls.CFAvatar;
 import cn.lichenfei.fxui.controls.CFPopup;
+import cn.lichenfei.fxui.controls.CFTooltip;
 import javafx.application.HostServices;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
@@ -48,7 +49,8 @@ public class UserDetail extends VBox {
         gitee.setGraphic(FxUtil.getIconImage("/img/gitee.png", 30));
         javafx.setGraphic(FxUtil.getIconImage("/img/javafx.png", 30));
         reward.setGraphic(FxUtil.getIconImage("/img/reward.png", 30));
-        gitee.setTooltip(SimpleControl.getTooltip("项目仓库地址"));
+        CFTooltip.create("项目仓库地址", gitee);
+        //gitee.setTooltip(SimpleControl.getTooltip("项目仓库地址"));
         javafx.setTooltip(SimpleControl.getTooltip("JavaFX中文官方网站"));
         reward.setTooltip(SimpleControl.getTooltip("鼓励一下作者"));
         //
