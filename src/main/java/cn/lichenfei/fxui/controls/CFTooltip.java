@@ -35,6 +35,7 @@ public class CFTooltip extends CFPopover {
         });
     }
 
+
     @Override
     protected void setShow() {
         TRANSITION_NODE.setOpacity(1);
