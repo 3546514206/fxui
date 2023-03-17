@@ -13,6 +13,9 @@
   ![img_2.png](document/img/img_2.png)
 - 用户详情页
   ![img_3.png](document/img/img_3.png)
+- 气泡确认框
+  ![img_4.png](document/img/img_4.png)
+
 - 案例一
   ![2.gif](document/img/2.gif)
 - 案例二
