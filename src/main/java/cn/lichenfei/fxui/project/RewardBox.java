@@ -23,13 +23,11 @@ public class RewardBox extends VBox {
     //
     private Label title = SimpleControl.getLabel("打赏作者", SimpleControl.LabelEnum.H4);
 
-    private Label message = SimpleControl.getLabel("支持一下作者，请作者吃碗油泼面吧！");
-
     public RewardBox() {
-        setPadding(new Insets(10));
-        getChildren().addAll(title, hBox, message);
+        setPadding(new Insets(20));
+        getChildren().addAll(title, hBox);
         setAlignment(Pos.CENTER);
-        hBox.setPadding(new Insets(10));
+        hBox.setPadding(new Insets(20));
         hBox.setSpacing(30);
         wxBox.setSpacing(10);
         wxBox.setAlignment(Pos.CENTER);
