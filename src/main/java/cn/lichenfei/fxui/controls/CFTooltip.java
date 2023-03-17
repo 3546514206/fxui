@@ -30,6 +30,7 @@ public class CFTooltip extends CFPopover {
         Label label = new Label(text);
         label.setFont(Font.font(12));
         label.setPadding(new Insets(5));
+        label.setWrapText(true);
         return label;
     }
 
