@@ -9,6 +9,9 @@ import javafx.scene.layout.CornerRadii;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
+/**
+ * 文字提示
+ */
 public class CFTooltip extends CFPopover {
 
 

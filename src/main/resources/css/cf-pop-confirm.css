@@ -1,0 +1,46 @@
+
+.cf-pop-confirm{
+    -fx-padding: 10px 15px;
+    -fx-alignment:center;
+    -fx-spacing:10px;
+}
+.cf-pop-confirm > .message{
+    -fx-text-fill: -cf-text-color;
+    -fx-font-size: 13px;
+}
+.cf-pop-confirm > .message > .ikonli-font-icon{
+    -fx-icon-size: 16px;
+    -fx-icon-color: -cf-primary-color;
+}
+.cf-pop-confirm.success > .message > .ikonli-font-icon{-fx-icon-color: -cf-success-color;}
+.cf-pop-confirm.info > .message > .ikonli-font-icon{-fx-icon-color: -cf-info-color;}
+.cf-pop-confirm.warn > .message > .ikonli-font-icon{-fx-icon-color: -cf-warn-color;}
+.cf-pop-confirm.danger > .message > .ikonli-font-icon{-fx-icon-color: -cf-danger-color;}
+.button-box{
+    -fx-spacing:10px;
+    -fx-alignment:center-right;
+}
+.cancel-but, .confirm-but{
+    -fx-background-insets: 0;
+    -fx-border-radius: 3px;
+    -fx-background-radius: 3px;
+    -fx-pref-height: 24px;
+    -fx-padding: 0px 15px 0px 15px;
+    -fx-font-size: 12px;
+    -fx-font-weight: 500;
+    -fx-text-fill: -cf-text-color;
+    -fx-background-color:transparent;
+    -fx-cursor:hand;
+}
+.cancel-but:hover, .cancel-but:focused,
+.confirm-but:hover, .confirm-but:focused{
+    -fx-background-color:rgb(240, 242, 245);
+}
+.cancel-but:pressed, .confirm-but:pressed{
+    -fx-background-color:derive(rgb(240, 242, 245),-5%);
+}
+.cf-pop-confirm .confirm-but{-fx-text-fill: -cf-primary-color;}
+.cf-pop-confirm.success .confirm-but{-fx-text-fill: -cf-success-color;}
+.cf-pop-confirm.info .confirm-but{-fx-text-fill: -cf-info-color;}
+.cf-pop-confirm.warn .confirm-but{-fx-text-fill: -cf-warn-color;}
+.cf-pop-confirm.danger .confirm-but{-fx-text-fill: -cf-danger-color;}

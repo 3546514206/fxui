@@ -23,8 +23,13 @@ public class CFPopup extends Popup {
     protected StackPane container;
 
     public CFPopup(Node main) {
-        container = new StackPane(main);
+        container = new StackPane(main == null ? new StackPane() : main);
         initialize();
+    }
+
+    public void setMain(Node node) {
+        container.getChildren().clear();
+        container.getChildren().add(node);
     }
 
     public Node getMain() {

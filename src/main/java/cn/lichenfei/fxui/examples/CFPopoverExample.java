@@ -10,7 +10,7 @@ import javafx.scene.layout.StackPane;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-//提示案例
+//气泡卡片 案例
 public class CFPopoverExample extends StackPane {
 
     SimpleButton simpleButton = new SimpleButton("点我试试");

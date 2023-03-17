@@ -55,6 +55,7 @@ public class Aside extends StackPane {
                 new NavItem(new FontIcon(AntDesignIconsOutlined.MESSAGE), "消息提示", new CFMessageExample()),
                 new NavItem(new FontIcon(AntDesignIconsOutlined.LOADING_3_QUARTERS), "加载", new CFLoadingExample()),
                 new NavItem(new FontIcon(AntDesignIconsOutlined.CONTROL), "气泡卡片", new CFPopoverExample()),
+                new NavItem(new FontIcon(AntDesignIconsOutlined.CONTROL), "气泡确认框", new CFPopConfirmExample()),
                 new NavItem(new FontIcon(AntDesignIconsOutlined.CONTROL), "案例一", new AnimationExample1("加载中", Color.color(0, 0, 0, 0.3), Color.color(0, 0, 0, 0.7))),
                 new NavItem(new FontIcon(AntDesignIconsOutlined.CONTROL), "案例二", new AnimationExample2()),
                 new NavItem(new FontIcon(AntDesignIconsOutlined.CONTROL), "案例三", new BorderAnimationExample(FxUtil.getIconImage("/img/logo.png", 64)))
