@@ -27,6 +27,10 @@ public class CFPopup extends Popup {
         initialize();
     }
 
+    public Node getMain() {
+        return container.getChildren().get(0);
+    }
+
     //所属节点
     private Node ownerNode;
 

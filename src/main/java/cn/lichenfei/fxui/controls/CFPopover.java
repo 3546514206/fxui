@@ -128,7 +128,7 @@ public class CFPopover extends CFPopup {
     /**************************************************************************/
 
     private double arrowSize = 6;
-    private Polygon arrow = new Polygon();
+    protected Polygon arrow = new Polygon();
 
     private void initArrow() {
         arrow.setFill(Color.WHITE);
