@@ -2,7 +2,7 @@ package cn.lichenfei.fxui.controls;
 
 import cn.lichenfei.fxui.common.CFBounds;
 import cn.lichenfei.fxui.common.FxUtil;
-import cn.lichenfei.fxui.common.MyStageDragResizer;
+import cn.lichenfei.fxui.common.StageDragResizer;
 import javafx.beans.property.*;
 import javafx.geometry.Insets;
 import javafx.geometry.Rectangle2D;
@@ -27,7 +27,7 @@ public class CFStage extends Stage {
     private double height = 650;
     private double width = 1100;
     private CFBounds cfBounds;
-    private MyStageDragResizer myStageDragResizer;
+    private StageDragResizer stageDragResizer;
 
     private BorderPane content = new BorderPane(); // 内容区域
     private HBox container = new HBox(new StackPane(), content);
@@ -71,7 +71,7 @@ public class CFStage extends Stage {
 
     public CFStage setHeaderStyle(CFHeader.HeaderStyle headerStyle) {
         if (!CFHeader.HeaderStyle.ALL.equals(headerStyle)) {
-            myStageDragResizer.setEnable(false);
+            stageDragResizer.setEnable(false);
         }
         if (CFHeader.HeaderStyle.NONE.equals(headerStyle)) {
             content.setTop(null);
@@ -131,7 +131,7 @@ public class CFStage extends Stage {
         headerEvent();
         //窗口移动和缩放
         stageMove();
-        myStageDragResizer = new MyStageDragResizer(this, this.root, 10);// 窗口拖动缩放
+        stageDragResizer = new StageDragResizer(this, this.root, 10);// 窗口拖动缩放
     }
 
     /**
@@ -151,7 +151,7 @@ public class CFStage extends Stage {
                 setHeight(visualBounds.getHeight());
                 setX(visualBounds.getMinX());
                 setY(visualBounds.getMinY());
-                myStageDragResizer.setEnable(false);
+                stageDragResizer.setEnable(false);
             } else {
                 insetsPro.set(new Insets(10));
                 arcPro.set(arc);
@@ -159,7 +159,7 @@ public class CFStage extends Stage {
                 setHeight(cfBounds.getHeight());
                 setX(cfBounds.getMinX());
                 setY(cfBounds.getMinY());
-                myStageDragResizer.setEnable(true);
+                stageDragResizer.setEnable(true);
             }
             cfHeader.setMaximizeTooltip(newValue ? "向下还原" : "最大化");
         });

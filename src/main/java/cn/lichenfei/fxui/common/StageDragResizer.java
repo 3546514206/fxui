@@ -3,9 +3,8 @@ package cn.lichenfei.fxui.common;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.stage.Stage;
-import org.silentsoft.ui.util.DragResizer;
 
-public class MyStageDragResizer extends DragResizer {
+public class StageDragResizer extends DragResizer {
 
     private boolean enable = true;
 
@@ -13,34 +12,34 @@ public class MyStageDragResizer extends DragResizer {
     private final int shadow;
 
     public static void makeResizable(Stage stage, Region region) {
-        new MyStageDragResizer(stage, region);
+        new StageDragResizer(stage, region);
     }
 
     public static void makeResizable(Stage stage, Region region, int margin) {
-        new MyStageDragResizer(stage, region, margin);
+        new StageDragResizer(stage, region, margin);
     }
 
     public static void makeResizable(Stage stage, Region region, int margin, int shadow) {
-        new MyStageDragResizer(stage, region, margin, shadow);
+        new StageDragResizer(stage, region, margin, shadow);
     }
 
     public static void makeResizable(Stage stage, Region region, int margin, int shadow, Runnable dragDoneAction) {
-        new MyStageDragResizer(stage, region, margin, shadow, dragDoneAction);
+        new StageDragResizer(stage, region, margin, shadow, dragDoneAction);
     }
 
-    public MyStageDragResizer(Stage stage, Region region) {
+    public StageDragResizer(Stage stage, Region region) {
         this(stage, region, 0);
     }
 
-    public MyStageDragResizer(Stage stage, Region region, int margin) {
+    public StageDragResizer(Stage stage, Region region, int margin) {
         this(stage, region, margin, 0);
     }
 
-    public MyStageDragResizer(Stage stage, Region region, int margin, int shadow) {
+    public StageDragResizer(Stage stage, Region region, int margin, int shadow) {
         this(stage, region, margin, shadow, null);
     }
 
-    public MyStageDragResizer(Stage stage, Region region, int margin, int shadow, Runnable dragDoneAction) {
+    public StageDragResizer(Stage stage, Region region, int margin, int shadow, Runnable dragDoneAction) {
         super(region, margin, dragDoneAction);
 
         this.stage = stage;
