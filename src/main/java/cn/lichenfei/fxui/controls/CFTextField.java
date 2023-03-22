@@ -140,6 +140,11 @@ public class CFTextField extends HBox {
         return STYLE_SHEET;
     }
 
+    public void setEditable(boolean b) {
+        this.textField.setEditable(b);
+        this.passwordField.setEditable(b);
+    }
+
     public enum Type {
         TEXT, PASSWORD
     }
