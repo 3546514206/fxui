@@ -24,10 +24,14 @@ public class FxUtil {
         return new Image(getResource(resources));
     }
 
-    public static ImageView getIconImage(String resources, double size) {
+    public static ImageView getImageView(String resources, double size) {
+        return getImageView(resources, size, size);
+    }
+
+    public static ImageView getImageView(String resources, double height, double width) {
         ImageView imageView = new ImageView(getResource(resources));
-        imageView.setFitHeight(size);
-        imageView.setFitWidth(size);
+        imageView.setFitHeight(height);
+        imageView.setFitWidth(width);
         return imageView;
     }
 

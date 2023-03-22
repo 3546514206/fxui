@@ -46,9 +46,9 @@ public class UserDetail extends VBox {
      */
     public void initLayout() {
         getChildren().addAll(cfAvatar, nameLabel, emailLink, introductionLabel, buttonBox);
-        gitee.setGraphic(FxUtil.getIconImage("/img/gitee.png", 30));
-        javafx.setGraphic(FxUtil.getIconImage("/img/javafx.png", 30));
-        reward.setGraphic(FxUtil.getIconImage("/img/reward.png", 30));
+        gitee.setGraphic(FxUtil.getImageView("/img/gitee.png", 30));
+        javafx.setGraphic(FxUtil.getImageView("/img/javafx.png", 30));
+        reward.setGraphic(FxUtil.getImageView("/img/reward.png", 30));
         CFTooltip.create("项目仓库地址", gitee);
         CFTooltip.create("JavaFX中文官方网站", javafx);
         CFTooltip.create("鼓励一下作者", reward);

@@ -11,11 +11,11 @@ import javafx.scene.layout.VBox;
 
 public class RewardBox extends VBox {
 
-    private ImageView wxImage = FxUtil.getIconImage("/img/reward-wx.jpg", 180);
+    private ImageView wxImage = FxUtil.getImageView("/img/reward-wx.jpg", 180);
     private Label wxLabel = SimpleControl.getLabel("微信", SimpleControl.LabelEnum.H5);
     private VBox wxBox = new VBox(wxImage, wxLabel);
     //
-    private ImageView zfbImage = FxUtil.getIconImage("/img/reward-zfb.jpg", 180);
+    private ImageView zfbImage = FxUtil.getImageView("/img/reward-zfb.jpg", 180);
     private Label zfbLabel = SimpleControl.getLabel("支付宝", SimpleControl.LabelEnum.H5);
     private VBox zfbBox = new VBox(zfbImage, zfbLabel);
     //
