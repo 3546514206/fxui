@@ -3,6 +3,7 @@ package cn.lichenfei.fxui.examples;
 import cn.lichenfei.fxui.common.Level;
 import cn.lichenfei.fxui.controls.CFAlert;
 import cn.lichenfei.fxui.controls.CFDrawer;
+import cn.lichenfei.fxui.controls.CFRadioButton;
 import javafx.geometry.Insets;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -16,7 +17,7 @@ public class CFAlertExample extends StackPane {
     CFAlert cfAlert4 = new CFAlert("warn alert", Level.WARN);
     CFAlert cfAlert5 = new CFAlert("danger alert", Level.DANGER);
     //
-    VBox hBox = new VBox(cfAlert1, cfAlert2, cfAlert3, cfAlert4, cfAlert5);
+    VBox hBox = new VBox(cfAlert1, cfAlert2, cfAlert3, cfAlert4, cfAlert5, new CFRadioButton());
 
     private CFDrawer cfDrawer = new CFDrawer(400, this);
 

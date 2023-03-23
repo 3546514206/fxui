@@ -1,0 +1,13 @@
+.cf-radio-button{
+
+}
+.cf-radio-button{
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+    -fx-background-radius: 10px;
+    -fx-background-insets: 0;
+    -fx-background-color: rgba(0,0,0,0.1);
+}
+.cf-radio-button:selected{
+    -fx-background-color: -cf-primary-color;
+}
