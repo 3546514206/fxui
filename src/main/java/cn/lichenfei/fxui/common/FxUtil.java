@@ -80,4 +80,13 @@ public class FxUtil {
         pane.setClip(rectangle);
     }
 
+    public static void setRectangleClip(ImageView pane, DoubleProperty bindArc) {
+        Rectangle rectangle = new Rectangle();
+        rectangle.widthProperty().bind(pane.fitWidthProperty());
+        rectangle.heightProperty().bind(pane.fitHeightProperty());
+        rectangle.arcWidthProperty().bind(bindArc);
+        rectangle.arcHeightProperty().bind(bindArc);
+        pane.setClip(rectangle);
+    }
+
 }

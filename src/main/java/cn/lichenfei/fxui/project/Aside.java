@@ -63,7 +63,8 @@ public class Aside extends StackPane {
 
         );
         // 默认选择第一个
-        boundsInParentProperty().addListener((observableValue, bounds, t1) -> menu.getSelectionModel().select(0));
+        menu.boundsInParentProperty().addListener(observable -> menu.getSelectionModel().select(0));
+
     }
 
     private void initialize() {
@@ -123,7 +124,7 @@ public class Aside extends StackPane {
             getStyleClass().add("nav-item");
             iconLabel.getStyleClass().add("icon-label");
             nameLabel.getStyleClass().add("name-label");
-            prefWidthProperty().bind(this.widthProperty());
+            prefWidthProperty().bind(this.widthProperty().subtract(1));
         }
 
         public CFBadge getCfBadge() {
