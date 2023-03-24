@@ -13,6 +13,12 @@ public class CFRadioButton extends RadioButton {
         getStyleClass().setAll("cf-radio-button");
     }
 
+    public CFRadioButton(String text) {
+        setText(text);
+        setMaxSize(USE_PREF_SIZE, USE_PREF_SIZE);
+        getStyleClass().setAll("cf-radio-button");
+    }
+
     @Override
     protected CFRadioButtonSkin createDefaultSkin() {
         return new CFRadioButtonSkin(this);

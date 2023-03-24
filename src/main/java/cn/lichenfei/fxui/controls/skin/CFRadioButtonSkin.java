@@ -5,14 +5,18 @@ import com.sun.javafx.scene.control.behavior.BehaviorBase;
 import com.sun.javafx.scene.control.behavior.ToggleButtonBehavior;
 
 import javafx.animation.ScaleTransition;
+import javafx.geometry.Pos;
+import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.SkinBase;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
+import javafx.scene.text.Font;
 import javafx.util.Duration;
 
 public class CFRadioButtonSkin extends SkinBase<CFRadioButton> {
 
-    private StackPane radio;
+    private HBox radio;
     private final BehaviorBase<RadioButton> behavior;
 
 
@@ -56,7 +60,7 @@ public class CFRadioButtonSkin extends SkinBase<CFRadioButton> {
         */
     }
 
-    private StackPane createRadio() {
+    private HBox createRadio() {
         StackPane radio = new StackPane();
         radio.getStyleClass().setAll("radio");
         StackPane region = new StackPane();
@@ -76,6 +80,11 @@ public class CFRadioButtonSkin extends SkinBase<CFRadioButton> {
             scaleTransition.setFromY(t1 ? 0 : 1);
             scaleTransition.play();
         });
-        return radio;
+        Label label = new Label(getSkinnable().getText());
+        label.setFont(Font.font(14));
+        HBox hBox = new HBox(radio, label);
+        hBox.setAlignment(Pos.CENTER_LEFT);
+        hBox.setSpacing(10);
+        return hBox;
     }
 }

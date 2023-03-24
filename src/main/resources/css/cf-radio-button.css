@@ -1,7 +1,7 @@
 .cf-radio-button{
     -fx-cursor:hand;
 }
-.cf-radio-button > .radio{
+.cf-radio-button .radio{
     -fx-pref-width: 20px;
     -fx-pref-height: 20px;
     -fx-background-radius: 10px;
@@ -10,13 +10,19 @@
     -fx-border-color: -cf-border-color;
     -fx-border-radius: 10px;
 }
-.cf-radio-button > .radio > .dot{
+.cf-radio-button .radio > .dot{
     -fx-max-width: 12px;
     -fx-max-height: 12px;
     -fx-background-radius: 6px;
     -fx-background-insets: 0;
     -fx-background-color: -cf-primary-color;
 }
-.cf-radio-button:selected > .radio{
+.cf-radio-button .label{
+    -fx-text-fill: -cf-text-color;
+}
+.cf-radio-button:selected .radio{
     -fx-border-color: -cf-primary-color;
+}
+.cf-radio-button:selected .label{
+    -fx-text-fill: -cf-primary-color;
 }
