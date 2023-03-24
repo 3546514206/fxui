@@ -33,11 +33,11 @@ public class CFRadioButtonSkin extends SkinBase<CFRadioButton> {
 
     protected void updateChildren() {
         if (radio != null) {
-            getChildren().add(radio);
+            getChildren().addAll(radio);
         }
     }
 
-    ScaleTransition scaleTransition;
+    private ScaleTransition scaleTransition;
 
     /**
      * {@inheritDoc}
@@ -45,9 +45,15 @@ public class CFRadioButtonSkin extends SkinBase<CFRadioButton> {
     @Override
     protected void layoutChildren(final double x, final double y,
                                   final double w, final double h) {
+        super.layoutChildren(x, y, w, h);
+
+        /*
+
         System.out.println(x + " - " + y + " - " + w + " - " + h);
         CFRadioButton cfRadioButton = getSkinnable();
         radio.resize(w, h);
+
+        */
     }
 
     private StackPane createRadio() {
