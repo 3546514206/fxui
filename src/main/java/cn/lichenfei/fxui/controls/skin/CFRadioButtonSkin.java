@@ -6,11 +6,11 @@ import com.sun.javafx.scene.control.behavior.ToggleButtonBehavior;
 
 import javafx.animation.ScaleTransition;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.skin.LabeledSkinBase;
+import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-public class CFRadioButtonSkin extends LabeledSkinBase<CFRadioButton> {
+public class CFRadioButtonSkin extends SkinBase<CFRadioButton> {
 
     private StackPane radio;
     private final BehaviorBase<RadioButton> behavior;
@@ -31,9 +31,7 @@ public class CFRadioButtonSkin extends LabeledSkinBase<CFRadioButton> {
         }
     }
 
-    @Override
     protected void updateChildren() {
-        super.updateChildren();
         if (radio != null) {
             getChildren().add(radio);
         }
