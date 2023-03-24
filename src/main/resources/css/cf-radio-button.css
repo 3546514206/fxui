@@ -1,6 +1,7 @@
 .cf-radio-button{
     -fx-pref-width: 20px;
     -fx-pref-height: 20px;
+    -fx-cursor:hand;
 }
 .cf-radio-button > .radio{
     -fx-background-radius: 10px;
@@ -14,11 +15,8 @@
     -fx-max-height: 12px;
     -fx-background-radius: 6px;
     -fx-background-insets: 0;
-    -fx-background-color: transparent;
+    -fx-background-color: -cf-primary-color;
 }
 .cf-radio-button:selected > .radio{
     -fx-border-color: -cf-primary-color;
-}
-.cf-radio-button:selected > .radio > .dot{
-    -fx-background-color: -cf-primary-color;
 }

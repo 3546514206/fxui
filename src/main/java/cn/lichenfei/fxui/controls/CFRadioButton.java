@@ -9,6 +9,7 @@ public class CFRadioButton extends RadioButton {
     private static final String STYLE_SHEET = FxUtil.getResource("/css/cf-radio-button.css");
 
     public CFRadioButton() {
+        super();
         getStyleClass().setAll("cf-radio-button");
     }
 
